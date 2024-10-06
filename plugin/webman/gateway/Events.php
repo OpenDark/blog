@@ -8,12 +8,12 @@ class Events
 {
     public static function onWorkerStart($worker)
     {
-        // ³õÊ¼»¯Redis£¬ÉèÖÃ¶¨Ê±Æ÷µÈ
+        // åˆå§‹åŒ–Redisï¼Œè®¾ç½®å®šæ—¶å™¨ç­‰
     }
 
     public static function onConnect($client_id)
     {
-        //Gateway::sendToClient($client_id, "Á¬½ÓIP£º{$_SERVER['REMOTE_ADDR']}");
+        //Gateway::sendToClient($client_id, "è¿æ¥IPï¼š{$_SERVER['REMOTE_ADDR']}");
     }
 
     public static function onWebSocketConnect($client_id, $data)
@@ -22,12 +22,12 @@ class Events
             Gateway::closeClient($client_id);
         }
         try {
-            // ÑéÖ¤token½âÎö»ñµÃÓÃ»§ĞÅÏ¢£¬°ó¶¨client_id
+            // éªŒè¯tokenè§£æè·å¾—ç”¨æˆ·ä¿¡æ¯ï¼Œç»‘å®šclient_id
             $id = 10000;
             Gateway::bindUid($client_id, $id);
-            self::output($client_id, 'µÇÂ¼³É¹¦');
+            self::output($client_id, 'ç™»å½•æˆåŠŸ');
         } catch (\Exception $e) {
-            self::output($client_id, 'µÇÂ¼×´Ì¬ÒÑ¹ıÆÚ', 10001);
+            self::output($client_id, 'ç™»å½•çŠ¶æ€å·²è¿‡æœŸ', 10001);
             Gateway::closeClient($client_id);
         }
     }
@@ -41,7 +41,7 @@ class Events
 
     public static function onClose($client_id)
     {
-        // °ó¶¨uidµÄÓÃ»§É¾³ısession£¬ÉèÖÃºóÌ¨ÎªÍË³ö×´Ì¬
+        // ç»‘å®šuidçš„ç”¨æˆ·åˆ é™¤sessionï¼Œè®¾ç½®åå°ä¸ºé€€å‡ºçŠ¶æ€
         Gateway::closeClient($client_id);
     }
 
