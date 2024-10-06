@@ -3576,3 +3576,89 @@ ul.page-numbers > li.prev > a:before, ul.pagination > li.prev > a:before {
     margin: 0 auto 20px;
     width: auto;
 }
+
+/* 友链 */
+.guestbook {
+    border: 1px solid var(--theme-line-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+.body-boxed .sec-panel {
+    background: var(--theme-el-bg-color);
+    border-radius: var(--theme-border-radius-xl);
+    /*margin-bottom: 20px;*/
+}
+.body-boxed .sec-panel-head {
+    margin-bottom: 0;
+    overflow: hidden;
+    position: relative;
+}
+@media (max-width: 767px) {
+    .body-boxed .sec-panel-head {
+        padding: 10px 0 0;
+    }
+}
+.sec-panel-head h1, .sec-panel-head h2, .sec-panel-head h3 {
+    color: var(--theme-black-color);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+}
+.body-boxed .sec-panel-head h1, .body-boxed .sec-panel-head h2, .body-boxed .sec-panel-head h3 {
+    border-bottom: 0;
+    line-height: 26px;
+}
+.sec-panel-head h1 span, .sec-panel-head h2 span, .sec-panel-head h3 span {
+    display: inline-block;
+    padding-left: 12px;
+    position: relative;
+}
+.body-boxed .sec-panel-head h1 span, .body-boxed .sec-panel-head h2 span, .body-boxed .sec-panel-head h3 span {
+    color: var(--theme-black-color);
+    padding-bottom: 0;
+    padding-left: 0;
+}
+.sec-panel-head small {
+    color: var(--theme-gray-color);
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: inherit;
+    margin-left: 10px;
+    vertical-align: top;
+}
+@media (max-width: 991px) {
+    .sec-panel-head small {
+        display: none;
+    }
+}
+.sec-panel-head h1 a, .sec-panel-head h2 a, .sec-panel-head h3 a {
+    text-decoration: none;
+}
+.sec-panel-head .more {
+    color: var(--theme-light-color);
+    float: right;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all .3s ease-out;
+}
+.body-boxed .sec-panel-body {
+    padding: 20px;
+}
+@media (max-width: 767px) {
+    .body-boxed .sec-panel-body {
+        padding: 10px 0;
+    }
+}
+.list-links {
+    margin-bottom: -7px;
+    margin-right: -20px;
+}
+.list-links a {
+    color: var(--theme-light-color);
+    display: inline-block;
+    line-height: 1;
+    margin: 0 20px 12px 0;
+}

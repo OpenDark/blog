@@ -108,7 +108,7 @@
                                     </a>
                                 </div>
                                 <ul class="member-account-menu">
-                                    <li class="member-nav-general active">
+                                    <li class="member-nav-general">
                                         <a href="/index/account">
                                             <i class="layui-icon layui-icon-username"></i>基本资料 </a>
                                     </li>
@@ -124,7 +124,7 @@
 <!--                                        <a href="https://demo.wpcom.cn/justnews/account/bind">-->
 <!--                                            <i class="layui-icon layui-icon-vercode"></i>账号绑定 </a>-->
 <!--                                    </li>-->
-                                    <li class="member-nav-password">
+                                    <li class="member-nav-password active">
                                         <a href="/index/reset">
                                             <i class="layui-icon layui-icon-password"></i>修改密码 </a>
                                     </li>
@@ -135,44 +135,32 @@
                                 </ul>
                             </div>
                             <div class="member-account-content">
-                                <h2 class="member-account-title">基本资料</h2>
+                                <h2 class="member-account-title">修改密码</h2>
                                 <form class="member-account-form" action="" method="post">
-                                    <input type="hidden" id="member_form_general_nonce" name="member_form_general_nonce"
-                                           value="4a4e32a45a">
-                                    <input type="hidden" name="_wp_http_referer"
-                                           value="/justnews/account">
-                                    <div class="member-account-item member-text-line item-mobile_phone"><label
-                                        class="member-account-label">手机号码</label>
+                                    <input type="hidden" id="member_form_password_nonce"
+                                           name="member_form_password_nonce" value="c7b9aed21f">
+                                    <input type="hidden"
+                                           name="_wp_http_referer"
+                                           value="/justnews/account/password">
+                                    <div class="member-account-item"><label class="member-account-label">原密码</label>
                                         <div class="member-account-input">
-                                            <div class="member-account-text">15577079494
-                                                <a class="member-bind-url"
-                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=phone&amp;action=change">编辑</a><span
-                                                    class="member-bind-tip">仅自己可见</span></div>
+                                            <input class="layui-input is-input" type="password"
+                                                   name="old-password" value=""
+                                                   placeholder="请输入原密码"></div>
+                                    </div>
+                                    <div class="member-account-item"><label class="member-account-label">确认新密码</label>
+                                        <div class="member-account-input">
+                                            <input class="layui-input is-input" type="password"
+                                                   name="password" value=""
+                                                   placeholder="请输入新密码">
+                                            <div class="member-account-desc">密码长度为6～32位</div>
                                         </div>
                                     </div>
-                                    <div class="member-account-item member-text-line item-user_email"><label
-                                        class="member-account-label">电子邮箱</label>
+                                    <div class="member-account-item"><label class="member-account-label">确认新密码</label>
                                         <div class="member-account-input">
-                                            <div class="member-account-text">未绑定
-                                                <a class="member-bind-url"
-                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=email&amp;action=bind">立即绑定</a><span
-                                                    class="member-bind-tip">仅自己可见</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item item-display_name"><label
-                                        class="member-account-label">昵称</label>
-                                        <div class="member-account-input">
-                                            <input class="layui-input is-input" type="text"
-                                                   name="display_name" value="94941"
-                                                   maxlength="20" placeholder=""
-                                                   data-label="昵称"></div>
-                                    </div>
-                                    <div class="member-account-item"><label class="member-account-label">个人说明</label>
-                                        <div class="member-account-input">
-                                            <textarea class="layui-textarea is-input" name="description"
-                                                      rows="3">这个人很懒，什么都没有留下～</textarea>
-                                            <div class="member-account-desc">可选，个人说明不超过200个字符</div>
-                                        </div>
+                                            <input class="layui-input is-input" type="password"
+                                                   name="password2" value=""
+                                                   placeholder="请再次输入新密码"></div>
                                     </div>
                                     <div class="member-account-item">
                                         <label class="member-account-label"></label>
@@ -181,7 +169,6 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </article>

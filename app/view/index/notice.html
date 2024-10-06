@@ -108,7 +108,7 @@
                                     </a>
                                 </div>
                                 <ul class="member-account-menu">
-                                    <li class="member-nav-general active">
+                                    <li class="member-nav-general">
                                         <a href="/index/account">
                                             <i class="layui-icon layui-icon-username"></i>基本资料 </a>
                                     </li>
@@ -116,7 +116,7 @@
 <!--                                        <a href="/index/message">-->
 <!--                                            <i class="layui-icon layui-icon-email"></i>我的私信 </a>-->
 <!--                                    </li>-->
-                                    <li class="member-nav-notifications">
+                                    <li class="member-nav-notifications active">
                                         <a href="/index/notice">
                                             <i class="layui-icon layui-icon-speaker"></i>系统通知 </a>
                                     </li>
@@ -135,53 +135,21 @@
                                 </ul>
                             </div>
                             <div class="member-account-content">
-                                <h2 class="member-account-title">基本资料</h2>
-                                <form class="member-account-form" action="" method="post">
-                                    <input type="hidden" id="member_form_general_nonce" name="member_form_general_nonce"
-                                           value="4a4e32a45a">
-                                    <input type="hidden" name="_wp_http_referer"
-                                           value="/justnews/account">
-                                    <div class="member-account-item member-text-line item-mobile_phone"><label
-                                        class="member-account-label">手机号码</label>
-                                        <div class="member-account-input">
-                                            <div class="member-account-text">15577079494
-                                                <a class="member-bind-url"
-                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=phone&amp;action=change">编辑</a><span
-                                                    class="member-bind-tip">仅自己可见</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item member-text-line item-user_email"><label
-                                        class="member-account-label">电子邮箱</label>
-                                        <div class="member-account-input">
-                                            <div class="member-account-text">未绑定
-                                                <a class="member-bind-url"
-                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=email&amp;action=bind">立即绑定</a><span
-                                                    class="member-bind-tip">仅自己可见</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item item-display_name"><label
-                                        class="member-account-label">昵称</label>
-                                        <div class="member-account-input">
-                                            <input class="layui-input is-input" type="text"
-                                                   name="display_name" value="94941"
-                                                   maxlength="20" placeholder=""
-                                                   data-label="昵称"></div>
-                                    </div>
-                                    <div class="member-account-item"><label class="member-account-label">个人说明</label>
-                                        <div class="member-account-input">
-                                            <textarea class="layui-textarea is-input" name="description"
-                                                      rows="3">这个人很懒，什么都没有留下～</textarea>
-                                            <div class="member-account-desc">可选，个人说明不超过200个字符</div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item">
-                                        <label class="member-account-label"></label>
-                                        <button class="layui-btn od-green-button" type="submit">保存设置</button>
-                                    </div>
-                                </form>
+                                <h2 class="member-account-title">系统通知</h2>
+                                <ul class="notify-list od-accordion panel-group collapse in"
+                                    aria-expanded="true" style="">
+                                    <li class="member-account-empty notify-empty">
+                                        <noscript>
+                                            <img alt='94941的头像'
+                                                 src='//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/9307625301719310.1728070241.jpg'
+                                                 class='avatar avatar-200 photo' height='200' width='200'/>
+                                        </noscript>
+                                        <img decoding="async" class="empty-icon j-lazy"
+                                             src="https://demo.wpcom.cn/justnews/wp-content/themes/justnews/themer/assets/images/empty-notification.svg">暂无系统通知
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </article>

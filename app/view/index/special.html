@@ -23,33 +23,36 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
+                <li class="layui-nav-item">
+                    <a href="/">首页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/search">工作</a>
+                </li>
+                <li class="layui-nav-item dropdown">
+                    <a href="/index/category">学习</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">产品经理</a></dd>
+                        <dd><a href="">前端设计</a></dd>
+                        <dd><a href="">后端开发</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item dropdown">
+                    <a href="/index/category">生活</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">摄影</a></dd>
+                        <dd><a href="">游戏</a></dd>
+                        <dd><a href="">旅游</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item layui-this">
-                    <a href="javascript:;">首页</a>
+                    <a href="/index/special">专题列表</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">常规</a>
+                    <a href="/index/tag">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="">导航</a>
-                </li>
-                <li class="layui-nav-item dropdown">
-                    <a href="javascript:;">子级</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">菜单1</a></dd>
-                        <dd><a href="">菜单2</a></dd>
-                        <dd><a href="">菜单3</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item dropdown">
-                    <a href="javascript:;">选项</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">选项1</a></dd>
-                        <dd class="layui-this"><a href="">选项2</a></dd>
-                        <dd><a href="">选项3</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">演示</a>
+                    <a href="/index/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="javascript:;">OpenDark</a>
@@ -59,8 +62,8 @@
                         <img src="/avatar/0.jpg" class="layui-nav-img">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">个人中心</a></dd>
-                        <dd><a href="javascript:;">我要投稿</a></dd>
+                        <dd><a href="/index/account">个人中心</a></dd>
+                        <dd><a href="/index/draft">我要投稿</a></dd>
                         <hr>
                         <dd style="text-align: center;"><a href="">退出登录</a></dd>
                     </dl>
@@ -81,7 +84,7 @@
             <div class="banner-inner container-fluid">
                 <h1>专题列表</h1>
                 <div class="page-description">
-                    <p>这是专题列表页面，会显示所有的专题</p>
+                    <p>更多的言论表达和思想沟通，更快、更直接的对整个世界的宏观把控</p>
                 </div>
             </div>
         </div>
@@ -133,10 +136,10 @@
                             </div>
                         </div>
                         <ul class="special-item-bottom">
-                            <li><a title="【视频文章】3秒拆装的“斗子车”：比自行车还灵活" href="https://demo.wpcom.cn/justnews/1471.html"
-                                   target="_blank">【视频文章】3秒拆装的“斗子车”：比自行车还灵活</a></li>
-                            <li><a title="2017年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
-                                   target="_blank">2017年UX设计的3大预测</a></li>
+                            <li><a title="3秒拆装的“斗子车”：比自行车还灵活" href="https://demo.wpcom.cn/justnews/1471.html"
+                                   target="_blank">3秒拆装的“斗子车”：比自行车还灵活</a></li>
+                            <li><a title="今年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
+                                   target="_blank">今年UX设计的3大预测</a></li>
                             <li><a title="第一次负责从0到1的产品时要注意哪几点？" href="https://demo.wpcom.cn/justnews/223.html"
                                    target="_blank">第一次负责从0到1的产品时要注意哪几点？</a></li>
                         </ul>
@@ -186,8 +189,8 @@
                             </div>
                         </div>
                         <ul class="special-item-bottom">
-                            <li><a title="2017年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
-                                   target="_blank">2017年UX设计的3大预测</a></li>
+                            <li><a title="今年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
+                                   target="_blank">今年UX设计的3大预测</a></li>
                             <li><a title="第一次负责从0到1的产品时要注意哪几点？" href="https://demo.wpcom.cn/justnews/223.html"
                                    target="_blank">第一次负责从0到1的产品时要注意哪几点？</a></li>
                             <li><a title="网易精品产品背后的内容运营故事" href="https://demo.wpcom.cn/justnews/231.html"
@@ -312,17 +315,12 @@
         <div class="footer-col-wrap footer-with-logo-icon">
             <div class="footer-col footer-col-copy">
                 <ul class="footer-nav hidden-xs">
-                    <li id="menu-item-152" class="menu-item menu-item-152"><a
-                        href="https://demo.wpcom.cn/justnews/contact">联系我们</a></li>
-                    <li id="menu-item-130" class="menu-item menu-item-130"><a
-                        href="https://demo.wpcom.cn/justnews/category/%e8%a1%8c%e4%b8%9a%e5%8a%a8%e6%80%81">行业动态</a>
-                    </li>
                     <li id="menu-item-157" class="menu-item menu-item-157"><a
-                        href="https://demo.wpcom.cn/justnews/special">专题列表</a></li>
+                        href="/index/special">专题列表</a></li>
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
-                        href="https://demo.wpcom.cn/justnews/members">用户列表</a></li>
+                        href="/index/tag">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="https://demo.wpcom.cn/justnews/sites">网址导航</a></li>
+                        href="/index/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -348,32 +346,35 @@
     </div>
     <ul class="layui-nav layui-bg-gray layui-nav-tree">
         <li class="layui-nav-item layui-this">
-            <a href="javascript:;">首页</a>
+            <a href="/">首页</a>
         </li>
         <li class="layui-nav-item">
-            <a href="javascript:;">常规</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">导航</a>
+            <a href="/index/search">工作</a>
         </li>
         <li class="layui-nav-item dropdown">
-            <a href="javascript:;">子级</a>
+            <a href="/index/category">学习</a>
             <dl class="layui-nav-child">
-                <dd><a href="">菜单1</a></dd>
-                <dd><a href="">菜单2</a></dd>
-                <dd><a href="">菜单3</a></dd>
+                <dd><a href="">产品经理</a></dd>
+                <dd><a href="">前端设计</a></dd>
+                <dd><a href="">后端开发</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item dropdown">
-            <a href="javascript:;">选项</a>
+            <a href="/index/category">生活</a>
             <dl class="layui-nav-child">
-                <dd><a href="">选项1</a></dd>
-                <dd class="layui-this"><a href="">选项2</a></dd>
-                <dd><a href="">选项3</a></dd>
+                <dd><a href="">摄影</a></dd>
+                <dd><a href="">游戏</a></dd>
+                <dd><a href="">旅游</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item">
-            <a href="">演示</a>
+            <a href="/index/special">专题列表</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/tag">标签归档</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="javascript:;">OpenDark</a>
@@ -383,8 +384,8 @@
                 <img src="/avatar/0.jpg" class="layui-nav-img">
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="javascript:;">个人中心</a></dd>
-                <dd><a href="javascript:;">我要投稿</a></dd>
+                <dd><a href="/index/account">个人中心</a></dd>
+                <dd><a href="/index/draft">我要投稿</a></dd>
                 <hr>
                 <dd><a href="javascript:;">退出登录</a></dd>
             </dl>
