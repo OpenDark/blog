@@ -9,7 +9,7 @@ class IndexController
 {
     public function index(Request $request)
     {
-        return view('index/special', ['name' => 'webman']);
+        return view('index/account', ['name' => 'webman']);
     }
 
     public function view(Request $request)
