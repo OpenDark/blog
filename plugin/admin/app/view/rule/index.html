@@ -18,18 +18,18 @@
 
         <!-- 表格顶部工具栏 -->
         <script type="text/html" id="table-toolbar">
-            <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add" permission="app.admin.rule.insert">
-                <i class="layui-icon layui-icon-add-1"></i>新增
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.rule.insert">
+                <i class="icon pear-icon pear-icon-add"></i>新增
             </button>
-            <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove" permission="app.admin.rule.delete">
-                <i class="layui-icon layui-icon-delete"></i>删除
+            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.rule.delete">
+                <i class="icon pear-icon pear-icon-ashbin"></i>删除
             </button>
         </script>
 
         <!-- 表格行工具栏 -->
         <script type="text/html" id="table-bar">
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.rule.update">编辑</button>
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.rule.delete">删除</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.rule.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.rule.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
         </script>
 
         <script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>
@@ -135,13 +135,25 @@
                         treeDefaultClose: true,
                         cols: [cols],
                         skin: "line",
-                        size: "lg",
+                        size: "md",
                         toolbar: "#table-toolbar",
                         defaultToolbar: [{
                             title: "刷新",
                             layEvent: "refresh",
                             icon: "layui-icon-refresh",
-                        }, "filter", "print", "exports"]
+                        }, {
+                            title: '筛选列',
+                            layEvent: 'LAYTABLE_COLS',
+                            icon: 'pear-icon pear-icon-filter'
+                        }, {
+                            title: '打印',
+                            layEvent: 'LAYTABLE_PRINT',
+                            icon: 'pear-icon pear-icon-print'
+                        }, {
+                            title: '导出',
+                            layEvent: 'LAYTABLE_EXPORT',
+                            icon: 'pear-icon pear-icon-export'
+                        }]
                     });
                 }
 
@@ -208,8 +220,9 @@
                     layer.open({
                         type: 2,
                         title: "新增",
-                        shade: 0.1,
-                        area: [common.isModile()?"100%":"520px", common.isModile()?"100%":"520px"],
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
+                        area: [common.isModile()?"100%":"700px", common.isModile()?"100%":"600px"],
                         content: INSERT_URL
                     });
                 }
@@ -220,8 +233,9 @@
                     layer.open({
                         type: 2,
                         title: "修改",
-                        shade: 0.1,
-                        area: [common.isModile()?"100%":"520px", common.isModile()?"100%":"520px"],
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
+                        area: [common.isModile()?"100%":"700px", common.isModile()?"100%":"600px"],
                         content: UPDATE_URL + "?" + PRIMARY_KEY + "=" + value
                     });
                 }

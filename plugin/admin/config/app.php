@@ -13,7 +13,7 @@
  */
 
 return [
-    'debug' => true,
+    'debug' => env('APP_DEBUG', false),
     'controller_suffix' => 'Controller',
     'controller_reuse' => false,
     'plugin_market_host' => 'https://www.workerman.net',

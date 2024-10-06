@@ -23,11 +23,11 @@
 
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label"></label>
-                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="table-query">
-                        <i class="layui-icon layui-icon-search"></i>查询
+                    <button class="pear-btn pear-btn-sm pear-btn-primary" lay-submit lay-filter="table-query">
+                        <i class="icon pear-icon pear-icon-search"></i>查询
                     </button>
-                    <button type="reset" class="pear-btn pear-btn-md" lay-submit lay-filter="table-reset">
-                        <i class="layui-icon layui-icon-refresh"></i>重置
+                    <button type="reset" class="pear-btn pear-btn-sm" lay-submit lay-filter="table-reset">
+                        <i class="icon pear-icon pear-icon-refresh"></i>重置
                     </button>
                 </div>
                 <div class="toggle-btn">
@@ -46,17 +46,17 @@
         </div>
 
         <script type="text/html" id="table-toolbar">
-            <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add" permission="app.admin.table.create">
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.table.create">
                 <i class="layui-icon layui-icon-add-1"></i>创建表格
             </button>
-            <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove" permission="app.admin.table.drop">
-                <i class="layui-icon layui-icon-delete"></i>删除表格
+            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.table.drop">
+                <i class="icon pear-icon pear-icon-ashbin"></i>删除表格
             </button>
         </script>
 
         <script type="text/html" id="table-bar">
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.table.modify">编辑</button>
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.table.drop">删除</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.table.modify"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.table.drop"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
             <button class="pear-btn pear-btn-xs tool-btn" lay-event="crud" permission="app.admin.table.crud">一键菜单</button>
         </script>
 
@@ -127,13 +127,25 @@
                     page: true,
                     cols: [cols],
                     skin: "line",
-                    size: "lg",
+                    size: "md",
                     toolbar: "#table-toolbar",
                     defaultToolbar: [{
                         title: "刷新",
                         layEvent: "refresh",
                         icon: "layui-icon-refresh",
-                    }, "filter", "print", "exports"]
+                    }, {
+                        title: '筛选列',
+                        layEvent: 'LAYTABLE_COLS',
+                        icon: 'pear-icon pear-icon-filter'
+                    }, {
+                        title: '打印',
+                        layEvent: 'LAYTABLE_PRINT',
+                        icon: 'pear-icon pear-icon-print'
+                    }, {
+                        title: '导出',
+                        layEvent: 'LAYTABLE_EXPORT',
+                        icon: 'pear-icon pear-icon-export'
+                    }]
                 });
 
                 $(document).on("click", ".tab-link", function () {
@@ -177,7 +189,8 @@
                     layer.open({
                         type: 2,
                         title: "创建表格",
-                        shade: 0.1,
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
                         maxmin: true,
                         area: [common.isModile()?"100%":"98%", common.isModile()?"100%":"95%"],
                         content: CREATE_URL
@@ -189,7 +202,8 @@
                     layer.open({
                         type: 2,
                         title: "修改表格",
-                        shade: 0.1,
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
                         maxmin: true,
                         area: [common.isModile()?"100%":"98%", common.isModile()?"100%":"95%"],
                         content: MODIFY_URL + "?table=" + table
@@ -201,7 +215,8 @@
                     layer.open({
                         type: 2,
                         title: "一键菜单",
-                        shade: 0.1,
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
                         maxmin: true,
                         area: [common.isModile()?"100%":"500px", common.isModile()?"100%":"500px"],
                         content: CRUD_URL + "?table=" + table

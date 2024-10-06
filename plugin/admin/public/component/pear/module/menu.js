@@ -186,7 +186,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					var currentDom = openEle.parent().siblings('.layui-nav-itemed').children(".layui-nav-child");
 					currentDom.animate({
 						height: "0px"
-					}, 240, function () {
+					}, 200, function () {
 						currentDom.css({
 							height: "auto"
 						});
@@ -200,7 +200,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 				openEle.height(0);
 				openEle.animate({
 					height: openEleHeight + "px"
-				}, 240, function () {
+				}, 200, function () {
 					$(this).css({ height: 'auto' });
 				});
 			}
@@ -218,7 +218,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 			})
 			$("#" + this.option.elem).removeClass("pear-nav-mini");
 			$("#" + this.option.elem).animate({
-				width: "220px"
+				width: "230px"
 			}, 180);
 			isHoverMenu(false, config);
 			var that = this;
@@ -462,7 +462,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 						var currentDom = $(this).parent().siblings('.layui-nav-itemed').children('.layui-nav-child');
 						currentDom.animate({
 							height: '0px'
-						}, 240, function () {
+						}, 200, function () {
 							currentDom.css({
 								height: "auto",
 							});
@@ -473,7 +473,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					ele.height(0);
 					ele.animate({
 						height: heights + "px"
-					}, 240, function () {
+					}, 200, function () {
 						ele.css({
 							height: "auto"
 						});
@@ -482,7 +482,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					$(this).parent().addClass("layui-nav-itemed");
 					ele.animate({
 						height: "0px"
-					}, 240, function () {
+					}, 200, function () {
 						ele.css({
 							height: "auto"
 						});

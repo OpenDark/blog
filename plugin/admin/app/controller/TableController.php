@@ -756,11 +756,11 @@ EOF;
             $html
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label"></label>
-                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="table-query">
-                    <i class="layui-icon layui-icon-search"></i>查询
+                <button class="pear-btn pear-btn-sm pear-btn-primary" lay-submit lay-filter="table-query">
+                    <i class="icon pear-icon pear-icon-search"></i>查询
                 </button>
-                <button type="reset" class="pear-btn pear-btn-md" lay-submit lay-filter="table-reset">
-                    <i class="layui-icon layui-icon-refresh"></i>重置
+                <button type="reset" class="pear-btn pear-btn-sm" lay-submit lay-filter="table-reset">
+                    <i class="icon pear-icon pear-icon-refresh"></i>重置
                 </button>
             </div>
             <div class="toggle-btn">
@@ -799,18 +799,18 @@ EOF
 
         <!-- 表格顶部工具栏 -->
         <script type="text/html" id="table-toolbar">
-            <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add" permission="$code_base.insert">
-                <i class="layui-icon layui-icon-add-1"></i>新增
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="$code_base.insert">
+                <i class="icon pear-icon pear-icon-add"></i>新增
             </button>
-            <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove" permission="$code_base.delete">
-                <i class="layui-icon layui-icon-delete"></i>删除
+            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="$code_base.delete">
+                <i class="icon pear-icon pear-icon-ashbin"></i>删除
             </button>
         </script>
 
         <!-- 表格行工具栏 -->
         <script type="text/html" id="table-bar">
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="$code_base.update">编辑</button>
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="$code_base.delete">删除</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="$code_base.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="$code_base.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
         </script>
 
         <script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>
@@ -901,9 +901,10 @@ EOF
                     layer.open({
                         type: 2,
                         title: "新增",
-                        shade: 0.1,
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
                         maxmin: true,
-                        area: [common.isModile()?"100%":"500px", common.isModile()?"100%":"450px"],
+                        area: [common.isModile()?"100%":"700px", common.isModile()?"100%":"600px"],
                         content: INSERT_URL
                     });
                 }
@@ -914,9 +915,10 @@ EOF
                     layer.open({
                         type: 2,
                         title: "修改",
-                        shade: 0.1,
+                        shade: [0.3, "#1d2129"],
+                        shadeClose: true,
                         maxmin: true,
-                        area: [common.isModile()?"100%":"500px", common.isModile()?"100%":"450px"],
+                        area: [common.isModile()?"100%":"700px", common.isModile()?"100%":"600px"],
                         content: UPDATE_URL + "?" + PRIMARY_KEY + "=" + value
                     });
                 }

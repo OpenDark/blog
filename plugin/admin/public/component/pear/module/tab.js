@@ -386,7 +386,7 @@ layui.define(['jquery', 'element'], function(exports) {
 		});
 		index++;
 		$iframe.on("load", function() {
-			pearLoad.fadeOut(1000, function() {
+			pearLoad.fadeOut(300, function() {
 				pearLoad.remove();
 			});
 		})
@@ -503,9 +503,9 @@ layui.define(['jquery', 'element'], function(exports) {
 
 		title += '</ul>';
 		content += '</div>';
-		control += '<dd id="closeThis"><a href="#">关 闭 当 前</a></dd>'
-		control += '<dd id="closeOther"><a href="#">关 闭 其 他</a></dd>'
-		control += '<dd id="closeAll"><a href="#">关 闭 全 部</a></dd>'
+		control += '<dd id="closeThis"><a href="#">关闭当前</a></dd>'
+		control += '<dd id="closeOther"><a href="#">关闭其他</a></dd>'
+		control += '<dd id="closeAll"><a href="#">关闭全部</a></dd>'
 		control += '</dl></li></ul></li></div>';
 
 		tab += title;

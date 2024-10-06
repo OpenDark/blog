@@ -1037,14 +1037,26 @@ function render()
         page: true,
         cols: [cols],
         skin: "line",
-        size: "lg",
+        size: "md",
         toolbar: "#table-toolbar",
         autoSort: false,
         defaultToolbar: [{
             title: "刷新",
             layEvent: "refresh",
             icon: "layui-icon-refresh",
-        }, "filter", "print", "exports"],
+        }, {
+            title: '筛选列',
+            layEvent: 'LAYTABLE_COLS',
+            icon: 'pear-icon pear-icon-filter'
+        }, {
+            title: '打印',
+            layEvent: 'LAYTABLE_PRINT',
+            icon: 'pear-icon pear-icon-print'
+        }, {
+            title: '导出',
+            layEvent: 'LAYTABLE_EXPORT',
+            icon: 'pear-icon pear-icon-export'
+        }],
         done: function () {
             layer.photos({photos: 'div[lay-id="data-table"]', anim: 5});
         }
@@ -1096,14 +1108,26 @@ table.render({
     page: true,
     cols: [cols],
     skin: "line",
-    size: "lg",
+    size: "md",
     toolbar: "#table-toolbar",
     autoSort: false,
     defaultToolbar: [{
         title: "刷新",
         layEvent: "refresh",
         icon: "layui-icon-refresh",
-    }, "filter", "print", "exports"],
+    }, {
+        title: '筛选列',
+        layEvent: 'LAYTABLE_COLS',
+        icon: 'pear-icon pear-icon-filter'
+    }, {
+        title: '打印',
+        layEvent: 'LAYTABLE_PRINT',
+        icon: 'pear-icon pear-icon-print'
+    }, {
+        title: '导出',
+        layEvent: 'LAYTABLE_EXPORT',
+        icon: 'pear-icon pear-icon-export'
+    }],
     done: function () {
         layer.photos({photos: 'div[lay-id="data-table"]', anim: 5});
     }
