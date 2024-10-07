@@ -22,33 +22,9 @@
                     </div>
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">分类ID</label>
+                        <label class="layui-form-label">文章ID</label>
                         <div class="layui-input-block">
-                            <div name="category_id" id="category_id" value="" ></div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">专题ID</label>
-                        <div class="layui-input-block">
-                            <div name="special_id" id="special_id" value="" ></div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">标题</label>
-                        <div class="layui-input-block">
-                            <div class="layui-input-block">
-                                <input type="hidden" autocomplete="off" name="title[]" value="like" class="layui-input inline-block">
-                                <input type="text" autocomplete="off" name="title[]" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">是否置顶</label>
-                        <div class="layui-input-block">
-                            <div name="is_top" id="is_top" value="" ></div>
+                            <div name="article_id" id="article_id" value="" ></div>
                         </div>
                     </div>
                     
@@ -56,27 +32,6 @@
                         <label class="layui-form-label">是否隐藏</label>
                         <div class="layui-input-block">
                             <div name="is_hide" id="is_hide" value="" ></div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">是否草稿</label>
-                        <div class="layui-input-block">
-                            <div name="is_draft" id="is_draft" value="" ></div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">是否审核</label>
-                        <div class="layui-input-block">
-                            <div name="is_check" id="is_check" value="" ></div>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">是否推荐</label>
-                        <div class="layui-input-block">
-                            <div name="is_recommend" id="is_recommend" value="" ></div>
                         </div>
                     </div>
                     
@@ -106,18 +61,18 @@
 
         <!-- 表格顶部工具栏 -->
         <script type="text/html" id="table-toolbar">
-            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.blogarticle.insert">
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.blogcomment.insert">
                 <i class="icon pear-icon pear-icon-add"></i>新增
             </button>
-            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.blogarticle.delete">
+            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.blogcomment.delete">
                 <i class="icon pear-icon pear-icon-ashbin"></i>删除
             </button>
         </script>
 
         <!-- 表格行工具栏 -->
         <script type="text/html" id="table-bar">
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.blogarticle.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.blogarticle.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.blogcomment.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.blogcomment.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
         </script>
 
         <script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>
@@ -129,11 +84,11 @@
 
             // 相关常量
             const PRIMARY_KEY = "id";
-            const SELECT_API = "/app/admin/blog-article/select";
-            const UPDATE_API = "/app/admin/blog-article/update";
-            const DELETE_API = "/app/admin/blog-article/delete";
-            const INSERT_URL = "/app/admin/blog-article/insert";
-            const UPDATE_URL = "/app/admin/blog-article/update";
+            const SELECT_API = "/app/admin/blog-comment/select";
+            const UPDATE_API = "/app/admin/blog-comment/update";
+            const DELETE_API = "/app/admin/blog-comment/delete";
+            const INSERT_URL = "/app/admin/blog-comment/insert";
+            const UPDATE_URL = "/app/admin/blog-comment/update";
             
             // 字段 用户ID user_id
             layui.use(["jquery", "xmSelect", "popup"], function() {
@@ -160,43 +115,17 @@
                 });
             });
             
-            // 字段 分类ID category_id
+            // 字段 文章ID article_id
             layui.use(["jquery", "xmSelect", "popup"], function() {
                 layui.$.ajax({
-                    url: "/app/admin/blog-category/select?format=tree",
+                    url: "/app/admin/blog-article/select?format=select",
                     dataType: "json",
                     success: function (res) {
-                        let value = layui.$("#category_id").attr("value");
+                        let value = layui.$("#article_id").attr("value");
                         let initValue = value ? value.split(",") : [];
                         layui.xmSelect.render({
-                            el: "#category_id",
-                            name: "category_id",
-                            initValue: initValue,
-                            filterable: true,
-                            data: res.data, 
-                            model: {"icon":"hidden","label":{"type":"text"}},
-                            clickClose: true,
-                            radio: true,
-                            tree: {show:true,strict:false,clickCheck:true,clickExpand:false,expandedKeys:initValue},
-                        });
-                        if (res.code) {
-                            layui.popup.failure(res.msg);
-                        }
-                    }
-                });
-            });
-            
-            // 字段 专题ID special_id
-            layui.use(["jquery", "xmSelect", "popup"], function() {
-                layui.$.ajax({
-                    url: "/app/admin/blog-special/select?format=select",
-                    dataType: "json",
-                    success: function (res) {
-                        let value = layui.$("#special_id").attr("value");
-                        let initValue = value ? value.split(",") : [];
-                        layui.xmSelect.render({
-                            el: "#special_id",
-                            name: "special_id",
+                            el: "#article_id",
+                            name: "article_id",
                             initValue: initValue,
                             filterable: true,
                             data: res.data, 
@@ -209,22 +138,6 @@
                         }
                     }
                 });
-            });
-            
-            // 字段 是否置顶 is_top
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#is_top").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#is_top",
-                    name: "is_top",
-                    filterable: true,
-                    initValue: initValue,
-                    data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
-                    model: {"icon":"hidden","label":{"type":"text"}},
-                    clickClose: true,
-                    radio: true,
-                })
             });
             
             // 字段 是否隐藏 is_hide
@@ -234,54 +147,6 @@
                 layui.xmSelect.render({
                     el: "#is_hide",
                     name: "is_hide",
-                    filterable: true,
-                    initValue: initValue,
-                    data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
-                    model: {"icon":"hidden","label":{"type":"text"}},
-                    clickClose: true,
-                    radio: true,
-                })
-            });
-            
-            // 字段 是否草稿 is_draft
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#is_draft").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#is_draft",
-                    name: "is_draft",
-                    filterable: true,
-                    initValue: initValue,
-                    data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
-                    model: {"icon":"hidden","label":{"type":"text"}},
-                    clickClose: true,
-                    radio: true,
-                })
-            });
-            
-            // 字段 是否审核 is_check
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#is_check").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#is_check",
-                    name: "is_check",
-                    filterable: true,
-                    initValue: initValue,
-                    data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
-                    model: {"icon":"hidden","label":{"type":"text"}},
-                    clickClose: true,
-                    radio: true,
-                })
-            });
-            
-            // 字段 是否推荐 is_recommend
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#is_recommend").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#is_recommend",
-                    name: "is_recommend",
                     filterable: true,
                     initValue: initValue,
                     data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
@@ -322,10 +187,10 @@
 							return util.escape(items.join(","));
 						}
 					},{
-						title: "分类ID",align: "center",
-						field: "category_id",
+						title: "文章ID",align: "center",
+						field: "article_id",
 						templet: function (d) {
-							let field = "category_id";
+							let field = "article_id";
 							if (typeof d[field] == "undefined") return "";
 							let items = [];
 							layui.each((d[field] + "").split(","), function (k , v) {
@@ -334,71 +199,27 @@
 							return util.escape(items.join(","));
 						}
 					},{
-						title: "专题ID",align: "center",
-						field: "special_id",
-						templet: function (d) {
-							let field = "special_id";
-							if (typeof d[field] == "undefined") return "";
-							let items = [];
-							layui.each((d[field] + "").split(","), function (k , v) {
-								items.push(apiResults[field][v] || v);
-							});
-							return util.escape(items.join(","));
-						}
-					},{
-						title: "标题",align: "center",
-						field: "title",
-					},{
-						title: "内容",align: "center",
+						title: "评论内容",align: "center",
 						field: "content",
+					},{
+						title: "IP地址",align: "center",
+						field: "ipaddr",
 						hide: true,
 					},{
-						title: "摘要",align: "center",
-						field: "summary",
+						title: "回复ID",align: "center",
+						field: "reply_id",
 						hide: true,
 					},{
-						title: "主图",align: "center",
-						field: "thumbnail",
-						templet: function (d) {
-							return '<img src="'+encodeURI(d['thumbnail'])+'" style="max-width:32px;max-height:32px;" alt="" />'
-						}
-					},{
-						title: "阅读数量",align: "center",
-						field: "read_num",
+						title: "支持数量",align: "center",
+						field: "agree_num",
 						sort: true,
 					},{
-						title: "回复数量",align: "center",
-						field: "reply_num",
+						title: "反对数量",align: "center",
+						field: "oppose_num",
 						sort: true,
-					},{
-						title: "是否置顶",align: "center",
-						field: "is_top",
-						hide: true,
-						templet: function (d) {
-							let field = "is_top";
-							form.on("switch("+field+")", function (data) {
-								let load = layer.load();
-								let postData = {};
-								postData[field] = data.elem.checked ? 1 : 0;
-								postData[PRIMARY_KEY] = this.value;
-								$.post(UPDATE_API, postData, function (res) {
-									layer.close(load);
-									if (res.code) {
-				                        return layui.popup.failure(res.msg, function () {
-				                            data.elem.checked = !data.elem.checked;
-				                            form.render();
-				                        });
-				                    }
-									return layui.popup.success("操作成功");
-								})
-							});
-							let checked = d[field] === 1 ? "checked" : "";
-							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
-						}
 					},{
 						title: "是否隐藏",align: "center",
 						field: "is_hide",
-						hide: true,
 						templet: function (d) {
 							let field = "is_hide";
 							form.on("switch("+field+")", function (data) {
@@ -420,85 +241,6 @@
 							let checked = d[field] === 1 ? "checked" : "";
 							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
 						}
-					},{
-						title: "是否草稿",align: "center",
-						field: "is_draft",
-						hide: true,
-						templet: function (d) {
-							let field = "is_draft";
-							form.on("switch("+field+")", function (data) {
-								let load = layer.load();
-								let postData = {};
-								postData[field] = data.elem.checked ? 1 : 0;
-								postData[PRIMARY_KEY] = this.value;
-								$.post(UPDATE_API, postData, function (res) {
-									layer.close(load);
-									if (res.code) {
-				                        return layui.popup.failure(res.msg, function () {
-				                            data.elem.checked = !data.elem.checked;
-				                            form.render();
-				                        });
-				                    }
-									return layui.popup.success("操作成功");
-								})
-							});
-							let checked = d[field] === 1 ? "checked" : "";
-							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
-						}
-					},{
-						title: "是否审核",align: "center",
-						field: "is_check",
-						templet: function (d) {
-							let field = "is_check";
-							form.on("switch("+field+")", function (data) {
-								let load = layer.load();
-								let postData = {};
-								postData[field] = data.elem.checked ? 1 : 0;
-								postData[PRIMARY_KEY] = this.value;
-								$.post(UPDATE_API, postData, function (res) {
-									layer.close(load);
-									if (res.code) {
-				                        return layui.popup.failure(res.msg, function () {
-				                            data.elem.checked = !data.elem.checked;
-				                            form.render();
-				                        });
-				                    }
-									return layui.popup.success("操作成功");
-								})
-							});
-							let checked = d[field] === 1 ? "checked" : "";
-							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
-						}
-					},{
-						title: "是否推荐",align: "center",
-						field: "is_recommend",
-						hide: true,
-						templet: function (d) {
-							let field = "is_recommend";
-							form.on("switch("+field+")", function (data) {
-								let load = layer.load();
-								let postData = {};
-								postData[field] = data.elem.checked ? 1 : 0;
-								postData[PRIMARY_KEY] = this.value;
-								$.post(UPDATE_API, postData, function (res) {
-									layer.close(load);
-									if (res.code) {
-				                        return layui.popup.failure(res.msg, function () {
-				                            data.elem.checked = !data.elem.checked;
-				                            form.render();
-				                        });
-				                    }
-									return layui.popup.success("操作成功");
-								})
-							});
-							let checked = d[field] === 1 ? "checked" : "";
-							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
-						}
-					},{
-						title: "积分",align: "center",
-						field: "score",
-						hide: true,
-						sort: true,
 					},{
 						title: "创建时间",align: "center",
 						field: "created_at",
@@ -554,12 +296,10 @@
 				// 获取表格中下拉或树形组件数据
 				let apis = [];
 				apis.push(["user_id", "/app/admin/user/select?format=select"]);
-				apis.push(["category_id", "/app/admin/blog-category/select?format=tree"]);
-				apis.push(["special_id", "/app/admin/blog-special/select?format=select"]);
+				apis.push(["article_id", "/app/admin/blog-article/select?format=select"]);
 				let apiResults = {};
 				apiResults["user_id"] = [];
-				apiResults["category_id"] = [];
-				apiResults["special_id"] = [];
+				apiResults["article_id"] = [];
 				let count = apis.length;
 				layui.each(apis, function (k, item) {
 				    let [field, url] = item;

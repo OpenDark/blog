@@ -15,6 +15,13 @@
                 <div class="main-container mr-5">
                     
                     <div class="layui-form-item">
+                        <label class="layui-form-label">用户ID</label>
+                        <div class="layui-input-block">
+                            <div name="user_id" id="user_id" value="0" ></div>
+                        </div>
+                    </div>
+                    
+                    <div class="layui-form-item">
                         <label class="layui-form-label">分类ID</label>
                         <div class="layui-input-block">
                             <div name="category_id" id="category_id" value="0" ></div>
@@ -124,20 +131,6 @@
                         </div>
                     </div>
                     
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">创建时间</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="created_at" id="created_at" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">更新时间</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="updated_at" id="updated_at" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
 
@@ -165,35 +158,83 @@
             // 相关接口
             const INSERT_API = "/app/admin/blog-article/insert";
             
+            // 字段 用户ID user_id
+            layui.use(["jquery", "xmSelect", "popup"], function() {
+                layui.$.ajax({
+                    url: "/app/admin/user/select?format=select",
+                    dataType: "json",
+                    success: function (res) {
+                        let value = layui.$("#user_id").attr("value");
+                        let initValue = value ? value.split(",") : [];
+                        layui.xmSelect.render({
+                            el: "#user_id",
+                            name: "user_id",
+                            initValue: initValue,
+                            filterable: true,
+                            data: res.data, 
+                            value: "0",
+                            model: {"icon":"hidden","label":{"type":"text"}},
+                            clickClose: true,
+                            radio: true,
+                        });
+                        if (res.code) {
+                            layui.popup.failure(res.msg);
+                        }
+                    }
+                });
+            });
+            
             // 字段 分类ID category_id
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#category_id").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#category_id",
-                    name: "category_id",
-                    filterable: true,
-                    initValue: initValue,
-                    value: "0",
-                    tree: {"show":true,expandedKeys:initValue},
-                    toolbar: {show:true,list:["ALL","CLEAR","REVERSE"]},
-                })
+            layui.use(["jquery", "xmSelect", "popup"], function() {
+                layui.$.ajax({
+                    url: "/app/admin/blog-category/select?format=tree",
+                    dataType: "json",
+                    success: function (res) {
+                        let value = layui.$("#category_id").attr("value");
+                        let initValue = value ? value.split(",") : [];
+                        layui.xmSelect.render({
+                            el: "#category_id",
+                            name: "category_id",
+                            initValue: initValue,
+                            filterable: true,
+                            data: res.data, 
+                            value: "0",
+                            model: {"icon":"hidden","label":{"type":"text"}},
+                            clickClose: true,
+                            radio: true,
+                            tree: {show:true,strict:false,clickCheck:true,clickExpand:false,expandedKeys:initValue},
+                        });
+                        if (res.code) {
+                            layui.popup.failure(res.msg);
+                        }
+                    }
+                });
             });
             
             // 字段 专题ID special_id
-            layui.use(["jquery", "xmSelect"], function() {
-                let value = layui.$("#special_id").attr("value");
-                let initValue = value ? value.split(",") : [];
-                layui.xmSelect.render({
-                    el: "#special_id",
-                    name: "special_id",
-                    filterable: true,
-                    initValue: initValue,
-                    value: "0",
-                    model: {"icon":"hidden","label":{"type":"text"}},
-                    clickClose: true,
-                    radio: true,
-                })
+            layui.use(["jquery", "xmSelect", "popup"], function() {
+                layui.$.ajax({
+                    url: "/app/admin/blog-special/select?format=select",
+                    dataType: "json",
+                    success: function (res) {
+                        let value = layui.$("#special_id").attr("value");
+                        let initValue = value ? value.split(",") : [];
+                        layui.xmSelect.render({
+                            el: "#special_id",
+                            name: "special_id",
+                            initValue: initValue,
+                            filterable: true,
+                            data: res.data, 
+                            value: "0",
+                            model: {"icon":"hidden","label":{"type":"text"}},
+                            clickClose: true,
+                            radio: true,
+                        });
+                        if (res.code) {
+                            layui.popup.failure(res.msg);
+                        }
+                    }
+                });
             });
             
             // 字段 内容 content
@@ -228,9 +269,9 @@
                 });
                 layui.upload.render({
                     elem: "#thumbnail",
+                    url: "/app/admin/upload/image",
                     value: "",
                     acceptMime: "image/gif,image/jpeg,image/jpg,image/png",
-                    url: "/app/admin/upload/image",
                     field: "__file__",
                     done: function (res) {
                         if (res.code > 0) return layui.layer.msg(res.msg);
@@ -281,22 +322,6 @@
                 layui.form.render();
                 layui.form.on("switch(is_recommend)", function(data) {
                     layui.$('input[name="is_recommend"]').val(this.checked ? 1 : 0);
-                });
-            })
-            
-            // 字段 创建时间 created_at
-            layui.use(["laydate"], function() {
-                layui.laydate.render({
-                    elem: "#created_at",
-                    type: "datetime",
-                });
-            })
-            
-            // 字段 更新时间 updated_at
-            layui.use(["laydate"], function() {
-                layui.laydate.render({
-                    elem: "#updated_at",
-                    type: "datetime",
                 });
             })
             

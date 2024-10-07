@@ -171,7 +171,7 @@ class UploadController extends Crud
         try {
             $img = Image::make($realpath);
             $max_height = 1170;
-            $max_width = 1170;
+            $max_width = 1920; // 1170
             $width = $img->width();
             $height = $img->height();
             $ratio = 1;
