@@ -13,6 +13,18 @@ class IndexController
         return view('index/index');
     }
 
+    /* 登录 */
+    public function login(Request $request)
+    {
+        return view('index/login');
+    }
+
+    /* 注册 */
+    public function reg(Request $request)
+    {
+        return view('index/reg');
+    }
+
     /* 分类 */
     public function category(Request $request)
     {
@@ -44,7 +56,12 @@ class IndexController
     }
 
     /* 标签归档 */
+    public function tags(Request $request)
+    {
+        return view('index/tags');
+    }
 
+    /* 标签文章 */
     public function tag(Request $request)
     {
         return view('index/tag');
@@ -62,10 +79,34 @@ class IndexController
         return view('index/user');
     }
 
+    /* 关注 */
+    public function follow(Request $request)
+    {
+        return view('index/follow');
+    }
+
+    /* 评论 */
+    public function comment(Request $request)
+    {
+        return view('index/comment');
+    }
+
+    /* 收藏 */
+    public function favorite(Request $request)
+    {
+        return view('index/favorite');
+    }
+
     /* 个人中心 */
     public function account(Request $request)
     {
         return view('index/account');
+    }
+
+    /* 我的私信 */
+    public function message(Request $request)
+    {
+        return view('index/message');
     }
 
     /* 系统通知 */

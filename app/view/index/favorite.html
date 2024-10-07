@@ -23,7 +23,7 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
-                <li class="layui-nav-item layui-this">
+                <li class="layui-nav-item">
                     <a href="/">首页</a>
                 </li>
                 <li class="layui-nav-item">
@@ -74,63 +74,38 @@
     </div>
 </header>
 <div class="body">
-    <div class="banner category-banner"
-         style="background-image: url('https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/05/ux.png');">
-        <div class="banner-inner">
-            <h1>产品经理</h1>
-            <div class="page-description">
-                <p>产品经理负责调查并根据用户的需求，确定开发何种产品，选择何种技术、商业模式等。</p>
-            </div>
-        </div>
-    </div>
     <div class="layui-container">
-        <div class="breadcrumb">
-            <span class="layui-breadcrumb" lay-separator=">">
-                <a href="">首页</a>
-                <a href="">国际新闻</a>
-                <a href="">亚太地区</a>
-                <a><cite>正文</cite></a>
-            </span>
-        </div>
         <div class="layui-row layui-col-space20">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-
-            </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
-                <div class="sidebar">
-<!--                    <div class="widget widget_image_myimg">-->
-<!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
-<!--                            <img class="j-lazy"-->
-<!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
-<!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
-<!--                                 alt="WPCOM主题" img-loaded="true">-->
-<!--                        </a>-->
-<!--                    </div>-->
-                    <div class="widget widget_search">
-                        <div class="search-bar">
-                            <div class="layui-input-wrap">
-                                <input type="text" placeholder="输入关键词搜索..." class="layui-input">
-                                <div class="layui-input-suffix">
-                                    <i class="layui-icon layui-icon-search"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="widget widget_profile">
-                        <div class="profile-cover">
-                            <img class="j-lazy"
+                <div class="profile-head">
+                    <div class="ph-bg">
+                        <noscript>
+                            <img decoding="async"
                                  src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                                 data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                                 alt="OpenDark" img-loaded="true"></div>
-                        <div class="avatar-wrap">
-                            <a target="_blank" href="https://demo.wpcom.cn/justnews/user/1" class="avatar-link"><img
-                                alt="OpenDark的头像"
-                                src="/avatar/0.jpg"
-                                class="avatar avatar-120 photo" height="120" width="120"></a></div>
-                        <div class="profile-info">
-                            <a target="_blank" href="https://demo.wpcom.cn/justnews/user/1" class="profile-name"><span
-                                class="author-name">OpenDark</span><span class="user-group">管理团队</span></a>
-                            <p class="author-description">Enjoy coding, enjoy life!</p>
+                                 alt="OpenDark">
+                        </noscript>
+                        <img decoding="async" class="j-lazy"
+                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
+                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
+                             alt="OpenDark" img-loaded="true">
+                    </div>
+                    <div class="ph-inner">
+                        <div class="ph-user">
+                            <div class="ph-avatar">
+                                <noscript>
+                                    <img alt='OpenDark的头像'
+                                         src='/avatar/0.jpg'
+                                         class='avatar avatar-200 photo' height='200' width='200'/>
+                                </noscript>
+                                <img alt="OpenDark的头像"
+                                     src="/avatar/0.jpg"
+                                     data-original="/avatar/0.jpg"
+                                     class="avatar avatar-200 photo j-lazy" height="200" width="200" img-loaded="true">
+                                <span class="edit-avatar" data-user="33466">
+                                    <i class="layui-icon layui-icon-camera"></i>
+                                </span></div>
+                            <h2 class="ph-name">OpenDark<span class="user-group">管理团队</span></h2>
+                            <div class="ph-desc">Enjoy coding, enjoy life!</div>
                             <div class="profile-stats">
                                 <div class="profile-stats-inner">
                                     <div class="user-stats-item">
@@ -154,20 +129,50 @@
                                 <i class="layui-icon layui-icon-email"></i>私信
                             </button>
                         </div>
-                        <div class="profile-posts">
-                            <h3 class="widget-title"><span>最近文章</span></h3>
-                            <ul>
-                                <li><a href="https://demo.wpcom.cn/justnews/1471.html" title="3秒拆装的“斗子车”：比自行车还灵活">3秒拆装的“斗子车”：比自行车还灵活</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/376.html"
-                                       title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份">京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份</a></li>
-                                <li><a href="https://demo.wpcom.cn/justnews/223.html" title="第一次负责从0到1的产品时要注意哪几点？">第一次负责从0到1的产品时要注意哪几点？</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/242.html" title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸">星巴克限量版独角兽星冰乐的背后：摸索如何不平庸</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/231.html" title="网易精品产品背后的内容运营故事">网易精品产品背后的内容运营故事</a>
-                                </li>
-                            </ul>
+                        <div class="profile-action">
+                            <span class="profile-setcover edit-cover" data-user="33466">
+                                <i class="layui-icon layui-icon-camera wi"></i>
+                                修改封面
+                            </span>
+                            <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce" value="05001f7b99">
+                        </div>
+                    </div>
+                </div>
+                <ul class="profile-nav">
+                    <li><a href="/index/user">文章</a></li>
+                    <li><a href="/index/comment">评论</a></li>
+                    <li><a href="/index/follow">关注</a></li>
+                    <li class="active"><a href="/index/favorite">收藏</a></li>
+                </ul>
+                <div class="profile-main profile-favorites">
+                    <div class="profile-no-content">
+                        <noscript>
+                            <img alt='枭格科技的头像'
+                                 src='//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg'
+                                 class='avatar avatar-200 photo' height='200' width='200'/></noscript>
+                        <img decoding="async" class="empty-icon j-lazy"
+                             src="__IMG__/empty/empty-favorite.svg">该用户还没有收藏的文章。
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
+                <div class="sidebar">
+                    <!--                    <div class="widget widget_image_myimg">-->
+                    <!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
+                    <!--                            <img class="j-lazy"-->
+                    <!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
+                    <!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
+                    <!--                                 alt="WPCOM主题" img-loaded="true">-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
+                    <div class="widget widget_search">
+                        <div class="search-bar">
+                            <div class="layui-input-wrap">
+                                <input type="text" placeholder="输入关键词搜索..." class="layui-input">
+                                <div class="layui-input-suffix">
+                                    <i class="layui-icon layui-icon-search"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="widget widget_post_hot">
