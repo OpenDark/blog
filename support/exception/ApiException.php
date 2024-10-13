@@ -1,4 +1,5 @@
 <?php
+
 namespace support\exception;
 
 use support\exception\BusinessException;
@@ -9,24 +10,26 @@ class ApiException extends BusinessException
 {
     public function render(Request $request): ?Response
     {
-        $isJson = true;
-        $msg = $this->getMessage();
-        if (strpos($msg, '|array|') === 0) {
-            $return = str_replace('|array|', '', $msg);
-        } elseif (strpos($msg, '|encry|') === 0) {
-            $isJson = false;
-            $return = str_replace('|encry|', '', $msg);
-        } else {
-            $data = ['b' => -1, 't' => $this->getMessage()];
-            $isEncrypt = !config('app.debug', true);
-            $return = json_encode($data, 320);
-            if ($isEncrypt) {
-                $isJson = false;
-                $return = response_encode($data);
-            }
+        $msg = $json = $this->getMessage();
+        $data = json_decode($json, true);
+        $is_array = false;
+        if (!empty($data)) {
+            $is_array = true;
+            $msg = $data['msg'];
         }
-        $response = response($return)->withHeaders(config('common.headers'));
-        $isJson && $response->header('Content-Type', 'application/json');
-        return $response;
+        if ($request->expectsJson()) {
+            if ($is_array) {
+                $response = response($json)->header('Content-Type', 'application/json');
+            } else {
+                $data = ['code' => 400, 'msg' => $msg];
+                $response = response(json_encode($data, 320));
+            }
+            return $response;
+        }
+        if ($this->getCode() == 403) {
+            return redirect('/public/login');
+        } else {
+            return view('error', ['error' => $msg ?? '系统错误'])->withStatus(404);
+        }
     }
 }

@@ -47,9 +47,9 @@ return [
     
     'auto_update_timestamp' => false,
 
-    'lifetime' => 7*24*60*60,
+    'lifetime' => 24*60*60,
 
-    'cookie_lifetime' => 365*24*60*60,
+    'cookie_lifetime' => 2*24*60*60,
 
     'cookie_path' => '/',
 

@@ -194,7 +194,7 @@ class AccountController extends Crud
      */
     public function captcha(Request $request, string $type = 'login'): Response
     {
-        $builder = new PhraseBuilder(4, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ');
+        $builder = new PhraseBuilder(4, '0123456789');
         $captcha = new CaptchaBuilder(null, $builder);
         $captcha->build(120);
         $request->session()->set("captcha-$type", strtolower($captcha->getPhrase()));

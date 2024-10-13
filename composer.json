@@ -30,6 +30,7 @@
     "ext-zip": "*",
     "ext-curl": "*",
     "ext-json": "*",
+    "ext-iconv": "*",
     "ext-redis": "*",
     "ext-bcmath": "*",
     "ext-openssl": "*",
