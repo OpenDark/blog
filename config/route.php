@@ -3,6 +3,8 @@
 use support\Request;
 use Webman\Route;
 
+
+
 Route::fallback(function (Request $request) {
     // ajax请求时返回json
     if ($request->expectsJson()) {
@@ -12,6 +14,4 @@ Route::fallback(function (Request $request) {
     return view('404')->withStatus(404);
 });
 
-Route::post('/common/doLogin', [app\controller\CommonController::class, 'doLogin']);
-
-Route::disableDefaultRoute();
+//Route::disableDefaultRoute();

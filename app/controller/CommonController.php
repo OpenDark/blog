@@ -6,11 +6,13 @@ use support\Request;
 use support\Response;
 use Webman\Captcha\CaptchaBuilder;
 use Webman\Captcha\PhraseBuilder;
-use support\exception\ApiException;
 use app\model\User as UserModel;
 
 class CommonController extends BaseController
 {
+    protected array $notNeedVerify = ['login', 'register', 'reset'];
+    protected array $postAction = ['doLogin', 'doRegister', 'doReset'];
+
     /* 登录 */
     public function login(): Response
     {
@@ -23,12 +25,8 @@ class CommonController extends BaseController
     }
 
     /* 登录 */
-    public function doLogin(): Response
+    public function doLogin()
     {
-//        if ($this->request->method() !== 'POST') {
-//            return view('404')->withStatus(404);
-//        }
-
         // 验证码
         $post = $this->request->post();
         if ($post['vercode'] !== session('blog-login')) {
@@ -62,17 +60,21 @@ class CommonController extends BaseController
     }
 
     /* 注册 */
-    public function register(Request $request): Response
+    public function register(): Response
     {
         return view('public/register');
     }
 
+    /* 注册 */
+    public function reset(): Response
+    {
+        return view('public/reset');
+    }
+
     /**
      * 退出
-     * @return Response
-     * @throws ApiException
      */
-    public function logout(): Response
+    public function logout()
     {
         $this->request->session()->delete('userInfo');
         $this->success();

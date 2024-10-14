@@ -29,7 +29,8 @@ class ApiException extends BusinessException
         if ($this->getCode() == 403) {
             return redirect('/public/login');
         } else {
-            return view('error', ['error' => $msg ?? '系统错误'])->withStatus(404);
+            empty($msg) && $msg = '系统错误';
+            return view('error', ['error' => $msg])->withStatus(404);
         }
     }
 }

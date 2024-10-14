@@ -27,6 +27,16 @@ class BaseController
     protected bool|array $needLogin = false;
 
     /**
+     * 是否不需要验证
+     */
+    protected array $notNeedVerify = [];
+
+    /**
+     * POST方法
+     */
+    protected array $postAction = [];
+
+    /**
      * 当前域名
      */
     protected string $domain;
@@ -36,6 +46,40 @@ class BaseController
         $this->request = request();
         $this->domain = config('common.domain') . '/';
         $this->initialize();
+    }
+
+    /**
+     * 初始化
+     * @throws ApiException
+     */
+    protected function initialize()
+    {
+        // 过滤非POST方法
+        $action = $this->request->action;
+        if (in_array($action, $this->postAction) && $this->request->method() !== 'POST') {
+            throw new ApiException('非法请求');
+        }
+
+        // 未登录则跳转登录页面
+        $userInfo = session('userInfo') ?: [];
+        if (($this->needLogin === true || (is_array($this->needLogin) && in_array($action, $this->needLogin)))
+            && empty($userInfo)) {
+            throw new ApiException('请登录后操作', 403);
+        }
+
+        // 验证数据
+        if (!in_array($action, $this->notNeedVerify)) {
+            $param = $this->request->all();
+            $controller = str_replace(["app\\controller\\", 'Controller'], '', $this->request->controller);
+            try {
+                $this->validate($param, $controller . '.' . $action);
+            } catch (ValidateException $e) {
+                throw new ApiException($e->getMessage());
+            }
+        }
+
+        // 用户信息
+        $this->request->userInfo = $userInfo;
     }
 
     /**
@@ -63,34 +107,6 @@ class BaseController
     {
         $data = ['code' => 400, 'msg' => $msg];
         throw new ApiException(json_encode($data, 320));
-    }
-
-    /**
-     * 初始化
-     * @throws ApiException
-     */
-    protected function initialize()
-    {
-        // 未登录则跳转登录页面
-        $userInfo = session('userInfo') ?: [];
-        if ($this->needLogin && empty($userInfo)) {
-            throw new ApiException('请登录后操作', 403);
-        }
-
-        // 验证数据
-        if ($this->request->method() === 'POST') {
-            $param = $this->request->all();
-            $action = $this->request->action;
-            $controller = str_replace(["app\\controller\\", 'Controller'], '', $this->request->controller);
-            try {
-                $this->validate($param, $controller . '.' . $action);
-            } catch (ValidateException $e) {
-                throw new ApiException($e->getMessage());
-            }
-        }
-
-        // 用户信息
-        $this->request->userInfo = $userInfo;
     }
 
     /**

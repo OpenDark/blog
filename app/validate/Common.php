@@ -46,8 +46,8 @@ class Common extends Validate
     protected array $scene = [
         'doLogin' => ['username', 'password', 'vercode'],
         'register' => ['username', 'password', 'email'],
-        'xiugai' => ['username', 'password', 'newpassword'],
-        'zhaohui' => ['username', 'password', 'code'],
+        'getcode' => ['username', 'mail'],
+        'reset' => ['username', 'password', 'repassword', 'code'],
     ];
 
 }
