@@ -3,6 +3,8 @@
 use support\Request;
 use Webman\Route;
 
+Route::any('/common/captcha/{type}', [\app\controller\CommonController::class, 'captcha']);
+
 Route::fallback(function (Request $request) {
     // ajax请求时返回json
     if ($request->expectsJson()) {

@@ -19,12 +19,12 @@ class ApiException extends BusinessException
         }
         if ($request->expectsJson()) {
             if ($is_array) {
-                $response = response($json)->header('Content-Type', 'application/json');
+                $response = response($json);
             } else {
                 $data = ['code' => 400, 'msg' => $msg];
                 $response = response(json_encode($data, 320));
             }
-            return $response;
+            return $response->header('Content-Type', 'application/json');
         }
         if ($this->getCode() == 403) {
             return redirect('/public/login');

@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use plugin\admin\app\common\Auth;
 use plugin\admin\app\common\Tree;
 use plugin\admin\app\common\Util;
+use support\exception\ApiException;
 use support\exception\BusinessException;
 use support\Model;
 use support\Request;
@@ -281,7 +282,12 @@ class Crud extends Base
             if ($data[$password_filed] === '') {
                 unset($data[$password_filed]);
             } else {
-                $data[$password_filed] = Util::passwordHash($data[$password_filed]);
+                $arr = explode("\\", $request->controller);
+                if(end($arr) == 'UserController'){
+                    $data[$password_filed] = create_password($data[$password_filed]);
+                }else {
+                    $data[$password_filed] = Util::passwordHash($data[$password_filed]);
+                }
             }
         }
         unset($data[$primary_key]);

@@ -91,6 +91,10 @@ body {
 .blog-user-login-body .layui-form-item .layui-input {
     padding-left: 38px;
 }
+.blog-user-login-body .layui-btn-primary:hover {
+    border-color: #16b777;
+    color: #333;
+}
 .blog-user-login-codeimg {
     max-height: 38px;
     width: 100%;
@@ -176,6 +180,11 @@ body {
 }
 .blog-user-login-other {
     padding-top: 0;
+}
+.code-box {
+    margin-left: 10px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 
