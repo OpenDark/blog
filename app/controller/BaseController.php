@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use app\model\User;
 use think\facade\Db;
 use support\Request;
 use support\Response;
@@ -17,24 +18,29 @@ class BaseController
     protected Request|null $request;
 
     /**
-     * 是否批量验证
-     */
-    protected bool $batchValidate = false;
-
-    /**
      * 是否需要登录
      */
     protected bool|array $needLogin = false;
 
     /**
-     * 是否不需要验证
+     * 是否需要验证
      */
-    protected array $notNeedVerify = [];
+    protected array $needVerify = [];
+
+    /**
+     * 是否批量验证
+     */
+    protected bool $batchValidate = false;
 
     /**
      * POST方法
      */
     protected array $postAction = [];
+
+    /**
+     * 用户信息
+     */
+    protected array $userInfo = [];
 
     /**
      * 当前域名
@@ -54,9 +60,11 @@ class BaseController
      */
     protected function initialize()
     {
-        // 过滤非POST方法
+        // 过滤非POST方法与do开头的方法
         $action = $this->request->action;
-        if (in_array($action, $this->postAction) && $this->request->method() !== 'POST') {
+        $isDoAction = str_starts_with($action, 'do');
+        if (($isDoAction || in_array($action, $this->postAction)
+            ) && $this->request->method() !== 'POST') {
             throw new ApiException('非法请求');
         }
 
@@ -68,7 +76,7 @@ class BaseController
         }
 
         // 验证数据
-        if (!in_array($action, $this->notNeedVerify)) {
+        if ($isDoAction || in_array($action, $this->needVerify)) {
             $param = $this->request->all();
             $controller = str_replace(["app\\controller\\", 'Controller'], '', $this->request->controller);
             try {
@@ -78,8 +86,15 @@ class BaseController
             }
         }
 
+        // 管理信息
+        // $owner = User::findOrEmpty(1)->toArray();
+
+        // 系统信息
+
         // 用户信息
-        $this->request->userInfo = $userInfo;
+        $this->userInfo = $userInfo;
+//        $this->assign
+
     }
 
     /**

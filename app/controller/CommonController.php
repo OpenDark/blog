@@ -10,10 +10,7 @@ use app\model\User as UserModel;
 
 class CommonController extends BaseController
 {
-    protected array $notNeedVerify = ['login', 'register', 'reset'];
-    protected array $postAction = ['doLogin', 'doRegister', 'doReset'];
-
-    /* 登录 */
+    /* 登录页面 */
     public function login(): Response
     {
         // 已登录则重定向首页
@@ -21,11 +18,11 @@ class CommonController extends BaseController
         if (!empty($this->request->userInfo)) {
             return redirect($url);
         }
-        return view('public/login');
+        return view('common/login');
     }
 
     /* 登录 */
-    public function doLogin()
+    public function doLogin(): void
     {
         // 验证码
         $post = $this->request->post();
@@ -50,31 +47,44 @@ class CommonController extends BaseController
         !$res && $this->failure('登陆失败');
 
         // 设置SESSION
-        $this->request->session()->set('userInfo', $user['id']);
-        $this->success([
+        $info = [
             'id' => $user['id'],
             'username' => $user['username'],
             'nickname' => $user['nickname'],
             'avatar' => $user['avatar'],
-        ]);
+        ];
+        $this->request->session()->set('userInfo', $info);
+        $this->success($info);
     }
 
-    /* 注册 */
+    /* 注册页面 */
     public function register(): Response
     {
-        return view('public/register');
+        return view('common/register');
     }
 
     /* 注册 */
+    public function doRegister(): Response
+    {
+        return view('common/register');
+    }
+
+    /* 重置页面 */
     public function reset(): Response
     {
-        return view('public/reset');
+        return view('common/reset');
+    }
+
+    /* 重置页面 */
+    public function doReset(): Response
+    {
+        return view('common/reset');
     }
 
     /**
      * 退出
      */
-    public function logout()
+    public function logout(): void
     {
         $this->request->session()->delete('userInfo');
         $this->success();
