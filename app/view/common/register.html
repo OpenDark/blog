@@ -15,7 +15,6 @@
         <div class="blog-user-login-box blog-user-login-header">
             <h2>若羽博客</h2>
             <p>一万年太久，只争朝夕</p>
-            <!--            <p>世事洞明皆学问，人情练达即文章</p>-->
         </div>
         <div class="blog-user-login-box blog-user-login-body layui-form">
             <form class="layui-form">
@@ -141,7 +140,24 @@
             'get-email-code': function (obj) {
                 var is_valid = form.validate('#register-vercode');
                 if (is_valid) {
-                    layer.msg('电子邮箱规则验证通过');
+                    layer.load();
+                    $.ajax({
+                        url: '/common/doRegisterCode',
+                        type: 'post',
+                        data: {
+                            email: $('#login-email').val(),
+                            vercode: $('#register-vercode').val(),
+                        },
+                        success: function (res) {
+                            layer.closeAll('loading');
+                            if (res.code === 200) {
+                                layer.msg(res.msg, {icon: 1, time: 100});
+                            } else {
+                                layer.msg(res.msg, {icon: 2, time: 1000})
+                                switchCaptcha();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -169,7 +185,6 @@
                         });
                     } else {
                         layer.msg(res.msg, {icon: 2, time: 1000})
-                        switchCaptcha();
                     }
                 }
             });

@@ -73,7 +73,7 @@ class CommonController extends BaseController
     }
 
     /* 发送邮箱验证码 */
-    public function doSendCode()
+    public function doRegisterCode()
     {
         $this->success('发送成功');
     }
@@ -88,6 +88,12 @@ class CommonController extends BaseController
     public function doReset()
     {
         $this->success('重置成功');
+    }
+
+    /* 发送邮箱验证码 */
+    public function doResetCode()
+    {
+        $this->success('发送成功');
     }
 
     /**
