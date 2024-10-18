@@ -200,13 +200,11 @@ class BaseController
             if ($code) {
                 $this->failure($msg);
             } elseif ($data && is_array($data)) {
-                empty($data['t']) && $data['t'] = $msg;
-                $this->success($data);
+                $this->success($data, $msg);
             } else {
                 $this->success($msg);
             }
         }
-        return [];
     }
 
     /**

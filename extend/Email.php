@@ -46,7 +46,7 @@ class Email
         // 设置ssl连接smtp服务器的远程服务器端口号，以前的默认是25，但是现在新的好像已经不可用了 可选465或587
         $mail->Port = $this->config['port'];
         // 设置发件人的主机域 可有可无 默认为localhost 内容任意，建议使用你的域名
-        $mail->Hostname = $this->config['domain'];
+        $mail->Hostname = config('common.domain', 'System');
         // 设置发送的邮件的编码 可选GB2312 我喜欢utf-8 据说utf8在某些客户端收信下会乱码
         $mail->CharSet = 'UTF-8';
         // smtp登录的账号

@@ -11,8 +11,8 @@ use think\Model;
 class BaseModel extends Model
 {
     protected $pk = 'id';
-    protected $createTime = 'create_at';
-    protected $updateTime = 'update_at';
+    protected $createTime = 'created_at';
+    protected $updateTime = 'updated_at';
     protected $autoWriteTimestamp = 'datetime';
     
 }

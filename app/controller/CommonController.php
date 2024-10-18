@@ -69,13 +69,115 @@ class CommonController extends BaseController
     /* 注册 */
     public function doRegister()
     {
+        // 验证邮箱与用户是否注册
+        $post = $this->request->post();
+        $exist = UserModel::where('email', $post['email'])->value('id');
+        $exist && $this->failure('该邮箱已注册');
+        $exist = UserModel::where('username', $post['username'])->value('id');
+        $exist && $this->failure('该用户名已存在');
+
+        // 获取邮件发送记录
+        $where = ['email' => $post['email'], 'type' => 'register', 'code' => $post['email_code']];
+        $log = EmailLogModel::field('id,validtime,used')->where($where)->findOrEmpty();
+
+        // 验证邮箱验证码
+        $log->isEmpty() && $this->failure('邮箱验证码错误');
+        $log['used'] != 0 && $this->failure('邮箱验证码已使用');
+        time() > $log['validtime'] && $this->failure('邮箱验证码已经超时，请重新获取');
+
+        Db::startTrans();
+        try {
+            // 使用验证码
+            $log['used'] = 1;
+            $log->save();
+
+            // 新增账号
+            $data['money'] = 0;
+            $data['email'] = $post['email'];
+            $data['username'] = $post['username'];
+            $data['nickname'] = $post['username'];
+            $data['password'] = create_password($post['password']);
+            $data['avatar'] = '/avatar/' . mt_rand(1, 18) . '.png';
+            $data['banner'] = '/static/img/user-banner.jpg';
+            $data['desc'] = '这个人很懒，什么都没有留下～';
+            $data['join_ip'] = $data['last_ip'] = $this->request->getRealIp();
+            $data['join_time'] = $data['last_time'] = date('Y-m-d H:i:s');
+            $data['birthday'] = date('Y-m-d');
+            UserModel::create($data);
+
+            Db::commit();
+        } catch (\Exception $e) {
+            Db::rollback();
+            $msg = '系统错误：账号注册失败';
+            $this->logger($msg, $post, [], $e);
+            $this->failure($msg);
+        }
         $this->success('注册成功');
     }
 
     /* 发送邮箱验证码 */
-    public function doRegisterCode()
+    public function doRegisterCode(): void
     {
-        $this->success('发送成功');
+        // 验证图形验证码
+        $post = $this->request->post();
+        if ($post['vercode'] !== session('blog-register')) {
+            $this->failure('图形验证码错误');
+        }
+        $this->request->session()->forget('blog-register');
+
+        // 验证邮箱是否注册
+        $exist = UserModel::where('email', $post['email'])->value('id');
+        $exist && $this->failure('该邮箱已注册');
+
+        // 验证邮件发送记录
+        $where = ['email' => $post['email'], 'type' => 'register'];
+        $log = EmailLogModel::field('count,sendtime')->where($where)->findOrEmpty();
+        $time = time();
+        $today = date('Y-m-d');
+        $config = config('common.mail_limit');
+        if (!$log->isEmpty()) {
+            if (date('Y-m-d', $log['sendtime']) == $today && $log['count'] >= $config['max']) {
+                $this->failure('今天发送次数已达上限。');
+            }
+            if ($time - $log['sendtime'] < $config['interval'] * 60) {
+                $this->failure('每次发送需间隔' . $config['interval'] . '分钟，请稍后再试。');
+            }
+        }
+
+        // 发送邮件
+        $code = mt_rand(100000, 999999);
+        $data = [
+            'email' => $post['email'],
+            'title' => '注册账号',
+            'body' => '通过邮箱注册账号，验证码：' . $code . '，有效期：' . $config['valid'] . '分钟。',
+        ];
+        logger('【注册账号】邮箱：' . $post['email'] . ' IP：' . $this->request->getRealIp(), $data, $data['title']);
+        $res = Redis::send('send-email', $data);
+        empty($res) && $this->failure('邮件发送失败。');
+
+        // 写入记录
+        if (!$log->isEmpty()) {
+            $log['code'] = $code;
+            $log['count'] += 1;
+            $log['sendtime'] = $time;
+            $log['validtime'] = $time + $config['valid'] * 60;
+            $log['used'] = 0;
+            // 当天第一次发送
+            (date('Y-m-d', $log['sendtime']) != $today) && $log['count'] = 1;
+            $result = $log->save();
+        } else {
+            $data = [
+                'email' => $post['email'],
+                'code' => $code,
+                'type' => 'register',
+                'count' => 1,
+                'sendtime' => $time,
+                'validtime' => $time + $config['valid'] * 60,
+            ];
+            $result = EmailLogModel::create($data);
+        }
+        $success = '验证码已发送，请查收！';
+        $result ? $this->success($success) : $this->failure('系统错误：邮箱验证码发送失败');
     }
 
     /* 重置页面 */
@@ -85,15 +187,105 @@ class CommonController extends BaseController
     }
 
     /* 重置页面 */
-    public function doReset()
+    public function doReset(): void
     {
+        // 验证邮箱是否注册
+        $post = $this->request->post();
+        $user = UserModel::field('id')->where('email', $post['email'])->findOrEmpty();
+        $user->isEmpty() && $this->failure('该邮箱未注册');
+
+        // 获取邮件发送记录
+        $where = ['email' => $post['email'], 'type' => 'reset', 'code' => $post['email_code']];
+        $log = EmailLogModel::field('id,validtime,used')->where($where)->findOrEmpty();
+
+        // 验证邮箱验证码
+        $log->isEmpty() && $this->failure('邮箱验证码错误');
+        $log['used'] != 0 && $this->failure('邮箱验证码已使用');
+        time() > $log['validtime'] && $this->failure('邮箱验证码已经超时，请重新获取');
+
+        Db::startTrans();
+        try {
+            // 使用验证码
+            $log['used'] = 1;
+            $log->save();
+
+            // 更新密码
+            $user['password'] = create_password($post['password']);
+            $user->save();
+
+            Db::commit();
+        } catch (\Exception $e) {
+            Db::rollback();
+            $msg = '系统错误：重置密码失败';
+            $this->logger($msg, $post, [], $e);
+            $this->failure($msg);
+        }
         $this->success('重置成功');
     }
 
     /* 发送邮箱验证码 */
-    public function doResetCode()
+    public function doResetCode(): void
     {
-        $this->success('发送成功');
+        // 验证图形验证码
+        $post = $this->request->post();
+        if ($post['vercode'] !== session('blog-reset')) {
+            $this->failure('图形验证码错误');
+        }
+        $this->request->session()->forget('blog-reset');
+
+        // 验证邮箱是否注册
+        $exist = UserModel::where('email', $post['email'])->value('id');
+        !$exist && $this->failure('该邮箱未注册');
+
+        // 验证邮件发送记录
+        $where = ['email' => $post['email'], 'type' => 'reset'];
+        $log = EmailLogModel::field('count,sendtime')->where($where)->findOrEmpty();
+        $time = time();
+        $today = date('Y-m-d');
+        $config = config('common.mail_limit');
+        if (!$log->isEmpty()) {
+            if (date('Y-m-d', $log['sendtime']) == $today && $log['count'] >= $config['max']) {
+                $this->failure('今天发送次数已达上限。');
+            }
+            if ($time - $log['sendtime'] < $config['interval'] * 60) {
+                $this->failure('每次发送需间隔' . $config['interval'] . '分钟，请稍后再试。');
+            }
+        }
+
+        // 发送邮件
+        $code = mt_rand(100000, 999999);
+        $data = [
+            'email' => $post['email'],
+            'title' => '忘记密码',
+            'body' => '通过邮箱重置密码，验证码：' . $code . '，有效期：' . $config['valid'] . '分钟。',
+        ];
+        logger('【注册账号】邮箱：' . $post['email'] . ' IP：' . $this->request->getRealIp(), $data, $data['title']);
+        $res = Redis::send('send-email', $data);
+        empty($res) && $this->failure('邮件发送失败。');
+
+        // 写入记录
+        if (!$log->isEmpty()) {
+            $log['code'] = $code;
+            $log['count'] += 1;
+            $log['sendtime'] = $time;
+            $log['validtime'] = $time + $config['valid'] * 60;
+            $log['used'] = 0;
+            // 当天第一次发送
+            (date('Y-m-d', $log['sendtime']) != $today) && $log['count'] = 1;
+            $result = $log->save();
+        } else {
+            $data = [
+                'email' => $post['email'],
+                'code' => $code,
+                'type' => 'reset',
+                'count' => 1,
+                'sendtime' => $time,
+                'validtime' => $time + $config['valid'] * 60,
+            ];
+            $result = EmailLogModel::create($data);
+        }
+        $success = '验证码已发送，请查收！';
+        $result ? $this->success($success) : $this->failure('系统错误：邮箱验证码发送失败');
     }
 
     /**
@@ -120,187 +312,6 @@ class CommonController extends BaseController
         $request->session()->set("blog-$type", $code);
         $img_content = $captcha->get();
         return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
-    }
-
-    /**
-     * 注册账号
-     */
-    public function register1()
-    {
-        // 前端验证注册上限
-        $max = config('game.max_login');
-        $u = $this->param['u'] ?? 0;
-        $u > $max && $this->failure('注册个数已达上限');
-
-        // IP限制注册上限
-        $count = UserModel::where('reg_ip', $this->ip)->count();
-        $count >= $max && $this->failure('注册个数已达上限');
-
-        // 验证账号是否存在
-        $exist = UserModel::where('username', $this->param['username'])->value('id');
-        $exist && $this->failure('账号已存在');
-
-        // 验证邮箱是否使用
-        $exist = UserModel::where('email', $this->param['email'])->value('id');
-        $exist && $this->failure('邮箱已使用');
-
-        Db::startTrans();
-        try {
-            // 新增账号
-            $data['username'] = $this->param['username'];
-            $data['password'] = create_password($this->param['password']);
-            $data['email'] = $this->param['email'];
-            $data['reg_ip'] = $this->ip;
-            $data['reg_time'] = time();
-            $account = UserModel::create($data);
-            empty($account->id) && $this->failure('注册失败');
-
-            // 注册推广
-            $t = $this->param['t'] ?? 0;
-            if ($t > 0) {
-                // 验证推广账号是否存在
-                $exist = UserModel::where('id', $t)->value('id');
-                if ($exist) {
-                    // 添加推广记录
-                    TgModel::create([
-                        'account_id' => $account->id,
-                        'invite_id' => $t,
-                    ]);
-                }
-            }
-
-            Db::commit();
-        } catch (\Exception $e) {
-            Db::rollback();
-            $msg = '系统错误：账号注册失败';
-            $this->logger($msg, $this->param, [], $e);
-            $this->failure($msg);
-        }
-        $this->success('注册成功');
-    }
-
-    /**
-     * 修改密码
-     */
-    public function xiugai()
-    {
-        // 验证账号
-        $account = UserModel::where([
-            'username' => $this->param['username'],
-            'password' => create_password($this->param['password']),
-        ])->find();
-        empty($account) && $this->failure('帐号或密码错误');
-
-        // 更新密码
-        $newpassword = create_password($this->param['newpassword']);
-        if ($newpassword == $account['password']) {
-            $this->success('修改成功');
-        }
-        $account['password'] = $newpassword;
-        $res = $account->save();
-        $res ? $this->success('修改成功') : $this->failure('修改失败');
-    }
-
-    /**
-     * 获取邮箱验证码
-     */
-    public function getcode()
-    {
-        // 获取账号
-        $where = ['username' => $this->param['username'], 'email' => $this->param['mail']];
-        $account = UserModel::field('id,status')->where($where)->find();
-        empty($account) && $this->failure('账号或邮箱错误。');
-        $account['status'] == 2 && $this->failure('账号被封。');
-
-        // 验证邮件发送记录
-        $where = ['account_id' => $account['id'], 'type' => 'find'];
-        $log = EmailLogModel::field('count,sendtime')->where($where)->find();
-        $time = time();
-        $today = date('Y-m-d');
-        $config = config('game.mail_limit');
-        if ($log) {
-            if (date('Y-m-d', $log['sendtime']) == $today && $log['count'] >= $config['max']) {
-                $this->failure('今天发送次数已达上限。');
-            }
-            if ($time - $log['sendtime'] < $config['interval'] * 60) {
-                $this->failure('每次发送需间隔' . $config['interval'] . '分钟，请稍后再试。');
-            }
-        }
-
-        // 发送邮件
-        $code = mt_rand(100000, 999999);
-        $data = [
-            'email' => $this->param['mail'],
-            'title' => '密码找回',
-            'body' => '通过邮箱找回密码，验证码：' . $code . '，有效期：' . $config['valid'] . '分钟。',
-        ];
-        logger('【密码找回】账号：' . $account['id'] . ' IP：' . $this->ip, $data, $data['title']);
-        $res = Redis::send('send-email', $data);
-        empty($res) && $this->failure('邮件发送失败。');
-
-        // 写入记录
-        if ($log) {
-            $log['code'] = $code;
-            $log['count'] += 1;
-            $log['sendtime'] = $time;
-            $log['validtime'] = $time + $config['valid'] * 60;
-            $log['used'] = 0;
-            // 当天第一次发送
-            (date('Y-m-d', $log['sendtime']) != $today) && $log['count'] = 1;
-            $result = $log->save();
-        } else {
-            $data = [
-                'account_id' => $account['id'],
-                'code' => $code,
-                'type' => 'find',
-                'count' => 1,
-                'sendtime' => $time,
-                'validtime' => $time + $config['valid'] * 60,
-            ];
-            $result = EmailLogModel::create($data);
-        }
-        $success = '验证码已经发送到你的邮箱，请查看邮箱的验证码<br>请确保你邮箱没有设置邮件拦截，以免被拦截无法收到！';
-        $result ? $this->success($success) : $this->failure('系统错误：邮箱验证码获取失败');
-    }
-
-    /**
-     * 邮箱找回密码
-     */
-    public function zhaohui()
-    {
-        // 获取账号
-        $where = ['username' => $this->param['username']];
-        $account = UserModel::field('id,status,password')->where($where)->find();
-        empty($account) && $this->failure('账号或邮箱错误。');
-        $account['status'] == 2 && $this->failure('账号被封。');
-
-        // 获取邮件发送记录
-        $where = ['account_id' => $account['id'], 'type' => 'find', 'code' => $this->param['code']];
-        $log = EmailLogModel::field('id,validtime,used')->where($where)->find();
-
-        // 验证有效
-        empty($log) && $this->failure('验证码错误。');
-        $log['used'] != 0 && $this->failure('验证码已使用。');
-        time() > $log['validtime'] && $this->failure('验证码已经超时，请重新获取。');
-
-        $this->transaction('密码找回', function () use ($log, $account) {
-            // 使用验证码
-            $log['used'] = 1;
-            $res = $log->save();
-            if (!$res) {
-                throw new \Exception('验证码核验失败。');
-            }
-
-            // 更新密码
-            $password = create_password($this->param['password']);
-            if ($account['password'] != $password) {
-                $account['password'] = $password;
-                $res = $account->save();
-                if (!$res) {
-                    throw new \Exception('密码更新失败。');
-                }
-            }
-        });
     }
 
 }

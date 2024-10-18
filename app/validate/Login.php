@@ -66,7 +66,7 @@ class Login extends Validate
         'bbname' => ['md5','id','name'],
     ];
 
-    public function setRule($action)
+    public function setRule($action): void
     {
         if (isset($this->customer[$action])) {
             $this->rule = array_merge($this->rule, $this->customer[$action]);

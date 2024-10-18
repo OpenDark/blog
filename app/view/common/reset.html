@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="__CSS__/login.css">
 </head>
 <body>
-<div class="blog-user-login blog-user-display-show" id="login" style="display: none;">
+<div class="blog-user-login blog-user-display-show">
     <div class="blog-user-login-main">
         <div class="blog-user-login-box blog-user-login-header">
             <h2>若羽博客</h2>
@@ -21,37 +21,22 @@
                 <div class="layui-form-item">
                     <label class="blog-user-login-icon layui-icon layui-icon-password"
                            for="login-password"></label>
-                    <input type="password" name="password" id="login-password" lay-verify="pass"
-                           placeholder="新密码" class="layui-input">
-                </div>
-                <div class="layui-form-item">
-                    <label class="blog-user-login-icon layui-icon layui-icon-password"
-                           for="login-repass"></label>
-                    <input type="password" name="repass" id="login-repass" lay-verify="required"
-                           placeholder="确认密码" class="layui-input">
-                </div>
-                <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid od-green-button" lay-submit lay-filter="forget-resetpass">
-                        重置新密码
-                    </button>
-                </div>
-                <div class="layui-form-item">
-                    <label class="blog-user-login-icon layui-icon layui-icon-cellphone"
-                           for="login-cellphone"></label>
-                    <input type="text" name="cellphone" id="login-cellphone" lay-verify="phone"
-                           placeholder="请输入注册时的手机号" class="layui-input">
+                    <input type="text" name="email" id="login-email"
+                           lay-verify="required|email" lay-reqtext="请填写电子邮箱"
+                           placeholder="电子邮箱" class="layui-input">
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-row">
                         <div class="layui-col-xs7">
                             <label class="blog-user-login-icon layui-icon layui-icon-vercode"
-                                   for="login-vercode"></label>
-                            <input type="text" name="vercode" id="login-vercode" lay-verify="required"
-                                   placeholder="图形验证码" class="layui-input">
+                                   for="reset-vercode"></label>
+                            <input type="text" name="vercode" id="reset-vercode"
+                                   lay-verify="required|number|min4" lay-reqtext="请填写图形验证码"
+                                   placeholder="图形验证码" class="layui-input" maxlength="4">
                         </div>
                         <div class="layui-col-xs5">
                             <div class="code-box">
-                                <img alt="" class="codeImage blog-user-login-codeimg" id="get-vercode" src=""/>
+                                <img class="codeImage" alt="" src=""/>
                             </div>
                         </div>
                     </div>
@@ -60,21 +45,37 @@
                     <div class="layui-row">
                         <div class="layui-col-xs7">
                             <label class="blog-user-login-icon layui-icon layui-icon-vercode"
-                                   for="login-smscode"></label>
-                            <input type="text" name="vercode" id="login-smscode" lay-verify="required"
-                                   placeholder="短信验证码" class="layui-input">
+                                   for="login-email-code"></label>
+                            <input type="text" name="email_code" id="login-email-code"
+                                   lay-verify="required|number|min6" lay-reqtext="请填写邮箱验证码"
+                                   placeholder="邮箱验证码" class="layui-input" maxlength="6">
                         </div>
                         <div class="layui-col-xs5">
                             <div style="margin-left: 10px;">
                                 <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid"
-                                        id="getsmscode">获取验证码
+                                        lay-on="get-email-code">获取验证码
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid od-green-button" lay-submit lay-filter="forget-submit">找回密码
+                    <label class="blog-user-login-icon layui-icon layui-icon-password"
+                           for="login-password"></label>
+                    <input type="password" name="password" id="login-password"
+                           lay-verify="required|pass" lay-reqtext="请填写用户密码"
+                           placeholder="设置密码" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <label class="blog-user-login-icon layui-icon layui-icon-password"
+                           for="login-repass"></label>
+                    <input type="password" name="repass" id="login-repass"
+                           lay-verify="required|pass" lay-reqtext="请填写确认密码"
+                           placeholder="确认密码" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <button type="submit" class="layui-btn layui-btn-fluid od-green-button"
+                            lay-submit lay-filter="reset">重置密码
                     </button>
                 </div>
                 <div class="layui-trans layui-form-item blog-user-login-other">
@@ -85,66 +86,92 @@
         </div>
     </div>
     <div class="layui-trans blog-user-login-footer">
-        <p>© All Rights Reserved </p>
+        <p>Copyright © 2024 OpenDark 版权所有 粤ICP备000000000号 Powered by OpenDark</p>
     </div>
 </div>
 <script src="__JS__/layui/layui.js"></script>
 <script>
-    layui.config({
-        base: '../../res/' // 静态资源所在路径
-    }).use(['index', 'user'], function () {
-        var $ = layui.$
-            , setter = layui.setter
-            , admin = layui.admin
-            , form = layui.form
-            , router = layui.router();
+    layui.use(['form', 'layer', 'util'], function () {
+        const $ = layui.$,
+            layer = layui.layer,
+            form = layui.form,
+            util = layui.util,
+            img = $('.codeImage');
 
-        form.render();
+        // 验证码
+        function switchCaptcha() {
+            img.attr("src", "/common/captcha/reset?v=" + new Date().getTime());
+        }
 
-        //找回密码下一步
-        form.on('submit(forget-submit)', function (obj) {
-            var field = obj.field;
+        img.on('click', function () {
+            switchCaptcha();
+        });
+        switchCaptcha();
 
-            //请求接口
-            admin.req({
-                url: layui.setter.paths.base + 'json/user/forget.js' //实际使用请改成服务端真实接口
-                , data: field
-                , done: function (res) {
-                    location.hash = '/type=resetpass';
-                    location.reload();
+        form.verify({
+            min4: function(value, elem) {
+                if (value.length < 4) {
+                    return '不能小于 4 个字符';
                 }
-            });
-
-            return false;
+            },
+            min6: function(value, elem) {
+                if (value.length < 6) {
+                    return '不能小于 6 个字符';
+                }
+            },
         });
 
-        //重置密码
-        form.on('submit(forget-resetpass)', function (obj) {
-            var field = obj.field;
-
-            //确认密码
-            if (field.password !== field.repass) {
-                return layer.msg('两次密码输入不一致');
-            }
-
-            //请求接口
-            admin.req({
-                url: layui.setter.paths.base + 'json/user/resetpass.js' //实际使用请改成服务端真实接口
-                , data: field
-                , done: function (res) {
-                    layer.msg('密码已成功重置', {
-                        offset: '15px'
-                        , icon: 1
-                        , time: 1000
-                    }, function () {
-                        location.href = 'login.html'; //跳转到登入页
+        util.on('lay-on', {
+            // 获取邮箱验证码
+            'get-email-code': function (obj) {
+                let is_valid = form.validate('#login-email') && form.validate('#reset-vercode');
+                if (is_valid) {
+                    layer.load();
+                    $.ajax({
+                        url: '/common/doResetCode',
+                        type: 'post',
+                        data: {
+                            email: $('#login-email').val(),
+                            vercode: $('#reset-vercode').val(),
+                        },
+                        success: function (res) {
+                            layer.closeAll('loading');
+                            if (res.code === 200) {
+                                layer.msg(res.msg, {icon: 1, time: 1000});
+                            } else {
+                                layer.msg(res.msg, {icon: 2, time: 1000})
+                                switchCaptcha();
+                            }
+                        }
                     });
                 }
-            });
-
-            return false;
+            }
         });
 
+        form.on('submit(reset)', function (data) {
+            const field = data.field;
+            if (field.password !== field.repass) {
+                layer.msg('两次密码输入不一致');
+                return false;
+            }
+            layer.load();
+            $.ajax({
+                url: '/common/doReset',
+                type: 'post',
+                data: field,
+                success: function (res) {
+                    layer.closeAll('loading');
+                    if (res.code === 200) {
+                        layer.msg('重置成功', {icon: 1, time: 1000}, function () {
+                            location.href = '/common/login';
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 2, time: 1500})
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>
