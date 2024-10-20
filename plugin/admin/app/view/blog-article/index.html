@@ -79,6 +79,13 @@
                             <div name="is_recommend" id="is_recommend" value="" ></div>
                         </div>
                     </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否轮播</label>
+                        <div class="layui-input-block">
+                            <div name="is_carousel" id="is_carousel" value="" ></div>
+                        </div>
+                    </div>
                     
                     <div class="layui-form-item layui-inline">
                         <label class="layui-form-label"></label>
@@ -290,6 +297,22 @@
                     radio: true,
                 })
             });
+
+            // 字段 是否推荐 is_carousel
+            layui.use(["jquery", "xmSelect"], function() {
+                let value = layui.$("#is_carousel").attr("value");
+                let initValue = value ? value.split(",") : [];
+                layui.xmSelect.render({
+                    el: "#is_carousel",
+                    name: "is_carousel",
+                    filterable: true,
+                    initValue: initValue,
+                    data: [{"value":"1","name":"是"},{"value":"0","name":"否"}],
+                    model: {"icon":"hidden","label":{"type":"text"}},
+                    clickClose: true,
+                    radio: true,
+                })
+            });
             
             // 表格渲染
             layui.use(["table", "form", "common", "popup", "util"], function() {
@@ -349,12 +372,12 @@
 						title: "标题",align: "center",
 						field: "title",
 					},{
+                        title: "摘要",align: "center",
+                        field: "summary",
+                        hide: true,
+                    },{
 						title: "内容",align: "center",
 						field: "content",
-						hide: true,
-					},{
-						title: "摘要",align: "center",
-						field: "summary",
 						hide: true,
 					},{
 						title: "主图",align: "center",
@@ -475,6 +498,31 @@
 						hide: true,
 						templet: function (d) {
 							let field = "is_recommend";
+							form.on("switch("+field+")", function (data) {
+								let load = layer.load();
+								let postData = {};
+								postData[field] = data.elem.checked ? 1 : 0;
+								postData[PRIMARY_KEY] = this.value;
+								$.post(UPDATE_API, postData, function (res) {
+									layer.close(load);
+									if (res.code) {
+				                        return layui.popup.failure(res.msg, function () {
+				                            data.elem.checked = !data.elem.checked;
+				                            form.render();
+				                        });
+				                    }
+									return layui.popup.success("操作成功");
+								})
+							});
+							let checked = d[field] === 1 ? "checked" : "";
+							return '<input type="checkbox" value="'+util.escape(d[PRIMARY_KEY])+'" lay-filter="'+util.escape(field)+'" lay-skin="switch" lay-text="'+util.escape('')+'" '+checked+'/>';
+						}
+					},{
+						title: "是否轮播",align: "center",
+						field: "is_carousel",
+						hide: true,
+						templet: function (d) {
+							let field = "is_carousel";
 							form.on("switch("+field+")", function (data) {
 								let load = layer.load();
 								let postData = {};
@@ -674,7 +722,7 @@
                         shade: [0.3, "#1d2129"],
                         shadeClose: true,
                         maxmin: true,
-                        area: [common.isModile()?"100%":"700px", common.isModile()?"100%":"600px"],
+                        area: [common.isModile()?"100%":"80%", common.isModile()?"100%":"80%"],
                         content: UPDATE_URL + "?" + PRIMARY_KEY + "=" + value
                     });
                 }

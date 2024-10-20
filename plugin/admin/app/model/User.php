@@ -11,6 +11,7 @@ use plugin\admin\app\model\Base;
  * @property string $password 密码
  * @property string $sex 性别
  * @property string $avatar 头像
+ * @property string $banner 横幅
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property integer $level 等级
@@ -22,6 +23,11 @@ use plugin\admin\app\model\Base;
  * @property string $join_time 注册时间
  * @property string $join_ip 注册ip
  * @property string $token token
+ * @property string $qq QQ
+ * @property string $desc 简介
+ * @property integer $article_num 文章数量
+ * @property integer $comment_num 评论数量
+ * @property integer $fans_num 粉丝数量
  * @property string $created_at 创建时间
  * @property string $updated_at 更新时间
  * @property integer $role 角色

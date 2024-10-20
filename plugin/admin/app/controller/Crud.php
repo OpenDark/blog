@@ -21,6 +21,8 @@ class Crud extends Base
      */
     protected $model = null;
 
+    protected $nullToInt = [];
+
     /**
      * 查询
      * @param Request $request
@@ -44,6 +46,10 @@ class Crud extends Base
     {
         $data = $this->insertInput($request);
         $id = $this->doInsert($data);
+        if (method_exists($this, 'afterInsert')) {
+            $data['id'] = $id;
+            call_user_func([$this, 'afterInsert'], $data);
+        }
         return $this->json(0, 'ok', ['id' => $id]);
     }
 
@@ -57,6 +63,10 @@ class Crud extends Base
     {
         [$id, $data] = $this->updateInput($request);
         $this->doUpdate($id, $data);
+        if (method_exists($this, 'afterUpdate')) {
+            $data['id'] = $id;
+            call_user_func([$this, 'afterUpdate'], $data);
+        }
         return $this->json(0);
     }
 
@@ -205,7 +215,13 @@ class Crud extends Base
         if (isset($data[$password_filed])) {
             $data[$password_filed] = Util::passwordHash($data[$password_filed]);
         }
-
+        if ($this->nullToInt) {
+            foreach ($this->nullToInt as $key) {
+                if (is_null($data[$key])) {
+                    $data[$key] = 0;
+                }
+            }
+        }
         if (!Auth::isSuperAdmin()) {
             if ($this->dataLimit === 'personal') {
                 $data[$this->dataLimitField] = admin_id();
@@ -257,7 +273,13 @@ class Crud extends Base
         if (!$model) {
             throw new BusinessException('记录不存在', 2);
         }
-
+        if ($this->nullToInt) {
+            foreach ($this->nullToInt as $key) {
+                if (is_null($data[$key])) {
+                    $data[$key] = 0;
+                }
+            }
+        }
         if (!Auth::isSuperAdmin()) {
             if ($this->dataLimit == 'personal') {
                 if ($model->{$this->dataLimitField} != admin_id()) {

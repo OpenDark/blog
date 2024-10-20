@@ -29,6 +29,20 @@
                     </div>
                     
                     <div class="layui-form-item">
+                        <label class="layui-form-label">主图</label>
+                        <div class="layui-input-block">
+                            <img class="img-3" src=""/>
+                            <input type="text" style="display:none" name="thumbnail" value="" />
+                            <button type="button" class="pear-btn pear-btn-primary pear-btn-sm" id="thumbnail"  permission="app.admin.upload.image">
+                                <i class="layui-icon layui-icon-upload"></i>上传图片
+                            </button>
+                            <button type="button" class="pear-btn pear-btn-primary pear-btn-sm" id="attachment-choose-thumbnail"  permission="app.admin.upload.attachment">
+                                <i class="layui-icon layui-icon-align-left"></i>选择图片
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="layui-form-item">
                         <label class="layui-form-label">横幅</label>
                         <div class="layui-input-block">
                             <img class="img-3" src=""/>
@@ -75,6 +89,36 @@
 
             // 相关接口
             const INSERT_API = "/app/admin/blog-special/insert";
+            
+            // 字段 主图 thumbnail
+            layui.use(["upload", "layer"], function() {
+                let input = layui.$("#thumbnail").prev();
+                input.prev().attr("src", input.val());
+                layui.$("#attachment-choose-thumbnail").on("click", function() {
+                    parent.layer.open({
+                        type: 2,
+                        title: "选择附件",
+                        content: "/app/admin/upload/attachment?ext=jpg,jpeg,png,gif,bmp",
+                        area: ["95%", "90%"],
+                        success: function (layero, index) {
+                            parent.layui.$("#layui-layer" + index).data("callback", function (data) {
+                                input.val(data.url).prev().attr("src", data.url);
+                            });
+                        }
+                    });
+                });
+                layui.upload.render({
+                    elem: "#thumbnail",
+                    url: "/app/admin/upload/image",
+                    value: "",
+                    acceptMime: "image/gif,image/jpeg,image/jpg,image/png",
+                    field: "__file__",
+                    done: function (res) {
+                        if (res.code > 0) return layui.layer.msg(res.msg);
+                        this.item.prev().val(res.data.url).prev().attr("src", res.data.url);
+                    }
+                });
+            });
             
             // 字段 横幅 banner
             layui.use(["upload", "layer"], function() {

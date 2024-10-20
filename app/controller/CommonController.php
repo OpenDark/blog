@@ -92,13 +92,14 @@ class CommonController extends BaseController
             $log->save();
 
             // 新增账号
+            $imgcdn = config('common.imgcdn');
             $data['money'] = 0;
             $data['email'] = $post['email'];
             $data['username'] = $post['username'];
             $data['nickname'] = $post['username'];
             $data['password'] = create_password($post['password']);
-            $data['avatar'] = '/avatar/' . mt_rand(1, 18) . '.png';
-            $data['banner'] = '/static/img/user-banner.jpg';
+            $data['avatar'] = $imgcdn . mt_rand(1, 18) . '.png';
+            $data['banner'] = $imgcdn . 'banner.jpg';
             $data['desc'] = '这个人很懒，什么都没有留下～';
             $data['join_ip'] = $data['last_ip'] = $this->request->getRealIp();
             $data['join_time'] = $data['last_time'] = date('Y-m-d H:i:s');

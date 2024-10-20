@@ -19,6 +19,8 @@ class BlogCategoryController extends Crud
      */
     protected $model = null;
 
+    protected $nullToInt = ['pid'];
+
     /**
      * 构造函数
      * @return void
@@ -63,6 +65,16 @@ class BlogCategoryController extends Crud
             return parent::update($request);
         }
         return view('blog-category/update');
+    }
+
+    protected function afterInsert($data)
+    {
+        cache('category', null);
+    }
+
+    protected function afterUpdate($data)
+    {
+        cache('category', null);
     }
 
 }

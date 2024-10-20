@@ -5,6 +5,8 @@ use Webman\Route;
 
 Route::any('/common/captcha/{type}', [\app\controller\CommonController::class, 'captcha']);
 
+Route::get('/widget/user/{id:\d+}', [\app\controller\IndexController::class, 'getUser']);
+
 Route::fallback(function (Request $request) {
     // ajax请求时返回json
     if ($request->expectsJson()) {

@@ -15,12 +15,9 @@
                 <form class="layui-form top-search-from">
                     
                     <div class="layui-form-item">
-                        <label class="layui-form-label">名称</label>
+                        <label class="layui-form-label">链接标题</label>
                         <div class="layui-input-block">
-                            <div class="layui-input-block">
-                                <input type="hidden" autocomplete="off" name="name[]" value="like" class="layui-input inline-block">
-                                <input type="text" autocomplete="off" name="name[]" class="layui-input">
-                            </div>
+                            <input type="text" name="title" value="" class="layui-input">
                         </div>
                     </div>
                     
@@ -50,18 +47,18 @@
 
         <!-- 表格顶部工具栏 -->
         <script type="text/html" id="table-toolbar">
-            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.blogspecial.insert">
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add" permission="app.admin.bloglink.insert">
                 <i class="icon pear-icon pear-icon-add"></i>新增
             </button>
-            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.blogspecial.delete">
+            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="batchRemove" permission="app.admin.bloglink.delete">
                 <i class="icon pear-icon pear-icon-ashbin"></i>删除
             </button>
         </script>
 
         <!-- 表格行工具栏 -->
         <script type="text/html" id="table-bar">
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.blogspecial.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
-            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.blogspecial.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.bloglink.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.bloglink.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
         </script>
 
         <script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>
@@ -73,11 +70,11 @@
 
             // 相关常量
             const PRIMARY_KEY = "id";
-            const SELECT_API = "/app/admin/blog-special/select";
-            const UPDATE_API = "/app/admin/blog-special/update";
-            const DELETE_API = "/app/admin/blog-special/delete";
-            const INSERT_URL = "/app/admin/blog-special/insert";
-            const UPDATE_URL = "/app/admin/blog-special/update";
+            const SELECT_API = "/app/admin/blog-link/select";
+            const UPDATE_API = "/app/admin/blog-link/update";
+            const DELETE_API = "/app/admin/blog-link/delete";
+            const INSERT_URL = "/app/admin/blog-link/insert";
+            const UPDATE_URL = "/app/admin/blog-link/update";
             
             // 表格渲染
             layui.use(["table", "form", "common", "popup", "util"], function() {
@@ -95,30 +92,21 @@
 					},{
 						title: "主键",align: "center",
 						field: "id",
+						sort: true,
+					},{
+						title: "链接标题",align: "center",
+						field: "title",
+					},{
+						title: "链接网址",align: "center",
+						field: "url",
+					},{
+						title: "创建时间",align: "center",
+						field: "created_at",
 						hide: true,
-						sort: true,
 					},{
-						title: "名称",align: "center",
-						field: "name",
-					},{
-						title: "简介",align: "center",
-						field: "desc",
-					},{
-						title: "主图",align: "center",
-						field: "thumbnail",
-						templet: function (d) {
-							return '<img src="'+encodeURI(d['thumbnail'])+'" style="max-width:32px;max-height:32px;" alt="" />'
-						}
-					},{
-						title: "横幅",align: "center",
-						field: "banner",
-						templet: function (d) {
-							return '<img src="'+encodeURI(d['banner'])+'" style="max-width:32px;max-height:32px;" alt="" />'
-						}
-					},{
-						title: "排序",align: "center",
-						field: "sort",
-						sort: true,
+						title: "更新时间",align: "center",
+						field: "updated_at",
+						hide: true,
 					},{
 						title: "操作",
 						toolbar: "#table-bar",

@@ -1,5 +1,16 @@
 <?php
+
 use Bilulanlv\ThinkCache\facade\ThinkCache;
+
+function formatNum($num): string
+{
+    if ($num > 9999) {
+        $num = round($num / 10000, 1) . 'W';
+    } elseif ($num > 999) {
+        $num = round($num / 1000, 1) . 'K';
+    }
+    return strval($num);
+}
 
 /**
  * 生成账号密码

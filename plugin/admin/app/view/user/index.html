@@ -161,7 +161,9 @@
         <!-- 表格行工具栏 -->
         <script type="text/html" id="table-bar">
             <button class="pear-btn pear-btn-xs tool-btn" lay-event="edit" permission="app.admin.user.update"><i class="icon pear-icon pear-icon-edit"></i>编辑</button>
+            {{# if(d.show_toolbar){ }}
             <button class="pear-btn pear-btn-xs tool-btn" lay-event="remove" permission="app.admin.user.delete"><i class="icon pear-icon pear-icon-ashbin"></i>删除</button>
+            {{# } }}
         </script>
 
         <script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>

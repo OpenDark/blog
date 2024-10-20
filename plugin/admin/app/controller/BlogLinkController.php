@@ -2,22 +2,20 @@
 
 namespace plugin\admin\app\controller;
 
-use plugin\admin\app\controller\Base;
-use plugin\admin\app\controller\Crud;
-use plugin\admin\app\model\User;
-use support\exception\BusinessException;
 use support\Request;
 use support\Response;
-use Throwable;
+use plugin\admin\app\model\BlogLink;
+use plugin\admin\app\controller\Crud;
+use support\exception\BusinessException;
 
 /**
- * 用户管理 
+ * 友情链接 
  */
-class UserController extends Crud
+class BlogLinkController extends Crud
 {
     
     /**
-     * @var User
+     * @var BlogLink
      */
     protected $model = null;
 
@@ -27,53 +25,44 @@ class UserController extends Crud
      */
     public function __construct()
     {
-        $this->model = new User;
+        $this->model = new BlogLink;
     }
-
+    
     /**
      * 浏览
      * @return Response
-     * @throws Throwable
      */
     public function index(): Response
     {
-        return raw_view('user/index');
-    }
-
-    protected function afterQuery($items)
-    {
-        foreach ($items as $key => $item) {
-            $items[$key]['show_toolbar'] = $item['id'] !== 1;
-        }
-        return $items;
+        return view('blog-link/index');
     }
 
     /**
      * 插入
      * @param Request $request
      * @return Response
-     * @throws BusinessException|Throwable
+     * @throws BusinessException
      */
     public function insert(Request $request): Response
     {
         if ($request->method() === 'POST') {
             return parent::insert($request);
         }
-        return raw_view('user/insert');
+        return view('blog-link/insert');
     }
 
     /**
      * 更新
      * @param Request $request
      * @return Response
-     * @throws BusinessException|Throwable
-     */
+     * @throws BusinessException
+    */
     public function update(Request $request): Response
     {
         if ($request->method() === 'POST') {
             return parent::update($request);
         }
-        return raw_view('user/update');
+        return view('blog-link/update');
     }
 
 }

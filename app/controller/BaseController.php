@@ -2,10 +2,12 @@
 
 namespace app\controller;
 
-use app\model\User;
+use app\model\Category;
+use support\View;
 use think\facade\Db;
 use support\Request;
 use support\Response;
+use app\model\Option;
 use Tinywan\Validate\Validate;
 use support\exception\ApiException;
 use Tinywan\Validate\Exception\ValidateException;
@@ -86,15 +88,36 @@ class BaseController
             }
         }
 
-        // 管理信息
-        // $owner = User::findOrEmpty(1)->toArray();
+        // 系统配置
+        $config = cache('blog_config');
+        if (is_null($config)) {
+            $config = Option::where('name', 'system_config')->value('value');
+            $config = json_decode($config, true)['logo'];
+            cache('blog_config', $config, 86400);
+        }
+        View::assign(['blog_config' => $config]);
 
-        // 系统信息
+        // 菜单分类
+        $menu = cache('blog_menu');
+        if (is_null($menu)) {
+            $menu = [];
+            $category = Category::order('sort desc')->select()->toArray();
+            foreach ($category as $key => $val) {
+                $menu[$val['type']][] = [
+                    'id' => $val['id'],
+                    'name' => $val['name'],
+                    'desc' => $val['desc'],
+                    'banner' => $val['banner']
+                ];
+            }
+            cache('blog_menu', $menu, 86400);
+        }
+        View::assign(['blog_menu' => $menu]);
 
         // 用户信息
         $this->userInfo = $userInfo;
-//        $this->assign
-
+        View::assign(['blog_user' => $userInfo]);
+        View::assign(['imgcdn' => config('common.imgcdn')]);
     }
 
     /**

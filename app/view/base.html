@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <title>{$blog_config['title']}</title>
+    <link rel="stylesheet" href="__JS__/layui/css/layui.css">
+    <link rel="stylesheet" href="__CSS__/style.css">
+</head>
+<body class="body-boxed">
+<header class="header">
+    <div class="layui-container">
+        <div class="logo">
+            <img class="logo-img" src="__IMG__/logo.png" alt=""/>
+            <div class="logo-title">{$blog_config['title']}</div>
+        </div>
+        <div class="menu-block">
+            <div class="navbar-toggle" lay-on="menu-offset">
+                <span class="icon-bar icon-bar-1"></span>
+                <span class="icon-bar icon-bar-2"></span>
+                <span class="icon-bar icon-bar-3"></span>
+            </div>
+            <ul class="layui-nav layui-bg-gray menu-list">
+                <li class="layui-nav-item layui-this">
+                    <a href="/">首页</a>
+                </li>
+                {if !empty($blog_menu[1])}
+                <li class="layui-nav-item">
+                    <a href="javascript:;">工作</a>
+                    <dl class="layui-nav-child">
+                        {foreach $blog_menu[1] as $k => $vo }
+                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        {/foreach}
+                    </dl>
+                </li>
+                {/if}
+                {if !empty($blog_menu[2])}
+                <li class="layui-nav-item dropdown">
+                    <a href="javascript:;">学习</a>
+                    <dl class="layui-nav-child">
+                        {foreach $blog_menu[2] as $k => $vo }
+                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        {/foreach}
+                    </dl>
+                </li>
+                {/if}
+                {if !empty($blog_menu[3])}
+                <li class="layui-nav-item dropdown">
+                    <a href="javascript:;">生活</a>
+                    <dl class="layui-nav-child">
+                        {foreach $blog_menu[3] as $k => $vo }
+                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        {/foreach}
+                    </dl>
+                </li>
+                {/if}
+                <li class="layui-nav-item">
+                    <a href="/index/special">专题列表</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/tags">标签归档</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/guest">留言板</a>
+                </li>
+                <li class="layui-nav-item myself-message" lay-unselect>
+                    <a class="username" href="/index/user">OpenDark</a>
+                </li>
+                <li class="layui-nav-item myself-action" lay-unselect>
+                    <a href="javascript:;">
+                        <img src="/avatar/0.jpg" class="layui-nav-img">
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/index/user">个人中心</a></dd>
+                        <dd><a href="/index/account">账号设置</a></dd>
+                        <dd><a href="/index/draft">我要投稿</a></dd>
+                        <hr>
+                        <dd style="text-align: center;"><a href="/common/login">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="body">
+    {block name="body"}{/block}
+</div>
+<footer class="footer">
+    <div class="layui-container">
+        <div class="footer-col-wrap footer-with-logo-icon">
+            <div class="footer-col footer-col-copy">
+                <ul class="footer-nav hidden-xs">
+                    <li id="menu-item-157" class="menu-item menu-item-157"><a
+                        href="/index/special">专题列表</a></li>
+                    <li id="menu-item-129" class="menu-item menu-item-129"><a
+                        href="/index/tags">标签归档</a></li>
+                    <li id="menu-item-4252" class="menu-item menu-item-4252"><a
+                        href="/index/guest">留言板</a></li>
+                </ul>
+                <div class="copyright">
+                    <p>
+                        {$blog_config['copyright']}
+                        <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow noopener noreferrer">
+                            {$blog_config['icp']}
+                        </a> {$blog_config['powered']}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="navbar-collapse">
+    <div class="search-bar search-bar-wrap">
+        <div class="layui-input-wrap">
+            <input type="text" placeholder="输入关键词搜索..." class="layui-input">
+            <div class="layui-input-suffix">
+                <i class="layui-icon layui-icon-search"></i>
+            </div>
+        </div>
+    </div>
+    <ul class="layui-nav layui-bg-gray layui-nav-tree">
+        <li class="layui-nav-item layui-this">
+            <a href="/">首页</a>
+        </li>
+        {if !empty($blog_menu[1])}
+        <li class="layui-nav-item">
+            <a href="javascript:;">工作</a>
+            <dl class="layui-nav-child">
+                {foreach $blog_menu[1] as $k => $vo }
+                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                {/foreach}
+            </dl>
+        </li>
+        {/if}
+        {if !empty($blog_menu[2])}
+        <li class="layui-nav-item dropdown">
+            <a href="javascript:;">学习</a>
+            <dl class="layui-nav-child">
+                {foreach $blog_menu[2] as $k => $vo }
+                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                {/foreach}
+            </dl>
+        </li>
+        {/if}
+        {if !empty($blog_menu[3])}
+        <li class="layui-nav-item dropdown">
+            <a href="javascript:;">生活</a>
+            <dl class="layui-nav-child">
+                {foreach $blog_menu[3] as $k => $vo }
+                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                {/foreach}
+            </dl>
+        </li>
+        {/if}
+        <li class="layui-nav-item">
+            <a href="/index/special">专题列表</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/tags">标签归档</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/guest">留言板</a>
+        </li>
+        <li class="layui-nav-item">
+            <a class="username" href="/index/user">OpenDark</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img src="/avatar/0.jpg" class="layui-nav-img">
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="/index/user">个人中心</a></dd>
+                <dd><a href="/index/account">账号设置</a></dd>
+                <dd><a href="/index/draft">我要投稿</a></dd>
+                <hr>
+                <dd><a href="/common/login">退出登录</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<script src="__JS__/layui/layui.js"></script>
+<script>
+    layui.use(['layer', 'util'], function () {
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+
+        util.fixbar({
+            top: true,
+            css: {
+                right: 20,
+                bottom: 30,
+                borderRadius: '5px',
+                overflow: 'hidden',
+                height: '40px'
+            },
+            bgcolor: '#16b777',
+            click: function (type) {
+            }
+        });
+
+        util.on('lay-on', {
+            'menu-offset': function () {
+                layer.open({
+                    type: 1,
+                    title: '&nbsp;',
+                    skin: 'layer-direction-left',
+                    offset: 'l',
+                    anim: 'slideRight',
+                    area: ['300px', '100%'],
+                    shade: 0.5,
+                    shadeClose: true,
+                    move: false,
+                    id: 'layer-direction-left',
+                    content: $('#navbar-collapse')
+                });
+            }
+        });
+    });
+</script>
+{block name="script"}{/block}
+</body>
+</html>

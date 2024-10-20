@@ -15,11 +15,14 @@ use plugin\admin\app\model\Base;
  * @property string $thumbnail 主图
  * @property integer $read_num 阅读数量
  * @property integer $reply_num 回复数量
+ * @property integer $like_num 点赞数量
+ * @property integer $favorite_num 收藏数量
  * @property integer $is_top 是否置顶
  * @property integer $is_hide 是否隐藏
  * @property integer $is_draft 是否草稿
  * @property integer $is_check 是否审核
  * @property integer $is_recommend 是否推荐
+ * @property integer $is_carousel 是否轮播
  * @property integer $score 积分
  * @property string $created_at 创建时间
  * @property string $updated_at 更新时间

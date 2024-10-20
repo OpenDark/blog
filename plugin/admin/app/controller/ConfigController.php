@@ -79,8 +79,8 @@ class ConfigController extends Base
                     $data[$section]['title'] = htmlspecialchars($items['title'] ?? '');
                     $data[$section]['image'] = Util::filterUrlPath($items['image'] ?? '');
                     $data[$section]['icp'] = htmlspecialchars($items['icp'] ?? '');
-                    $data[$section]['beian'] = htmlspecialchars($items['beian'] ?? '');
-                    $data[$section]['footer_txt'] = htmlspecialchars($items['footer_txt'] ?? '');
+                    $data[$section]['copyright'] = htmlspecialchars($items['copyright'] ?? '');
+                    $data[$section]['powered'] = htmlspecialchars($items['powered'] ?? '');
                     break;
                 case 'menu':
                     $data[$section]['data'] = Util::filterUrlPath($items['data'] ?? '');
@@ -128,6 +128,7 @@ class ConfigController extends Base
         Option::where('name', $name)->update([
             'value' => json_encode($config)
         ]);
+        cache($name, null);
         return $this->json(0);
     }
 

@@ -8,6 +8,7 @@ use plugin\admin\app\model\Base;
  * @property integer $id 主键(主键)
  * @property string $name 名称
  * @property string $desc 简介
+ * @property string $thumbnail 主图
  * @property string $banner 横幅
  * @property integer $sort 排序
  */

@@ -13,11 +13,12 @@ use support\exception\BusinessException;
  */
 class BlogArticleController extends Crud
 {
-    
     /**
      * @var BlogArticle
      */
     protected $model = null;
+
+    protected $nullToInt = ['special_id'];
 
     /**
      * 构造函数
@@ -27,7 +28,7 @@ class BlogArticleController extends Crud
     {
         $this->model = new BlogArticle;
     }
-    
+
     /**
      * 浏览
      * @return Response
