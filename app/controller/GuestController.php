@@ -46,7 +46,12 @@ class GuestController extends BaseController
             }
         }
 
-        return view('guest/index', ['guest' => $guest, 'names' => $names]);
+        return view('guest/index', [
+            'title' => '留言板',
+            'active' => 'guest',
+            'guest' => $guest,
+            'names' => $names
+        ]);
     }
 
 }

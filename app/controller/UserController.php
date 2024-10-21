@@ -9,7 +9,6 @@ class UserController extends BaseController
     /* 博客用户 */
     public function getUser(int $id): Response
     {
-        $id = $id ?: 1;
         $group = ['管理团队', '普通用户', '认证作者'];
         $data['user'] = $this->getUserInfo($id);
         empty($data['user']) && $data['user']['role'] = 1;
@@ -18,39 +17,28 @@ class UserController extends BaseController
         return json(['code' => 200, 'msg' => 'success', 'data' => $data]);
     }
 
-    /**
-     * 不需要登录的方法
-     */
-    protected $noNeedLogin = ['login'];
-
-    /* 投稿 */
-    public function draft(): Response
-    {
-        return view('index/draft');
-    }
-
     /* 用户 */
-    public function user(): Response
+    public function index(int $id): Response
     {
-        return view('index/user');
+        return view('user/index');
     }
 
     /* 关注 */
     public function follow(): Response
     {
-        return view('index/follow');
+        return view('user/follow');
     }
 
     /* 评论 */
     public function comment(): Response
     {
-        return view('index/comment');
+        return view('user/comment');
     }
 
     /* 收藏 */
     public function favorite(): Response
     {
-        return view('index/favorite');
+        return view('user/favorite');
     }
 
 }

@@ -128,7 +128,7 @@ class ConfigController extends Base
         Option::where('name', $name)->update([
             'value' => json_encode($config)
         ]);
-        cache($name, null);
+        cache('blog_config', null);
         return $this->json(0);
     }
 

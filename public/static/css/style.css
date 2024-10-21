@@ -554,6 +554,10 @@ body {
     font-size: 20px;
 }
 @media screen and (min-width: 992px) {
+    .myself-login {
+        position: absolute !important;
+        right: 60px;
+    }
     .myself-message {
         position: absolute !important;
         right: 80px;

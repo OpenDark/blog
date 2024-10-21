@@ -7,7 +7,6 @@ use app\model\Article;
 use app\model\Link;
 use app\model\Special;
 use support\Response;
-use support\View;
 
 class IndexController extends BaseController
 {
@@ -28,12 +27,12 @@ class IndexController extends BaseController
         // 友链
         $link = Link::field('id,title,url')->select()->toArray();
 
-        View::assign([
+        return view('index/index', [
+            'active' => 'index',
             'special'=> $special,
             'carousel' => $carousel,
             'link'=> $link,
         ]);
-        return view('index/index');
     }
 
     /* 文章列表 */

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico"/>
-    <title>{$blog_config['title']}</title>
+    <title>{notempty name="title"}{$title} - {/notempty}{$blog_config['title']}</title>
     <link rel="stylesheet" href="__JS__/layui/css/layui.css">
     <link rel="stylesheet" href="__CSS__/style.css">
     <script src="__JS__/layui/layui.js"></script>
@@ -24,15 +24,17 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
-                <li class="layui-nav-item layui-this">
+                <li class="layui-nav-item {if $active == 'index'}layui-this{/if}">
                     <a href="/">首页</a>
                 </li>
                 {if !empty($blog_menu[1])}
-                <li class="layui-nav-item">
+                <li class="layui-nav-item dropdown">
                     <a href="javascript:;">工作</a>
                     <dl class="layui-nav-child">
                         {foreach $blog_menu[1] as $k => $vo }
-                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                            <a href="/category/{$vo.id}">{$vo.name}</a>
+                        </dd>
                         {/foreach}
                     </dl>
                 </li>
@@ -42,7 +44,9 @@
                     <a href="javascript:;">学习</a>
                     <dl class="layui-nav-child">
                         {foreach $blog_menu[2] as $k => $vo }
-                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                            <a href="/category/{$vo.id}">{$vo.name}</a>
+                        </dd>
                         {/foreach}
                     </dl>
                 </li>
@@ -52,35 +56,46 @@
                     <a href="javascript:;">生活</a>
                     <dl class="layui-nav-child">
                         {foreach $blog_menu[3] as $k => $vo }
-                        <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                        <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                            <a href="/category/{$vo.id}">{$vo.name}</a>
+                        </dd>
                         {/foreach}
                     </dl>
                 </li>
                 {/if}
-                <li class="layui-nav-item">
-                    <a href="/index/special">专题列表</a>
+                <li class="layui-nav-item {if $active == 'special'}layui-this{/if}">
+                    <a href="/special">专题列表</a>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="/index/tags">标签归档</a>
+                <li class="layui-nav-item {if $active == 'tags'}layui-this{/if}">
+                    <a href="/tags">标签归档</a>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item {if $active == 'guest'}layui-this{/if}">
                     <a href="/guest">留言板</a>
                 </li>
+                {if empty($blog_user)}
+                <li class="layui-nav-item myself-login" lay-unselect>
+                    <a href="/common/login">登录</a>
+                </li>
+                <li class="layui-nav-item myself-action" lay-unselect>
+                    <a href="/common/register">注册</a>
+                </li>
+                {else /}
                 <li class="layui-nav-item myself-message" lay-unselect>
-                    <a class="username" href="/index/user">OpenDark</a>
+                    <a class="username" href="/user/{$blog_user['id']}">{$blog_user['nickname']}</a>
                 </li>
                 <li class="layui-nav-item myself-action" lay-unselect>
                     <a href="javascript:;">
-                        <img src="/avatar/0.jpg" class="layui-nav-img">
+                        <img src="{$blog_user['avatar']}" class="layui-nav-img">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/index/user">个人中心</a></dd>
+                        <dd><a href="/user/{$blog_user['id']}">个人中心</a></dd>
                         <dd><a href="/index/account">账号设置</a></dd>
-                        <dd><a href="/index/draft">我要投稿</a></dd>
+                        <dd><a href="/draft">我要投稿</a></dd>
                         <hr>
-                        <dd style="text-align: center;"><a href="/common/logout">退出登录</a></dd>
+                        <dd><a href="/common/logout">退出登录</a></dd>
                     </dl>
                 </li>
+                {/if}
             </ul>
         </div>
     </div>
@@ -122,15 +137,17 @@
         </div>
     </div>
     <ul class="layui-nav layui-bg-gray layui-nav-tree">
-        <li class="layui-nav-item layui-this">
+        <li class="layui-nav-item  {if $active == 'index'}layui-this{/if}">
             <a href="/">首页</a>
         </li>
         {if !empty($blog_menu[1])}
-        <li class="layui-nav-item">
+        <li class="layui-nav-item dropdown">
             <a href="javascript:;">工作</a>
             <dl class="layui-nav-child">
                 {foreach $blog_menu[1] as $k => $vo }
-                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                    <a href="/category/{$vo.id}">{$vo.name}</a>
+                </dd>
                 {/foreach}
             </dl>
         </li>
@@ -140,7 +157,9 @@
             <a href="javascript:;">学习</a>
             <dl class="layui-nav-child">
                 {foreach $blog_menu[2] as $k => $vo }
-                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                    <a href="/category/{$vo.id}">{$vo.name}</a>
+                </dd>
                 {/foreach}
             </dl>
         </li>
@@ -150,35 +169,44 @@
             <a href="javascript:;">生活</a>
             <dl class="layui-nav-child">
                 {foreach $blog_menu[3] as $k => $vo }
-                <dd><a href="/category/{$vo.id}">{$vo.name}</a></dd>
+                <dd class="{if $active == 'category' . $vo['id']}layui-this{/if}">
+                    <a href="/category/{$vo.id}">{$vo.name}</a>
+                </dd>
                 {/foreach}
             </dl>
         </li>
         {/if}
-        <li class="layui-nav-item">
-            <a href="/index/special">专题列表</a>
+        <li class="layui-nav-item {if $active == 'special'}layui-this{/if}">
+            <a href="/special">专题列表</a>
         </li>
-        <li class="layui-nav-item">
-            <a href="/index/tags">标签归档</a>
+        <li class="layui-nav-item {if $active == 'tags'}layui-this{/if}">
+            <a href="/tags">标签归档</a>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item {if $active == 'guest'}layui-this{/if}">
             <a href="/guest">留言板</a>
         </li>
+        {if empty($blog_user)}
         <li class="layui-nav-item">
-            <a class="username" href="/index/user">OpenDark</a>
+            <a href="/common/login">登录</a>
+            <a href="/common/register">注册</a>
+        </li>
+        {else /}
+        <li class="layui-nav-item">
+            <a class="username" href="/user/{$blog_user['id']}">{$blog_user['nickname']}</a>
         </li>
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <img src="/avatar/0.jpg" class="layui-nav-img">
+                <img src="{$blog_user['avatar']}" class="layui-nav-img">
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="/index/user">个人中心</a></dd>
+                <dd><a href="/user/{$blog_user['id']}">个人中心</a></dd>
                 <dd><a href="/index/account">账号设置</a></dd>
-                <dd><a href="/index/draft">我要投稿</a></dd>
+                <dd><a href="/draft">我要投稿</a></dd>
                 <hr>
                 <dd><a href="/common/logout">退出登录</a></dd>
             </dl>
         </li>
+        {/if}
     </ul>
 </div>
 <script>

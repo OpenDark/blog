@@ -22,8 +22,10 @@ class CategoryController extends BaseController
         $category = Category::findOrEmpty($id);
         $category->isEmpty() && $this->failure('分类不存在');
         return view('category/index', [
-            'id' => $id,
+            'title' => $category['name'],
+            'active' => 'category' . $id,
             'category' => $category,
+            'id' => $id,
         ]);
     }
 

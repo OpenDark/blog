@@ -130,6 +130,7 @@ class BaseController
         $this->userInfo = $userInfo;
         View::assign(['blog_user' => $userInfo]);
         View::assign(['imgcdn' => config('common.imgcdn')]);
+        View::assign(['active' => 'none']);
     }
 
     /**

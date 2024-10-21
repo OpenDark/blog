@@ -294,8 +294,9 @@ class CommonController extends BaseController
      */
     public function logout(): Response
     {
+        $url = $this->request->get('url', '/');
         $this->request->session()->delete('userInfo');
-        return redirect('/');
+        return redirect($url);
     }
 
     /**
