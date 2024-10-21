@@ -82,7 +82,8 @@
             {/if}
             <div class="main-list">
                 <div class="tab-wrap">
-                    <ul class="post-loop" id="flow-manual"></ul>
+                    <ul class="post-loop" id="flow-manual">
+                    </ul>
                     <div class="load-more-wrap"></div>
                 </div>
             </div>
@@ -107,9 +108,28 @@
         </div>
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
             <div class="sidebar">
-                {include file="widget/search" /}
-                {include file="widget/profile" /}
-                {include file="widget/recommend" /}
+                <div class="widget widget_search">
+                    <div class="search-bar">
+                        <div class="layui-input-wrap">
+                            <input type="text" placeholder="输入关键词搜索..." class="layui-input">
+                            <div class="layui-input-suffix">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget widget_profile">
+                    <div class="profile-cover"></div>
+                    <div class="avatar-wrap"></div>
+                    <div class="profile-info"></div>
+                    <div class="profile-posts"></div>
+                </div>
+                <div class="widget widget_post_hot">
+                    <h3 class="widget-title">
+                        <span>热门推荐</span>
+                    </h3>
+                    <ul id="article-recommend"></ul>
+                </div>
             </div>
         </div>
     </div>
@@ -118,18 +138,22 @@
 
 {block name="script"}
 <script>
-    layui.use(['layer', 'util', 'carousel'], function () {
-        var layer = layui.layer;
-        var util = layui.util;
-        var $ = layui.$;
-        var page = 1;
-
+    layui.use(['carousel'], function () {
         layui.carousel.render({
             elem: '#carousel-image-slider',
             width: '100%',
             height: '100%',
             interval: 3000
         });
+    });
+</script>
+
+<script>
+    layui.use(['layer', 'util'], function () {
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+        var page = 1;
 
         util.on('lay-on', {
             'load-more': function () {
@@ -227,6 +251,131 @@
         }
 
         getArticle();
+    });
+</script>
+
+<script>
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.$;
+
+        function getRecommend() {
+            $.ajax({
+                url: '/widget/getRecommend',
+                type: 'post',
+                data: {},
+                success: function (res) {
+                    let html = '';
+                    res.data.forEach(function (item, idx) {
+                        html += `
+                            <li class="item scale-image">
+                            <div class="item-img">
+                                <a class="item-img-inner" href="/post/${item.id}">
+                                    <img width="480" height="300"
+                                         src="${item.thumbnail}"
+                                         class="attachment-default size-default wp-post-image j-lazy"
+                                         alt="${item.title}" decoding="async" img-loaded="true">
+                                </a>
+                            </div>`;
+                        if (idx === 0) {
+                            html += `
+                                <div class="item-content">
+                                    <div class="item-hot">
+                                        <i class="layui-icon layui-icon-fire wi"></i>${item.read_num}
+                                    </div>
+                                    <p class="item-title">
+                                        <a href="/post/${item.id}">
+                                            ${item.title}
+                                        </a>
+                                    </p>
+                                </div></li>`;
+                        } else {
+                            html += `
+                                <div class="item-content">
+                                    <p class="item-title">
+                                        <a href="/post/${item.id}">
+                                            ${item.title}
+                                        </a>
+                                    </p>
+                                    <div class="item-hot">
+                                        <i class="layui-icon layui-icon-fire wi"></i>${item.read_num}
+                                    </div>
+                                </div></li>`;
+                        }
+                    });
+                    $('#article-recommend').append(html);
+                }
+            });
+        }
+
+        getRecommend();
+    });
+</script>
+
+<script>
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.$;
+
+        function getRecommend() {
+            $.ajax({
+                url: '/widget/getManager',
+                type: 'post',
+                data: {},
+                success: function (res) {
+                    let user = res.data.user;
+                    $('.profile-cover').html(`
+                        <img class="j-lazy" alt="${user.nickname}" img-loaded="true" src="${user.banner}">
+                    `);
+                    $('.avatar-wrap').html(`
+                        <a target="_blank" href="/user/${user.id}" class="avatar-link">
+                            <img alt="${user.nickname}的头像" src="${user.avatar}"
+                            class="avatar avatar-120 photo" height="120" width="120">
+                        </a>
+                    `);
+                    $('.profile-info').html(`
+                        <a target="_blank" href="/user/${user.id}" class="profile-name">
+                            <span class="author-name">${user.nickname}</span>
+                            <span class="user-group">${user.group}</span>
+                        </a>
+                        <p class="author-description">${user.desc}</p>
+                        <div class="profile-stats">
+                            <div class="profile-stats-inner">
+                                <div class="user-stats-item">
+                                    <b>${user.article_num}</b>
+                                    <span>文章</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.comment_num}</b>
+                                    <span>评论</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.fans_num}</b>
+                                    <span>粉丝</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                            <i class="layui-icon layui-icon-addition"></i>关注
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                            <i class="layui-icon layui-icon-email"></i>私信
+                        </button>
+                    `);
+
+                    let html = '<h3 className="widget-title"><span>最近文章</span></h3><ul>';
+                    res.data.article.forEach(function (item) {
+                        html += `
+                            <li>
+                                <a href="/post/${item.id}">${item.title}</a>
+                            </li>`;
+                    });
+                    $('.profile-posts').html(html + '</ul>');
+                }
+            });
+        }
+
+        getRecommend();
     });
 </script>
 {/block}

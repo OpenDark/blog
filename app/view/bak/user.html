@@ -32,7 +32,7 @@
                 <li class="layui-nav-item dropdown">
                     <a href="/index/category">学习</a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this"><a href="">产品经理</a></dd>
+                        <dd><a href="">产品经理</a></dd>
                         <dd><a href="">前端设计</a></dd>
                         <dd><a href="">后端开发</a></dd>
                     </dl>
@@ -52,7 +52,7 @@
                     <a href="/index/tags">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/index/guest">留言板</a>
+                    <a href="/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="/index/user">OpenDark</a>
@@ -62,7 +62,7 @@
                         <img src="/avatar/0.jpg" class="layui-nav-img">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/index/user">个人中心</a></dd>
+                        <dd class="layui-this"><a href="/index/user">个人中心</a></dd>
                         <dd><a href="/index/account">账号设置</a></dd>
                         <dd><a href="/index/draft">我要投稿</a></dd>
                         <hr>
@@ -74,109 +74,90 @@
     </div>
 </header>
 <div class="body">
-    <div class="banner category-banner"
-         style="background-image: url('https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/05/ux.png');">
-        <div class="banner-inner">
-            <h1>产品经理</h1>
-            <div class="page-description">
-                <p>产品经理负责调查并根据用户的需求，确定开发何种产品，选择何种技术、商业模式等。</p>
-            </div>
-        </div>
-    </div>
     <div class="layui-container">
-        <div class="breadcrumb">
-            <span class="layui-breadcrumb" lay-separator=">">
-                <a href="">首页</a>
-                <a><cite>产品经理</cite></a>
-            </span>
-        </div>
         <div class="layui-row layui-col-space20">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
+                <div class="profile-head">
+                    <div class="ph-bg">
+                        <noscript>
+                            <img decoding="async"
+                                 src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
+                                 alt="OpenDark">
+                        </noscript>
+                        <img decoding="async" class="j-lazy"
+                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
+                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
+                             alt="OpenDark" img-loaded="true">
+                    </div>
+                    <div class="ph-inner">
+                        <div class="ph-user">
+                            <div class="ph-avatar">
+                                <noscript>
+                                    <img alt='OpenDark的头像'
+                                         src='/avatar/0.jpg'
+                                         class='avatar avatar-200 photo' height='200' width='200'/>
+                                </noscript>
+                                <img alt="OpenDark的头像"
+                                     src="/avatar/0.jpg"
+                                     data-original="/avatar/0.jpg"
+                                     class="avatar avatar-200 photo j-lazy" height="200" width="200" img-loaded="true">
+                                <span class="edit-avatar" data-user="33466">
+                                    <i class="layui-icon layui-icon-camera"></i>
+                                </span></div>
+                            <h2 class="ph-name">OpenDark<span class="user-group">管理团队</span></h2>
+                            <div class="ph-desc">Enjoy coding, enjoy life!</div>
+                            <div class="profile-stats">
+                                <div class="profile-stats-inner">
+                                    <div class="user-stats-item">
+                                        <b>26</b>
+                                        <span>文章</span>
+                                    </div>
+                                    <div class="user-stats-item">
+                                        <b>4</b>
+                                        <span>评论</span>
+                                    </div>
+                                    <div class="user-stats-item">
+                                        <b>198</b>
+                                        <span>粉丝</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                                <i class="layui-icon layui-icon-addition"></i>关注
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                                <i class="layui-icon layui-icon-email"></i>私信
+                            </button>
+                        </div>
+                        <div class="profile-action">
+                            <span class="profile-setcover edit-cover" data-user="33466">
+                                <i class="layui-icon layui-icon-camera wi"></i>
+                                修改封面
+                            </span>
+                            <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce" value="05001f7b99">
+                        </div>
+                    </div>
+                </div>
+                <ul class="profile-nav">
+                    <li class="active"><a href="/index/user">文章</a></li>
+                    <li><a href="/index/comment">评论</a></li>
+                    <li><a href="/index/follow">关注</a></li>
+                    <li><a href="/index/favorite">收藏</a></li>
+                </ul>
+<!--                <div class="profile-main profile-posts">-->
+<!--                    <div class="profile-no-content">-->
+<!--                        <noscript>-->
+<!--                            <img alt='94941的头像'-->
+<!--                                 src='//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/9307625301719310.1728070241.jpg'-->
+<!--                                 class='avatar avatar-200 photo' height='200' width='200'/>-->
+<!--                        </noscript>-->
+<!--                        <img decoding="async" class="empty-icon j-lazy"-->
+<!--                             src="__IMG__/empty/empty-post.svg">你还没有发布任何文章。-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="main-list">
                     <div class="tab-wrap">
                         <ul class="post-loop" id="flow-manual">
-                            <li class="item">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/223.html" title="第一次负责从0到1的产品时要注意哪几点？" target="_blank" rel="bookmark">
-                                        <img width="480" height="300" src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/neven-krcmarek-V4EOZj7g1gw-unsplash-480x300.jpg?imageMogr2/format/webp" class="attachment-default size-default wp-post-image j-lazy" alt="第一次负责从0到1的产品时要注意哪几点？" decoding="async" fetchpriority="high" data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/neven-krcmarek-V4EOZj7g1gw-unsplash-480x300.jpg" img-loaded="true" top-news-change="true">        </a>
-                                    <a class="item-category" href="https://demo.wpcom.cn/justnews/category/%e4%ba%a7%e5%93%81%e8%ae%be%e8%ae%a1" target="_blank">产品设计</a>
-                                </div>
-                                <div class="item-content">
-                                    <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/223.html" target="_blank" rel="bookmark">
-                                            第一次负责从0到1的产品时要注意哪几点？            </a>
-                                    </h3>
-                                    <div class="item-excerpt">
-                                        <p>第一次负责从0到1的产品肯定是万分的紧张、激动，在这时千万不可大意，我根据我的经验写了些需要注意的地方。</p>
-                                    </div>
-                                    <div class="item-meta">
-                                        <div class="item-meta-li author">
-                                            <a data-user="1" target="_blank" href="https://demo.wpcom.cn/justnews/user/1" class="avatar j-user-card">
-                                                <img alt="Lomu的头像" src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/238a0b923820dcc5.1675417925.jpg" class="avatar avatar-60 photo" height="60" width="60">                    <span>Lomu</span>
-                                            </a>
-                                        </div>
-                                        <span class="item-meta-li date">2023年4月25日</span>
-                                        <div class="item-meta-right">
-                                            <span class="item-meta-li views" title="阅读数">
-                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
-                                            </span>
-                                            <a
-                                                class="item-meta-li comments"
-                                                href="/index/post#comments" target="_blank"
-                                                title="评论数">
-                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
-                                            </a>
-                                            <span class="item-meta-li stars" title="收藏数">
-                                                <i class="layui-icon layui-icon-star wi"></i>2
-                                            </span>
-                                            <span class="item-meta-li likes" title="点赞数">
-                                                <i class="layui-icon layui-icon-praise wi"></i>22
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/227.html" title="产品设计时，如何提炼用户的痛点" target="_blank" rel="bookmark">
-                                        <img width="480" height="300" src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/john-schnobrich-FlPc9_VocJ4-unsplash-2-480x300.jpg?imageMogr2/format/webp" class="attachment-default size-default wp-post-image j-lazy" alt="产品设计时，如何提炼用户的痛点" decoding="async" data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/john-schnobrich-FlPc9_VocJ4-unsplash-2-480x300.jpg" img-loaded="true">        </a>
-                                    <a class="item-category" href="https://demo.wpcom.cn/justnews/category/%e4%ba%a7%e5%93%81%e8%ae%be%e8%ae%a1" target="_blank">产品设计</a>
-                                </div>
-                                <div class="item-content">
-                                    <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/227.html" target="_blank" rel="bookmark">
-                                            产品设计时，如何提炼用户的痛点            </a>
-                                    </h3>
-                                    <div class="item-excerpt">
-                                        <p>在我们做产品、做运营、做活动或者是做品牌营销、口碑建设的时候，耳旁常常会听到用户的痛点这样的字眼，那么痛点究竟是什么意思，我们究竟该如何理解。</p>
-                                    </div>
-                                    <div class="item-meta">
-                                        <div class="item-meta-li author">
-                                            <a data-user="1" target="_blank" href="https://demo.wpcom.cn/justnews/user/1" class="avatar j-user-card">
-                                                <img alt="Lomu的头像" src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/238a0b923820dcc5.1675417925.jpg" class="avatar avatar-60 photo" height="60" width="60">                    <span>Lomu</span>
-                                            </a>
-                                        </div>
-                                        <span class="item-meta-li date">2023年4月21日</span>
-                                        <div class="item-meta-right">
-                                            <span class="item-meta-li views" title="阅读数">
-                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
-                                            </span>
-                                            <a
-                                                class="item-meta-li comments"
-                                                href="/index/post#comments" target="_blank"
-                                                title="评论数">
-                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
-                                            </a>
-                                            <span class="item-meta-li stars" title="收藏数">
-                                                <i class="layui-icon layui-icon-star wi"></i>2
-                                            </span>
-                                            <span class="item-meta-li likes" title="点赞数">
-                                                <i class="layui-icon layui-icon-praise wi"></i>22
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="item">
                                 <div class="item-img item-video">
                                     <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/1471.html"
@@ -212,6 +193,61 @@
                                             </a>
                                         </div>
                                         <span class="item-meta-li date">2024年12月24日</span>
+                                        <div class="item-meta-right">
+                                            <span class="item-meta-li views" title="阅读数">
+                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
+                                            </span>
+                                            <a
+                                                class="item-meta-li comments"
+                                                href="/index/post#comments" target="_blank"
+                                                title="评论数">
+                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
+                                            </a>
+                                            <span class="item-meta-li stars" title="收藏数">
+                                                <i class="layui-icon layui-icon-star wi"></i>2
+                                            </span>
+                                            <span class="item-meta-li likes" title="点赞数">
+                                                <i class="layui-icon layui-icon-praise wi"></i>22
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="item-img">
+                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/376.html"
+                                       title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" target="_blank" rel="bookmark">
+                                        <img width="480" height="300"
+                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg?imageMogr2/format/webp"
+                                             class="attachment-default size-default wp-post-image j-lazy"
+                                             alt="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" decoding="async"
+                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg"
+                                             img-loaded="true"> </a>
+                                    <a class="item-category"
+                                       href="https://demo.wpcom.cn/justnews/category/%e8%a1%8c%e4%b8%9a%e5%8a%a8%e6%80%81"
+                                       target="_blank">行业动态</a>
+                                </div>
+                                <div class="item-content">
+                                    <h3 class="item-title">
+                                        <a href="https://demo.wpcom.cn/justnews/376.html" target="_blank"
+                                           rel="bookmark">
+                                            京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份 </a>
+                                    </h3>
+                                    <div class="item-excerpt">
+                                        <p>京东目前正在研发6种不同的送货无人机，电池的续航能力依然是困扰发展的重要因素</p>
+                                    </div>
+                                    <div class="item-meta">
+                                        <div class="item-meta-li author">
+                                            <a data-user="1" target="_blank"
+                                               href="https://demo.wpcom.cn/justnews/user/1"
+                                               class="avatar j-user-card">
+                                                <img alt="OpenDark的头像"
+                                                     src="/avatar/0.jpg"
+                                                     class="avatar avatar-60 photo" height="60" width="60">
+                                                <span>OpenDark</span>
+                                            </a>
+                                        </div>
+                                        <span class="item-meta-li date">2023年6月9日</span>
                                         <div class="item-meta-right">
                                             <span class="item-meta-li views" title="阅读数">
                                                 <i class="layui-icon layui-icon-eye wi"></i>1.1K
@@ -592,61 +628,6 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="item">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/376.html"
-                                       title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" target="_blank" rel="bookmark">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                    <a class="item-category"
-                                       href="https://demo.wpcom.cn/justnews/category/%e8%a1%8c%e4%b8%9a%e5%8a%a8%e6%80%81"
-                                       target="_blank">行业动态</a>
-                                </div>
-                                <div class="item-content">
-                                    <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/376.html" target="_blank"
-                                           rel="bookmark">
-                                            京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份 </a>
-                                    </h3>
-                                    <div class="item-excerpt">
-                                        <p>京东目前正在研发6种不同的送货无人机，电池的续航能力依然是困扰发展的重要因素</p>
-                                    </div>
-                                    <div class="item-meta">
-                                        <div class="item-meta-li author">
-                                            <a data-user="1" target="_blank"
-                                               href="https://demo.wpcom.cn/justnews/user/1"
-                                               class="avatar j-user-card">
-                                                <img alt="OpenDark的头像"
-                                                     src="/avatar/0.jpg"
-                                                     class="avatar avatar-60 photo" height="60" width="60">
-                                                <span>OpenDark</span>
-                                            </a>
-                                        </div>
-                                        <span class="item-meta-li date">2023年6月9日</span>
-                                        <div class="item-meta-right">
-                                            <span class="item-meta-li views" title="阅读数">
-                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
-                                            </span>
-                                            <a
-                                                class="item-meta-li comments"
-                                                href="/index/post#comments" target="_blank"
-                                                title="评论数">
-                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
-                                            </a>
-                                            <span class="item-meta-li stars" title="收藏数">
-                                                <i class="layui-icon layui-icon-star wi"></i>2
-                                            </span>
-                                            <span class="item-meta-li likes" title="点赞数">
-                                                <i class="layui-icon layui-icon-praise wi"></i>22
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                         <div class="load-more-wrap">
                             <div class="layui-btn layui-btn-primary layui-border-green green-button">
@@ -660,14 +641,14 @@
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
                 <div class="sidebar">
-<!--                    <div class="widget widget_image_myimg">-->
-<!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
-<!--                            <img class="j-lazy"-->
-<!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
-<!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
-<!--                                 alt="WPCOM主题" img-loaded="true">-->
-<!--                        </a>-->
-<!--                    </div>-->
+                    <!--                    <div class="widget widget_image_myimg">-->
+                    <!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
+                    <!--                            <img class="j-lazy"-->
+                    <!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
+                    <!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
+                    <!--                                 alt="WPCOM主题" img-loaded="true">-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
                     <div class="widget widget_search">
                         <div class="search-bar">
                             <div class="layui-input-wrap">
@@ -913,7 +894,7 @@
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
                         href="/index/tags">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="/index/guest">留言板</a></li>
+                        href="/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -967,7 +948,7 @@
             <a href="/index/tags">标签归档</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/index/guest">留言板</a>
+            <a href="/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="/index/user">OpenDark</a>

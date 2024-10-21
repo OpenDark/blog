@@ -18,7 +18,7 @@ class CommonController extends BaseController
     {
         // 已登录则重定向首页
         $url = $this->request->get('url', '/');
-        if (!empty($this->request->userInfo)) {
+        if (!empty($this->userInfo)) {
             return redirect($url);
         }
         return view('common/login');
@@ -292,10 +292,10 @@ class CommonController extends BaseController
     /**
      * 退出
      */
-    public function logout(): void
+    public function logout(): Response
     {
         $this->request->session()->delete('userInfo');
-        $this->success();
+        return redirect('/');
     }
 
     /**

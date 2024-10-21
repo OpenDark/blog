@@ -2,8 +2,11 @@
 
 namespace app\controller;
 
+use app\model\Article;
 use app\model\Category;
+use app\model\User;
 use support\View;
+use think\db\Query;
 use think\facade\Db;
 use support\Request;
 use support\Response;
@@ -43,6 +46,15 @@ class BaseController
      * 用户信息
      */
     protected array $userInfo = [];
+
+    /**
+     * 文章显示条件
+     */
+    protected array $active = [
+        'is_check' => 1,
+        'is_hide' => 0,
+        'is_draft' => 0,
+    ];
 
     /**
      * 当前域名
@@ -267,6 +279,48 @@ class BaseController
             ]);
         }
         return json(['code' => 1, 'msg' => 'File Not Found']);
+    }
+
+    protected function getArticleLatest($id = 1): array
+    {
+        $this->active['user_id'] = $id;
+        return Article::field('id,title')
+            ->where($this->active)->order('id desc')
+            ->limit(5)->select()->toArray();
+    }
+
+    protected function getUserInfo($id = 1): array
+    {
+        $field = 'id,nickname,avatar,banner,email,level,desc,article_num,comment_num,fans_num,role';
+        return User::field($field)->findOrEmpty($id)->toArray();
+    }
+
+    /* 文章列表 */
+    protected function getArticleList($where, $order = 'id desc'): array
+    {
+        $page = intval($this->request->input('page', 1));
+        $field = 'id,user_id,category_id,title,summary,thumbnail,';
+        $field .= 'read_num,reply_num,like_num,favorite_num,is_top,created_at';
+        $data = Article::field($field)->where($this->active)->where($where)->with([
+            'user' => function (Query $query) {
+                $query->field('id,nickname,avatar');
+            },
+            'category' => function (Query $query) {
+                $query->field('id,name');
+            }
+        ])->order($order)->paginate([
+            'page' => $page,
+            'list_rows' => 10,
+            'var_page' => 'page',
+        ])->toArray();
+        foreach ($data['data'] as $k => $v) {
+            $data['data'][$k]['read_num'] = formatNum($v['read_num']);
+            $data['data'][$k]['reply_num'] = formatNum($v['reply_num']);
+            $data['data'][$k]['like_num'] = formatNum($v['like_num']);
+            $data['data'][$k]['favorite_num'] = formatNum($v['favorite_num']);
+            $data['data'][$k]['created_at'] = date('Y年m月d日', strtotime($v['created_at']));
+        }
+        return $data;
     }
 
 }

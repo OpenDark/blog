@@ -23,7 +23,7 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
-                <li class="layui-nav-item layui-this">
+                <li class="layui-nav-item">
                     <a href="/">首页</a>
                 </li>
                 <li class="layui-nav-item">
@@ -52,7 +52,7 @@
                     <a href="/index/tags">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/index/guest">留言板</a>
+                    <a href="/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="/index/user">OpenDark</a>
@@ -75,113 +75,29 @@
 </header>
 <div class="body">
     <div class="layui-container">
+        <div class="breadcrumb">
+            <span class="layui-breadcrumb" lay-separator=">">
+                <a href="">首页</a>
+                <a><cite>搜索：创业</cite></a>
+            </span>
+        </div>
         <div class="layui-row layui-col-space20">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-                <div class="layui-row layui-col-space14">
-                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg9">
-                        <div class="main-slider">
-                            <div class="layui-carousel my-slider scale-image" id="carousel-image-slider">
-                                <div carousel-item>
-                                    <div>
-                                        <img
-                                            src="/upload/20241007/20200821.jpg"
-                                            alt="">
-                                        <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                    </div>
-                                    <div>
-                                        <img
-                                            src="/upload/20241007/20200813.jpg"
-                                            alt="">
-                                        <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                    </div>
-                                    <div>
-                                        <img
-                                            src="/upload/20241007/20200817.jpg"
-                                            alt="">
-                                        <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                    </div>
-                                    <div>
-                                        <img
-                                            src="/upload/20241007/20200822.jpg"
-                                            alt="">
-                                        <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
-                        <a href="/index/guest">
-                            <div class="feature-post scale-image">
-                                <img src="__IMG__/feature1.jpg" alt="">
-                                <span>留言板</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
-                        <a href="/index/special">
-                            <div class="feature-post scale-image">
-                                <img src="__IMG__/feature2.jpg" alt="">
-                                <span>专题列表</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="topic-block">
-                    <div class="topic-head" style="padding: 20px 0 15px ;">
-                        <h2>
-                            <span>专题介绍</span>
-                            <small>更多的言论表达和思想沟通，更快、更直接的对整个世界的宏观把控</small>
-                            <a href="javascript:;" target="_blank" class="more">全部专题</a>
-                        </h2>
-                    </div>
-                    <div class="layui-row layui-col-space14">
-                        <div class="layui-col-xs6 layui-col-sm3">
-                            <div class="topic-card scale-image">
-                                <img
-                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/jeshoots-com-5chl44BAOvk.jpg"
-                                    alt="">
-                                <span>用户体验</span>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3">
-                            <div class="topic-card scale-image">
-                                <img
-                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032509190415.jpg"
-                                    alt="">
-                                <span>经典案例</span>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3">
-                            <div class="topic-card scale-image">
-                                <img
-                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608273633-1.jpg"
-                                    alt="">
-                                <span>名企经验</span>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3">
-                            <div class="topic-card scale-image">
-                                <img
-                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608282663.jpg"
-                                    alt="">
-                                <span>产品经理</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="main-list">
+                    <div class="sec-panel-head">
+                        <h1><span>搜索：创业</span></h1>
+                    </div>
                     <div class="tab-wrap">
                         <ul class="post-loop" id="flow-manual">
-                            <li class="item item-sticky">
+                            <li class="item">
                                 <div class="item-img">
-                                    <a class="item-img-inner" href="/index/post"
-                                       title="程序员副业 | 2024年6月复盘" target="_blank" rel="bookmark">
+                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/856.html"
+                                       title="卖掉公司后，创业者还要战胜这七大心魔" target="_blank" rel="bookmark">
                                         <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/john-schnobrich-FlPc9_VocJ4-unsplash-2-480x300.jpg"
+                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg?imageMogr2/format/webp"
                                              class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="程序员副业 | 2024年6月复盘" decoding="async" fetchpriority="high"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2024/04/windows-C6T6vr1sQI0-unsplash-1-480x300.jpg"
+                                             alt="卖掉公司后，创业者还要战胜这七大心魔" decoding="async"
+                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg"
                                              img-loaded="true"> </a>
                                     <a class="item-category"
                                        href="https://demo.wpcom.cn/justnews/category/%e5%88%9b%e4%b8%9a%e5%88%86%e4%ba%ab"
@@ -189,26 +105,25 @@
                                 </div>
                                 <div class="item-content">
                                     <h3 class="item-title">
-                                        <a href="/index/post" target="_blank"
+                                        <a href="https://demo.wpcom.cn/justnews/856.html" target="_blank"
                                            rel="bookmark">
-                                            <span class="sticky-post">置顶</span> 程序员副业 | 2024年6月复盘 </a>
+                                            卖掉公司后，创业者还要战胜这七大心魔 </a>
                                     </h3>
                                     <div class="item-excerpt">
-                                        <p>
-                                            大家好，我是一个10年程序员，现在离职创业，有252天了，我每个月都会写一篇总结复盘，让大家可以近距离看看一个离职程序员都在干什么，今天这篇是6月份的总结，大概3800字，略长，有空的可以翻翻，希望对大家有一丢丢的借鉴作用！</p>
+                                        <p>创业本就是九死一生的事，与其在大浪中为企业的生存挣扎，及时将自己的努力和心血卖出变现，不失为一种选择。但是，创业者卖掉自己的公司，这件事就完了吗？</p>
                                     </div>
                                     <div class="item-meta">
                                         <div class="item-meta-li author">
-                                            <a data-user="3" target="_blank"
-                                               href="https://demo.wpcom.cn/justnews/user/3"
+                                            <a data-user="58" target="_blank"
+                                               href="https://demo.wpcom.cn/justnews/user/58"
                                                class="avatar j-user-card">
-                                                <img alt="WPCOM的头像"
-                                                     src="/avatar/0.jpg"
+                                                <img alt="WHY的头像"
+                                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
                                                      class="avatar avatar-60 photo" height="60" width="60">
-                                                <span>OpenDark</span>
+                                                <span>WHY</span>
                                             </a>
                                         </div>
-                                        <span class="item-meta-li date">2024年4月26日</span>
+                                        <span class="item-meta-li date">2024年6月1日</span>
                                         <div class="item-meta-right">
                                             <span class="item-meta-li views" title="阅读数">
                                                 <i class="layui-icon layui-icon-eye wi"></i>1.1K
@@ -229,44 +144,47 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="item item-sticky">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/242.html"
-                                       title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸" target="_blank" rel="bookmark">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/hanna-balan-NCdlmw4tOo-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/hanna-balan-NCdlmw4tOo-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                    <a class="item-category"
-                                       href="https://demo.wpcom.cn/justnews/category/%e8%a1%8c%e4%b8%9a%e5%8a%a8%e6%80%81"
-                                       target="_blank">行业动态</a>
-                                </div>
+                            <li class="item item3">
                                 <div class="item-content">
                                     <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/242.html" target="_blank"
+                                        <a href="https://demo.wpcom.cn/justnews/341.html" target="_blank"
                                            rel="bookmark">
-                                            <span class="sticky-post">置顶</span> 星巴克限量版独角兽星冰乐的背后：摸索如何不平庸 </a>
+                                            今年UX设计的3大预测 </a>
                                     </h3>
+                                    <a class="item-images" href="https://demo.wpcom.cn/justnews/341.html"
+                                       title="今年UX设计的3大预测" target="_blank">
+                                    <span><i class="item-images-el j-lazy"
+                                             style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/ux-store-jJT2r2n7lYA-unsplash.jpg?imageMogr2/format/webp');"
+                                             data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/ux-store-jJT2r2n7lYA-unsplash.jpg"></i></span><span><i
+                                        class="item-images-el j-lazy"
+                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash.jpg?imageMogr2/format/webp');"
+                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash.jpg"></i></span><span><i
+                                        class="item-images-el j-lazy"
+                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/alvaro-reyes-qWwpHwip31M-unsplash.jpg?imageMogr2/format/webp');"
+                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/alvaro-reyes-qWwpHwip31M-unsplash.jpg"></i></span><span><i
+                                        class="item-images-el j-lazy"
+                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/scott-graham-5fNmWej4tAA-unsplash.jpg?imageMogr2/format/webp');"
+                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/scott-graham-5fNmWej4tAA-unsplash.jpg"></i></span>
+                                    </a>
                                     <div class="item-excerpt">
-                                        <p>
-                                            星巴克限量版独角兽星冰乐将于美国时间24日凌晨正式结束供应。为期仅有5天的营销，却在社交网络上掀起了热烈的讨论，颇有些不晒独角兽星冰乐的照片，就不是美国年轻人的意思。
-                                            独角兽星冰乐背后是一场社交媒体狂欢 如果在 Instagram 上搜一搜，就会发现带有 #unicornfrappuccino
-                                            标签的帖子已经超过了10万。尽管限量版独角兽星冰乐只在美国、加拿…</p>
+                                        <p>本文作者总结了他在2016年对UX设计的预测，且又对2023年的UX设计进行了预测。</p>
                                     </div>
                                     <div class="item-meta">
                                         <div class="item-meta-li author">
-                                            <a data-user="1" target="_blank"
-                                               href="https://demo.wpcom.cn/justnews/user/1"
+                                            <a data-user="58" target="_blank"
+                                               href="https://demo.wpcom.cn/justnews/user/58"
                                                class="avatar j-user-card">
-                                                <img alt="OpenDark的头像"
-                                                     src="/avatar/0.jpg"
+                                                <img alt="WHY的头像"
+                                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
                                                      class="avatar avatar-60 photo" height="60" width="60">
-                                                <span>OpenDark</span>
+                                                <span>WHY</span>
                                             </a>
                                         </div>
-                                        <span class="item-meta-li date">2023年4月24日</span>
+                                        <span class="item-meta-li date">2023年11月27日</span>
+                                        <span class="item-meta-li dot">•</span>
+                                        <a class="item-meta-li"
+                                           href="https://demo.wpcom.cn/justnews/category/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c"
+                                           target="_blank">用户体验</a>
                                         <div class="item-meta-right">
                                             <span class="item-meta-li views" title="阅读数">
                                                 <i class="layui-icon layui-icon-eye wi"></i>1.1K
@@ -398,122 +316,6 @@
                                         <a class="item-meta-li"
                                            href="https://demo.wpcom.cn/justnews/category/%e8%a1%8c%e4%b8%9a%e5%8a%a8%e6%80%81"
                                            target="_blank">行业动态</a>
-                                        <div class="item-meta-right">
-                                            <span class="item-meta-li views" title="阅读数">
-                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
-                                            </span>
-                                            <a
-                                                class="item-meta-li comments"
-                                                href="/index/post#comments" target="_blank"
-                                                title="评论数">
-                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
-                                            </a>
-                                            <span class="item-meta-li stars" title="收藏数">
-                                                <i class="layui-icon layui-icon-star wi"></i>2
-                                            </span>
-                                            <span class="item-meta-li likes" title="点赞数">
-                                                <i class="layui-icon layui-icon-praise wi"></i>22
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/856.html"
-                                       title="卖掉公司后，创业者还要战胜这七大心魔" target="_blank" rel="bookmark">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="卖掉公司后，创业者还要战胜这七大心魔" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                    <a class="item-category"
-                                       href="https://demo.wpcom.cn/justnews/category/%e5%88%9b%e4%b8%9a%e5%88%86%e4%ba%ab"
-                                       target="_blank">创业分享</a>
-                                </div>
-                                <div class="item-content">
-                                    <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/856.html" target="_blank"
-                                           rel="bookmark">
-                                            卖掉公司后，创业者还要战胜这七大心魔 </a>
-                                    </h3>
-                                    <div class="item-excerpt">
-                                        <p>创业本就是九死一生的事，与其在大浪中为企业的生存挣扎，及时将自己的努力和心血卖出变现，不失为一种选择。但是，创业者卖掉自己的公司，这件事就完了吗？</p>
-                                    </div>
-                                    <div class="item-meta">
-                                        <div class="item-meta-li author">
-                                            <a data-user="58" target="_blank"
-                                               href="https://demo.wpcom.cn/justnews/user/58"
-                                               class="avatar j-user-card">
-                                                <img alt="WHY的头像"
-                                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                     class="avatar avatar-60 photo" height="60" width="60">
-                                                <span>WHY</span>
-                                            </a>
-                                        </div>
-                                        <span class="item-meta-li date">2024年6月1日</span>
-                                        <div class="item-meta-right">
-                                            <span class="item-meta-li views" title="阅读数">
-                                                <i class="layui-icon layui-icon-eye wi"></i>1.1K
-                                            </span>
-                                            <a
-                                                class="item-meta-li comments"
-                                                href="/index/post#comments" target="_blank"
-                                                title="评论数">
-                                                <i class="layui-icon layui-icon-dialogue wi"></i>15
-                                            </a>
-                                            <span class="item-meta-li stars" title="收藏数">
-                                                <i class="layui-icon layui-icon-star wi"></i>2
-                                            </span>
-                                            <span class="item-meta-li likes" title="点赞数">
-                                                <i class="layui-icon layui-icon-praise wi"></i>22
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item item3">
-                                <div class="item-content">
-                                    <h3 class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/341.html" target="_blank"
-                                           rel="bookmark">
-                                            今年UX设计的3大预测 </a>
-                                    </h3>
-                                    <a class="item-images" href="https://demo.wpcom.cn/justnews/341.html"
-                                       title="今年UX设计的3大预测" target="_blank">
-                                    <span><i class="item-images-el j-lazy"
-                                             style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/ux-store-jJT2r2n7lYA-unsplash.jpg?imageMogr2/format/webp');"
-                                             data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/ux-store-jJT2r2n7lYA-unsplash.jpg"></i></span><span><i
-                                        class="item-images-el j-lazy"
-                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash.jpg?imageMogr2/format/webp');"
-                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash.jpg"></i></span><span><i
-                                        class="item-images-el j-lazy"
-                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/alvaro-reyes-qWwpHwip31M-unsplash.jpg?imageMogr2/format/webp');"
-                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/alvaro-reyes-qWwpHwip31M-unsplash.jpg"></i></span><span><i
-                                        class="item-images-el j-lazy"
-                                        style="background-image: url('//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/scott-graham-5fNmWej4tAA-unsplash.jpg?imageMogr2/format/webp');"
-                                        data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/scott-graham-5fNmWej4tAA-unsplash.jpg"></i></span>
-                                    </a>
-                                    <div class="item-excerpt">
-                                        <p>本文作者总结了他在2016年对UX设计的预测，且又对2023年的UX设计进行了预测。</p>
-                                    </div>
-                                    <div class="item-meta">
-                                        <div class="item-meta-li author">
-                                            <a data-user="58" target="_blank"
-                                               href="https://demo.wpcom.cn/justnews/user/58"
-                                               class="avatar j-user-card">
-                                                <img alt="WHY的头像"
-                                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                     class="avatar avatar-60 photo" height="60" width="60">
-                                                <span>WHY</span>
-                                            </a>
-                                        </div>
-                                        <span class="item-meta-li date">2023年11月27日</span>
-                                        <span class="item-meta-li dot">•</span>
-                                        <a class="item-meta-li"
-                                           href="https://demo.wpcom.cn/justnews/category/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c"
-                                           target="_blank">用户体验</a>
                                         <div class="item-meta-right">
                                             <span class="item-meta-li views" title="阅读数">
                                                 <i class="layui-icon layui-icon-eye wi"></i>1.1K
@@ -767,35 +569,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="guestbook hidden-xs">
-                    <div class="sec-panel">
-                        <div class="sec-panel-head">
-                            <h2>
-                                <span>友情链接</span>
-<!--                                <small>友情链接模块标题旁边的描述文字</small>-->
-                                <a href="/guest" target="_blank" class="more">申请友链</a>
-                            </h2>
-                        </div>
-                        <div class="sec-panel-body">
-                            <div class="list list-links">
-                                <a target="_blank" href="https://cn.bing.com/" rel="noopener">必应</a>
-                                <a target="_blank" href="https://www.baidu.com/" rel="noopener">百度</a>
-                                <a target="_blank" href="https://www.google.com/" rel="noopener">谷歌</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
                 <div class="sidebar">
-                    <!--                    <div class="widget widget_image_myimg">-->
-                    <!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
-                    <!--                            <img class="j-lazy"-->
-                    <!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
-                    <!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
-                    <!--                                 alt="WPCOM主题" img-loaded="true">-->
-                    <!--                        </a>-->
-                    <!--                    </div>-->
+<!--                    <div class="widget widget_image_myimg">-->
+<!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
+<!--                            <img class="j-lazy"-->
+<!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
+<!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
+<!--                                 alt="WPCOM主题" img-loaded="true">-->
+<!--                        </a>-->
+<!--                    </div>-->
                     <div class="widget widget_search">
                         <div class="search-bar">
                             <div class="layui-input-wrap">
@@ -804,60 +588,6 @@
                                     <i class="layui-icon layui-icon-search"></i>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="widget widget_profile">
-                        <div class="profile-cover">
-                            <img class="j-lazy"
-                                 src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                                 data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                                 alt="OpenDark" img-loaded="true"></div>
-                        <div class="avatar-wrap">
-                            <a target="_blank" href="/index/user" class="avatar-link"><img
-                                alt="OpenDark的头像"
-                                src="/avatar/0.jpg"
-                                class="avatar avatar-120 photo" height="120" width="120"></a></div>
-                        <div class="profile-info">
-                            <a target="_blank" href="https://demo.wpcom.cn/justnews/user/1" class="profile-name"><span
-                                class="author-name">OpenDark</span><span class="user-group">管理团队</span></a>
-                            <p class="author-description">Enjoy coding, enjoy life!</p>
-                            <div class="profile-stats">
-                                <div class="profile-stats-inner">
-                                    <div class="user-stats-item">
-                                        <b>26</b>
-                                        <span>文章</span>
-                                    </div>
-                                    <div class="user-stats-item">
-                                        <b>4</b>
-                                        <span>评论</span>
-                                    </div>
-                                    <div class="user-stats-item">
-                                        <b>198</b>
-                                        <span>粉丝</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
-                                <i class="layui-icon layui-icon-addition"></i>关注
-                            </button>
-                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
-                                <i class="layui-icon layui-icon-email"></i>私信
-                            </button>
-                        </div>
-                        <div class="profile-posts">
-                            <h3 class="widget-title"><span>最近文章</span></h3>
-                            <ul>
-                                <li><a href="https://demo.wpcom.cn/justnews/1471.html" title="3秒拆装的“斗子车”：比自行车还灵活">3秒拆装的“斗子车”：比自行车还灵活</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/376.html"
-                                       title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份">京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份</a></li>
-                                <li><a href="https://demo.wpcom.cn/justnews/223.html" title="第一次负责从0到1的产品时要注意哪几点？">第一次负责从0到1的产品时要注意哪几点？</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/242.html" title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸">星巴克限量版独角兽星冰乐的背后：摸索如何不平庸</a>
-                                </li>
-                                <li><a href="https://demo.wpcom.cn/justnews/231.html" title="网易精品产品背后的内容运营故事">网易精品产品背后的内容运营故事</a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                     <div class="widget widget_post_hot">
@@ -1095,7 +825,7 @@
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
                         href="/index/tags">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="/index/guest">留言板</a></li>
+                        href="/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -1149,7 +879,7 @@
             <a href="/index/tags">标签归档</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/index/guest">留言板</a>
+            <a href="/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="/index/user">OpenDark</a>

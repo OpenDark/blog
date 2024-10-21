@@ -52,7 +52,7 @@
                     <a href="/index/tags">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/index/guest">留言板</a>
+                    <a href="/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="/index/user">OpenDark</a>
@@ -84,17 +84,161 @@
         </div>
     </div>
     <div class="layui-container">
-        <div class="breadcrumb">
-            <span class="layui-breadcrumb" lay-separator=">">
-                <a href="">首页</a>
-                <a href="">国际新闻</a>
-                <a href="">亚太地区</a>
-                <a><cite>正文</cite></a>
-            </span>
-        </div>
         <div class="layui-row layui-col-space20">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-                
+                <div class="profile-head">
+                    <div class="ph-bg">
+                        <noscript>
+                            <img decoding="async"
+                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/covers/9307625301719310.1728070111.jpg"
+                                 alt="OpenDark">
+                        </noscript>
+                        <img decoding="async" class="j-lazy"
+                             src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/covers/9307625301719310.1728070111.jpg?imageMogr2/format/webp"
+                             data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/covers/9307625301719310.1728070111.jpg"
+                             alt="OpenDark" img-loaded="true">
+                    </div>
+                    <div class="ph-inner">
+                        <div class="ph-user">
+                            <div class="ph-avatar">
+                                <noscript>
+                                    <img alt='OpenDark的头像'
+                                         src='/avatar/0.jpg'
+                                         class='avatar avatar-200 photo' height='200' width='200'/>
+                                </noscript>
+                                <img alt="OpenDark的头像"
+                                     src="/avatar/0.jpg"
+                                     data-original="/avatar/0.jpg"
+                                     class="avatar avatar-200 photo j-lazy" height="200" width="200" img-loaded="true">
+                                <span class="edit-avatar" data-user="33466">
+                                    <i class="layui-icon layui-icon-camera"></i>
+                                </span></div>
+                            <h2 class="ph-name">OpenDark<span class="user-group">普通用户</span></h2>
+                            <div class="ph-desc">这个人很懒，什么都没有留下～</div>
+                            <div class="profile-stats">
+                                <div class="profile-stats-inner">
+                                    <div class="user-stats-item">
+                                        <b>0</b>
+                                        <span>文章</span>
+                                    </div>
+                                    <div class="user-stats-item">
+                                        <b>1</b>
+                                        <span>评论</span>
+                                    </div>
+                                    <div class="user-stats-item">
+                                        <b>0</b>
+                                        <span>粉丝</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                                <i class="layui-icon layui-icon-addition"></i>关注
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                                <i class="layui-icon layui-icon-email"></i>私信
+                            </button>
+                        </div>
+                        <div class="profile-action">
+                            <span class="profile-setcover edit-cover" data-user="33466">
+                                <i class="layui-icon layui-icon-camera wi"></i>
+                                修改封面
+                            </span>
+                            <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce" value="05001f7b99">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space14">
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg9">
+                        <div class="main-slider">
+                            <div class="layui-carousel my-slider scale-image" id="carousel-image-slider">
+                                <div carousel-item>
+                                    <div>
+                                        <img
+                                            src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/glenn-claire-YzFT09xAoho.jpg?imageMogr2/format/webp"
+                                            alt="">
+                                        <div class="slider-caption">幻灯片标题1</div>
+                                    </div>
+                                    <div>
+                                        <img
+                                            src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/2021032609265069.jpg?imageMogr2/format/webp"
+                                            alt="">
+                                        <div class="slider-caption">幻灯片标题2</div>
+                                    </div>
+                                    <div>
+                                        <img
+                                            src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/2021032609054990.jpg?imageMogr2/format/webp"
+                                            alt="">
+                                        <div class="slider-caption">幻灯片标题3</div>
+                                    </div>
+                                    <div>
+                                        <img
+                                            src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/2021032609054919.jpg?imageMogr2/format/webp"
+                                            alt="">
+                                        <div class="slider-caption">幻灯片标题4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
+                        <div class="feature-post scale-image">
+                            <img src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/5.1-1.jpg"
+                                 alt="">
+                            <span>前端用户中心</span>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
+                        <div class="feature-post scale-image">
+                            <img
+                                src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2020/09/pexels-bongkarn.png"
+                                alt="">
+                            <span>专题列表</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="topic-block">
+                    <div class="topic-head" style="padding: 20px 0 15px ;">
+                        <h2>
+                            <span>专题介绍</span>
+                            <small>更多的言论表达和思想沟通，更快、更直接的对整个世界的宏观把控</small>
+                            <a href="javascript:;" target="_blank" class="more">全部专题</a>
+                        </h2>
+                    </div>
+                    <div class="layui-row layui-col-space14">
+                        <div class="layui-col-xs6 layui-col-sm3">
+                            <div class="topic-card scale-image">
+                                <img
+                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/jeshoots-com-5chl44BAOvk.jpg"
+                                    alt="">
+                                <span>用户体验</span>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6 layui-col-sm3">
+                            <div class="topic-card scale-image">
+                                <img
+                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032509190415.jpg"
+                                    alt="">
+                                <span>经典案例</span>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6 layui-col-sm3">
+                            <div class="topic-card scale-image">
+                                <img
+                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608273633-1.jpg"
+                                    alt="">
+                                <span>名企经验</span>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6 layui-col-sm3">
+                            <div class="topic-card scale-image">
+                                <img
+                                    src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608282663.jpg"
+                                    alt="">
+                                <span>产品经理</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="main-list">
                     <div class="tab-wrap">
                         <ul class="post-loop" id="flow-manual">
@@ -1001,7 +1145,7 @@
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
                         href="/index/tags">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="/index/guest">留言板</a></li>
+                        href="/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -1055,7 +1199,7 @@
             <a href="/index/tags">标签归档</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/index/guest">留言板</a>
+            <a href="/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="/index/user">OpenDark</a>

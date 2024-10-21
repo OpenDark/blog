@@ -1,0 +1,73 @@
+<div class="widget widget_profile">
+    <div class="profile-cover"></div>
+    <div class="avatar-wrap"></div>
+    <div class="profile-info"></div>
+    <div class="profile-posts"></div>
+</div>
+
+<script>
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.$;
+
+        function getRecommend() {
+            $.ajax({
+                url: '/widget/getManager',
+                type: 'post',
+                data: {},
+                success: function (res) {
+                    let user = res.data.user;
+                    $('.profile-cover').html(`
+                        <img class="j-lazy" alt="${user.nickname}" img-loaded="true" src="${user.banner}">
+                    `);
+                    $('.avatar-wrap').html(`
+                        <a target="_blank" href="/user/${user.id}" class="avatar-link">
+                            <img alt="${user.nickname}的头像" src="${user.avatar}"
+                            class="avatar avatar-120 photo" height="120" width="120">
+                        </a>
+                    `);
+                    $('.profile-info').html(`
+                        <a target="_blank" href="/user/${user.id}" class="profile-name">
+                            <span class="author-name">${user.nickname}</span>
+                            <span class="user-group">${user.group}</span>
+                        </a>
+                        <p class="author-description">${user.desc}</p>
+                        <div class="profile-stats">
+                            <div class="profile-stats-inner">
+                                <div class="user-stats-item">
+                                    <b>${user.article_num}</b>
+                                    <span>文章</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.comment_num}</b>
+                                    <span>评论</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.fans_num}</b>
+                                    <span>粉丝</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                            <i class="layui-icon layui-icon-addition"></i>关注
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button">
+                            <i class="layui-icon layui-icon-email"></i>私信
+                        </button>
+                    `);
+
+                    let html = '<h3 class="widget-title"><span>最近文章</span></h3><ul>';
+                    res.data.article.forEach(function (item) {
+                        html += `
+                            <li>
+                                <a href="/post/${item.id}">${item.title}</a>
+                            </li>`;
+                    });
+                    $('.profile-posts').html(html + '</ul>');
+                }
+            });
+        }
+
+        getRecommend();
+    });
+</script>

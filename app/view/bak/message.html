@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <title>若羽博客</title>
+    <link rel="stylesheet" href="__JS__/layui/css/layui.css">
+    <link rel="stylesheet" href="__CSS__/style.css">
+</head>
+<body class="body-boxed">
+<header class="header">
+    <div class="layui-container">
+        <div class="logo">
+            <img class="logo-img" src="__IMG__/logo.png" alt=""/>
+            <div class="logo-title">若羽博客</div>
+        </div>
+        <div class="menu-block">
+            <div class="navbar-toggle" lay-on="menu-offset">
+                <span class="icon-bar icon-bar-1"></span>
+                <span class="icon-bar icon-bar-2"></span>
+                <span class="icon-bar icon-bar-3"></span>
+            </div>
+            <ul class="layui-nav layui-bg-gray menu-list">
+                <li class="layui-nav-item">
+                    <a href="/">首页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/search">工作</a>
+                </li>
+                <li class="layui-nav-item dropdown">
+                    <a href="/index/category">学习</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">产品经理</a></dd>
+                        <dd><a href="">前端设计</a></dd>
+                        <dd><a href="">后端开发</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item dropdown">
+                    <a href="/index/category">生活</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">摄影</a></dd>
+                        <dd><a href="">游戏</a></dd>
+                        <dd><a href="">旅游</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/special">专题列表</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/index/tags">标签归档</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/guest">留言板</a>
+                </li>
+                <li class="layui-nav-item myself-message" lay-unselect>
+                    <a class="username" href="/index/user">OpenDark</a>
+                </li>
+                <li class="layui-nav-item myself-action" lay-unselect>
+                    <a href="javascript:;">
+                        <img src="/avatar/0.jpg" class="layui-nav-img">
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/index/user">个人中心</a></dd>
+                        <dd class="layui-this"><a href="/index/account">账号设置</a></dd>
+                        <dd><a href="/index/draft">我要投稿</a></dd>
+                        <hr>
+                        <dd style="text-align: center;"><a href="/common/login">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="body">
+    <div class="layui-container">
+        <div class="member-account">
+            <article id="post-18" class="post-18 page type-page status-publish hentry entry">
+                <div class="entry-main">
+                    <div class="entry-content">
+                        <div class="member-account-wrap">
+                            <div class="member-account-nav">
+                                <div class="member-account-user">
+                                    <div class="member-account-avatar">
+                                        <noscript>
+                                            <img alt='OpenDark的头像'
+                                                 src='/avatar/0.jpg'
+                                                 class='avatar avatar-200 photo' height='200' width='200'/>
+                                        </noscript>
+                                        <img alt="OpenDark的头像"
+                                             src="/avatar/0.jpg"
+                                             data-original="/avatar/0.jpg"
+                                             class="avatar avatar-200 photo j-lazy" height="200" width="200"
+                                             img-loaded="true">
+                                        <span class="edit-avatar" data-user="33466">
+                                            <i class="layui-icon layui-icon-camera"></i>
+                                        </span>
+                                        <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce"
+                                               value="65f5d3b343"></div>
+                                    <h3 class="member-account-name">
+                                        <a href="/index/user" target="_blank">
+                                            OpenDark </a>
+                                    </h3>
+                                    <div class="member-account-dio">Enjoy coding, enjoy life!</div>
+                                    <a class="layui-btn layui-btn-fluid od-green-button member-account-tg"
+                                       href="/index/draft">
+                                        <i class="layui-icon layui-icon-edit"></i>投稿
+                                    </a>
+                                </div>
+                                <ul class="member-account-menu">
+                                    <li class="member-nav-general">
+                                        <a href="/index/account">
+                                            <i class="layui-icon layui-icon-username"></i>基本资料 </a>
+                                    </li>
+                                    <li class="member-nav-messages active">
+                                        <a href="/index/message">
+                                            <i class="layui-icon layui-icon-email"></i>我的私信 </a>
+                                    </li>
+                                    <li class="member-nav-notifications">
+                                        <a href="/index/notice">
+                                            <i class="layui-icon layui-icon-speaker"></i>系统通知 </a>
+                                    </li>
+<!--                                    <li class="member-nav-bind">-->
+<!--                                        <a href="https://demo.wpcom.cn/justnews/account/bind">-->
+<!--                                            <i class="layui-icon layui-icon-vercode"></i>账号绑定 </a>-->
+<!--                                    </li>-->
+                                    <li class="member-nav-password">
+                                        <a href="/index/reset">
+                                            <i class="layui-icon layui-icon-password"></i>修改密码 </a>
+                                    </li>
+                                    <li class="member-nav-logout">
+                                        <a href="/index/logout">
+                                            <i class="layui-icon layui-icon-logout"></i>退出登录 </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="member-account-content">
+                                <h2 class="member-account-title">我的私信</h2>
+                                <ul class="notify-list od-accordion panel-group collapse in"
+                                    aria-expanded="true" style="">
+                                    <li class="member-account-empty notify-empty">
+                                        <noscript>
+                                            <img alt='OpenDark的头像'
+                                                 src='/avatar/0.jpg'
+                                                 class='avatar avatar-200 photo' height='200' width='200'/>
+                                        </noscript>
+                                        <img decoding="async" class="empty-icon j-lazy"
+                                             src="/static/img/empty/empty-message.svg">暂无私信
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="layui-container">
+        <div class="footer-col-wrap footer-with-logo-icon">
+            <div class="footer-col footer-col-copy">
+                <ul class="footer-nav hidden-xs">
+                    <li id="menu-item-157" class="menu-item menu-item-157"><a
+                        href="/index/special">专题列表</a></li>
+                    <li id="menu-item-129" class="menu-item menu-item-129"><a
+                        href="/index/tags">标签归档</a></li>
+                    <li id="menu-item-4252" class="menu-item menu-item-4252"><a
+                        href="/guest">留言板</a></li>
+                </ul>
+                <div class="copyright">
+                    <p>
+                        Copyright © 2024 OpenDark 版权所有
+                        <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow noopener noreferrer">
+                            粤ICP备000000000号
+                        </a> Powered by
+                        <a href="javascript:;" target="_blank" rel="noopener noreferrer">OpenDark</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="navbar-collapse">
+    <div class="search-bar search-bar-wrap">
+        <div class="layui-input-wrap">
+            <input type="text" placeholder="输入关键词搜索..." class="layui-input">
+            <div class="layui-input-suffix">
+                <i class="layui-icon layui-icon-search"></i>
+            </div>
+        </div>
+    </div>
+    <ul class="layui-nav layui-bg-gray layui-nav-tree">
+        <li class="layui-nav-item layui-this">
+            <a href="/">首页</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/search">工作</a>
+        </li>
+        <li class="layui-nav-item dropdown">
+            <a href="/index/category">学习</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">产品经理</a></dd>
+                <dd><a href="">前端设计</a></dd>
+                <dd><a href="">后端开发</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item dropdown">
+            <a href="/index/category">生活</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">摄影</a></dd>
+                <dd><a href="">游戏</a></dd>
+                <dd><a href="">旅游</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/special">专题列表</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/index/tags">标签归档</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="/guest">留言板</a>
+        </li>
+        <li class="layui-nav-item">
+            <a class="username" href="/index/user">OpenDark</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img src="/avatar/0.jpg" class="layui-nav-img">
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="/index/user">个人中心</a></dd>
+                        <dd><a href="/index/account">账号设置</a></dd>
+                <dd><a href="/index/draft">我要投稿</a></dd>
+                <hr>
+                <dd><a href="/common/login">退出登录</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<script src="__JS__/layui/layui.js"></script>
+<script>
+    layui.use(['layer', 'util', 'carousel'], function () {
+        var carousel = layui.carousel;
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+
+        util.fixbar({
+            top: true,
+            css: {
+                right: 20,
+                bottom: 30,
+                borderRadius: '5px',
+                overflow: 'hidden',
+                height: '40px'
+            },
+            bgcolor: '#16b777',
+            click: function (type) {
+            }
+        });
+
+        carousel.render({
+            elem: '#carousel-image-1',
+            width: '100%',
+            height: '100%',
+            interval: 3000
+        });
+
+        carousel.render({
+            elem: '#carousel-image-slider',
+            width: '100%',
+            height: '100%',
+            interval: 3000
+        });
+
+
+        util.on('lay-on', {
+            'menu-offset': function () {
+                layer.open({
+                    type: 1,
+                    title: '&nbsp;',
+                    skin: 'layer-direction-left',
+                    offset: 'l',
+                    anim: 'slideRight',
+                    area: ['300px', '100%'],
+                    shade: 0.5,
+                    shadeClose: true,
+                    move: false,
+                    id: 'layer-direction-left',
+                    content: $('#navbar-collapse')
+                });
+            }
+        });
+
+        // var flow = layui.flow;
+        // flow.load({
+        //     elem: '#flow-manual',
+        //     isAuto: false,
+        //     isLazyimg: true,
+        //     moreText : '点击查看更多',
+        //     end : '--- 这是我的底线 ---',
+        //     done: function (page, next) { // 加载下一页
+        //         // 模拟插入
+        //         setTimeout(function () {
+        //             var lis = [];
+        //             for (var i = 0; i < 6; i++) {
+        //                 lis.push('<li>123456</li>')
+        //             }
+        //             next(lis.join(''), page < 2); // 假设总页数为 2
+        //         }, 100);
+        //     }
+        // });
+    });
+</script>
+</body>
+</html>

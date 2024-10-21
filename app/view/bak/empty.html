@@ -23,7 +23,7 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-this">
                     <a href="/">首页</a>
                 </li>
                 <li class="layui-nav-item">
@@ -52,7 +52,7 @@
                     <a href="/index/tags">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/index/guest">留言板</a>
+                    <a href="/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="/index/user">OpenDark</a>
@@ -63,7 +63,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="/index/user">个人中心</a></dd>
-                        <dd class="layui-this"><a href="/index/account">账号设置</a></dd>
+                        <dd><a href="/index/account">账号设置</a></dd>
                         <dd><a href="/index/draft">我要投稿</a></dd>
                         <hr>
                         <dd style="text-align: center;"><a href="/common/login">退出登录</a></dd>
@@ -75,86 +75,15 @@
 </header>
 <div class="body">
     <div class="layui-container">
-        <div class="member-account">
-            <article id="post-18" class="post-18 page type-page status-publish hentry entry">
-                <div class="entry-main">
-                    <div class="entry-content">
-                        <div class="member-account-wrap">
-                            <div class="member-account-nav">
-                                <div class="member-account-user">
-                                    <div class="member-account-avatar">
-                                        <noscript>
-                                            <img alt='OpenDark的头像'
-                                                 src='/avatar/0.jpg'
-                                                 class='avatar avatar-200 photo' height='200' width='200'/>
-                                        </noscript>
-                                        <img alt="OpenDark的头像"
-                                             src="/avatar/0.jpg"
-                                             data-original="/avatar/0.jpg"
-                                             class="avatar avatar-200 photo j-lazy" height="200" width="200"
-                                             img-loaded="true">
-                                        <span class="edit-avatar" data-user="33466">
-                                            <i class="layui-icon layui-icon-camera"></i>
-                                        </span>
-                                        <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce"
-                                               value="65f5d3b343"></div>
-                                    <h3 class="member-account-name">
-                                        <a href="/index/user" target="_blank">
-                                            OpenDark </a>
-                                    </h3>
-                                    <div class="member-account-dio">Enjoy coding, enjoy life!</div>
-                                    <a class="layui-btn layui-btn-fluid od-green-button member-account-tg"
-                                       href="/index/draft">
-                                        <i class="layui-icon layui-icon-edit"></i>投稿
-                                    </a>
-                                </div>
-                                <ul class="member-account-menu">
-                                    <li class="member-nav-general">
-                                        <a href="/index/account">
-                                            <i class="layui-icon layui-icon-username"></i>基本资料 </a>
-                                    </li>
-                                    <li class="member-nav-messages">
-                                        <a href="/index/message">
-                                            <i class="layui-icon layui-icon-email"></i>我的私信 </a>
-                                    </li>
-                                    <li class="member-nav-notifications active">
-                                        <a href="/index/notice">
-                                            <i class="layui-icon layui-icon-speaker"></i>系统通知 </a>
-                                    </li>
-<!--                                    <li class="member-nav-bind">-->
-<!--                                        <a href="https://demo.wpcom.cn/justnews/account/bind">-->
-<!--                                            <i class="layui-icon layui-icon-vercode"></i>账号绑定 </a>-->
-<!--                                    </li>-->
-                                    <li class="member-nav-password">
-                                        <a href="/index/reset">
-                                            <i class="layui-icon layui-icon-password"></i>修改密码 </a>
-                                    </li>
-                                    <li class="member-nav-logout">
-                                        <a href="/index/logout">
-                                            <i class="layui-icon layui-icon-logout"></i>退出登录 </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="member-account-content">
-                                <h2 class="member-account-title">系统通知</h2>
-                                <ul class="notify-list od-accordion panel-group collapse in"
-                                    aria-expanded="true" style="">
-                                    <li class="member-account-empty notify-empty">
-                                        <noscript>
-                                            <img alt='OpenDark的头像'
-                                                 src='/avatar/0.jpg'
-                                                 class='avatar avatar-200 photo' height='200' width='200'/>
-                                        </noscript>
-                                        <img decoding="async" class="empty-icon j-lazy"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/themes/justnews/themer/assets/images/empty-notification.svg">暂无系统通知
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        <div class="breadcrumb">
+            <span class="layui-breadcrumb" lay-separator=">">
+                <a href="">首页</a>
+                <a href="">国际新闻</a>
+                <a href="">亚太地区</a>
+                <a><cite>正文</cite></a>
+            </span>
         </div>
+
     </div>
 </div>
 <footer class="footer">
@@ -167,7 +96,7 @@
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
                         href="/index/tags">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="/index/guest">留言板</a></li>
+                        href="/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -221,7 +150,7 @@
             <a href="/index/tags">标签归档</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/index/guest">留言板</a>
+            <a href="/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="/index/user">OpenDark</a>

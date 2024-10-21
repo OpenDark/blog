@@ -1,114 +1,34 @@
 {extend name="base" /}
 
 {block name="body"}
+<div class="banner category-banner"
+     style="background-image: url('{$category.banner|default="http://img.wepuzi.com/default-banner.jpg"}');">
+    <div class="banner-inner">
+        <h1>{$category.name}</h1>
+        <div class="page-description">
+            <p>{$category.desc}</p>
+        </div>
+    </div>
+</div>
 <div class="layui-container">
+    <div class="breadcrumb">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="/">首页</a>
+            <a><cite>{$category.name}</cite></a>
+        </span>
+    </div>
     <div class="layui-row layui-col-space20">
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-            <div class="layui-row layui-col-space14">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg9">
-                    <div class="main-slider">
-                        <div class="layui-carousel my-slider scale-image" id="carousel-image-slider">
-                            <div carousel-item>
-                                {if !empty($carousel)}
-                                {foreach $carousel as $k => $vo }
-                                <a href="/post/{$vo.id}">
-                                    <div>
-                                        <img src="{$vo.thumbnail}" alt="">
-                                        <div class="slider-caption">{$vo.title}</div>
-                                    </div>
-                                </a>
-                                {/foreach}
-                                {else /}
-                                <div>
-                                    <img src="{$imgcdn}20200821.jpg" alt="">
-                                    <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                </div>
-                                <div>
-                                    <img src="{$imgcdn}20200813.jpg" alt="">
-                                    <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                </div>
-                                <div>
-                                    <img src="{$imgcdn}20200817.jpg" alt="">
-                                    <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                </div>
-                                <div>
-                                    <img src="{$imgcdn}20200822.jpg" alt="">
-                                    <div class="slider-caption">山青水秀，景色宜人。群山连绵，苍翠挺拔。</div>
-                                </div>
-                                {/if}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
-                    <a href="/guest">
-                        <div class="feature-post scale-image">
-                            <img src="{$imgcdn}feature1.jpg" alt="">
-                            <span>留言板</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg3">
-                    <a href="/index/special">
-                        <div class="feature-post scale-image">
-                            <img src="{$imgcdn}feature2.jpg" alt="">
-                            <span>专题列表</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            {if !empty($special)}
-            <div class="topic-block">
-                <div class="topic-head" style="padding: 20px 0 15px ;">
-                    <h2>
-                        <span>专题介绍</span>
-                        <small>更多的言论表达和思想沟通</small>
-                        <a href="/index/special" target="_blank" class="more">全部专题</a>
-                    </h2>
-                </div>
-                <div class="layui-row layui-col-space14">
-                    {foreach $special as $k => $vo }
-                    <div class="layui-col-xs6 layui-col-sm3">
-                        <a href="/special/{$vo.id}">
-                            <div class="topic-card scale-image">
-                                <img alt="" src="{$vo.thumbnail}">
-                                <span>{$vo.name}</span>
-                            </div>
-                        </a>
-                    </div>
-                    {/foreach}
-                </div>
-            </div>
-            {/if}
             <div class="main-list">
                 <div class="tab-wrap">
                     <ul class="post-loop" id="flow-manual"></ul>
                     <div class="load-more-wrap"></div>
                 </div>
             </div>
-            <div class="guestbook hidden-xs">
-                <div class="sec-panel">
-                    <div class="sec-panel-head">
-                        <h2>
-                            <span>友情链接</span>
-                            <small>莫愁前路无知己，天下谁人不识君</small>
-                            <a href="/guest" class="more">申请友链</a>
-                        </h2>
-                    </div>
-                    <div class="sec-panel-body">
-                        <div class="list list-links">
-                            {foreach $link as $k => $vo }
-                            <a target="_blank" href="{$vo.url}" rel="noopener">{$vo.title}</a>
-                            {/foreach}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
             <div class="sidebar">
                 {include file="widget/search" /}
-                {include file="widget/profile" /}
                 {include file="widget/recommend" /}
             </div>
         </div>
@@ -118,18 +38,11 @@
 
 {block name="script"}
 <script>
-    layui.use(['layer', 'util', 'carousel'], function () {
+    layui.use(['layer', 'util'], function () {
         var layer = layui.layer;
         var util = layui.util;
         var $ = layui.$;
         var page = 1;
-
-        layui.carousel.render({
-            elem: '#carousel-image-slider',
-            width: '100%',
-            height: '100%',
-            interval: 3000
-        });
 
         util.on('lay-on', {
             'load-more': function () {
@@ -141,7 +54,7 @@
             let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>点击查看更多';
             $('div[lay-on="load-more"]').html(loop);
             $.ajax({
-                url: '/index/getArticle',
+                url: '/category/getArticle?id={$id}',
                 type: 'post',
                 data: {
                     page: page,
@@ -163,7 +76,7 @@
                                 </a>`;
                         }
                         html += `
-                        <li class="item ${stickyStr}">
+                        <li class="item">
                             <div class="item-img">
                                 <a class="item-img-inner" href="/post/${item.id}" target="_blank" rel="bookmark">
                                     <img width="480" height="300" src="${item.thumbnail}"
@@ -175,7 +88,7 @@
                             <div class="item-content">
                                 <h3 class="item-title">
                                     <a href="/post/${item.id}" target="_blank" rel="bookmark">
-                                        ${topStr} ${item.title}
+                                        ${item.title}
                                     </a>
                                 </h3>
                                 <div class="item-excerpt">

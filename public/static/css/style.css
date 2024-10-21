@@ -116,6 +116,17 @@ body {
     color: #16b777;
     text-decoration: none;
 }
+.widget ol li:before, .widget ul li:before {
+    border: 4px solid transparent;
+    border-left: 5px solid hsla(var(--theme-color-hsl), .2);
+    content: "";
+    height: 0;
+    left: 0;
+    line-height: 0;
+    position: absolute;
+    top: 11px;
+    width: 0;
+}
 .widget-title:before {
     background-color: #16b777;
     background-image: linear-gradient(180deg, hsla(0, 0%, 100%, .15), transparent);

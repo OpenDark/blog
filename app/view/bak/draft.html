@@ -23,7 +23,7 @@
                 <span class="icon-bar icon-bar-3"></span>
             </div>
             <ul class="layui-nav layui-bg-gray menu-list">
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-this">
                     <a href="/">首页</a>
                 </li>
                 <li class="layui-nav-item">
@@ -52,7 +52,7 @@
                     <a href="/index/tags">标签归档</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/index/guest">留言板</a>
+                    <a href="/guest">留言板</a>
                 </li>
                 <li class="layui-nav-item myself-message" lay-unselect>
                     <a class="username" href="/index/user">OpenDark</a>
@@ -63,7 +63,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="/index/user">个人中心</a></dd>
-                        <dd class="layui-this"><a href="/index/account">账号设置</a></dd>
+                        <dd><a href="/index/account">账号设置</a></dd>
                         <dd><a href="/index/draft">我要投稿</a></dd>
                         <hr>
                         <dd style="text-align: center;"><a href="/common/login">退出登录</a></dd>
@@ -75,117 +75,95 @@
 </header>
 <div class="body">
     <div class="layui-container">
-        <div class="member-account">
-            <article id="post-18" class="post-18 page type-page status-publish hentry entry">
-                <div class="entry-main">
-                    <div class="entry-content">
-                        <div class="member-account-wrap">
-                            <div class="member-account-nav">
-                                <div class="member-account-user">
-                                    <div class="member-account-avatar">
-                                        <noscript>
-                                            <img alt='OpenDark的头像'
-                                                 src='/avatar/0.jpg' height='200' width='200'/>
-                                        </noscript>
-                                        <img alt="OpenDark的头像"
-                                             src="/avatar/0.jpg"
-                                             data-original="/avatar/0.jpg"
-                                             class="avatar avatar-200 photo j-lazy" height="200" width="200"
-                                             img-loaded="true">
-                                        <span class="edit-avatar" data-user="33466">
-                                            <i class="layui-icon layui-icon-camera"></i>
-                                        </span>
-                                        <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce"
-                                               value="65f5d3b343"></div>
-                                    <h3 class="member-account-name">
-                                        <a href="/index/user" target="_blank">
-                                            OpenDark </a>
-                                    </h3>
-                                    <div class="member-account-dio">Enjoy coding, enjoy life!</div>
-                                    <a class="layui-btn layui-btn-fluid od-green-button member-account-tg"
-                                       href="/index/draft">
-                                        <i class="layui-icon layui-icon-edit"></i>投稿
-                                    </a>
-                                </div>
-                                <ul class="member-account-menu">
-                                    <li class="member-nav-general active">
-                                        <a href="/index/account">
-                                            <i class="layui-icon layui-icon-username"></i>基本资料 </a>
-                                    </li>
-                                    <li class="member-nav-messages">
-                                        <a href="/index/message">
-                                            <i class="layui-icon layui-icon-email"></i>我的私信 </a>
-                                    </li>
-                                    <li class="member-nav-notifications">
-                                        <a href="/index/notice">
-                                            <i class="layui-icon layui-icon-speaker"></i>系统通知 </a>
-                                    </li>
-<!--                                    <li class="member-nav-bind">-->
-<!--                                        <a href="https://demo.wpcom.cn/justnews/account/bind">-->
-<!--                                            <i class="layui-icon layui-icon-vercode"></i>账号绑定 </a>-->
-<!--                                    </li>-->
-                                    <li class="member-nav-password">
-                                        <a href="/index/reset">
-                                            <i class="layui-icon layui-icon-password"></i>修改密码 </a>
-                                    </li>
-                                    <li class="member-nav-logout">
-                                        <a href="/index/logout">
-                                            <i class="layui-icon layui-icon-logout"></i>退出登录 </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="member-account-content">
-                                <h2 class="member-account-title">基本资料</h2>
-                                <form class="member-account-form" action="" method="post">
-                                    <input type="hidden" id="member_form_general_nonce" name="member_form_general_nonce"
-                                           value="4a4e32a45a">
-                                    <input type="hidden" name="_wp_http_referer"
-                                           value="/justnews/account">
-<!--                                    <div class="member-account-item member-text-line item-mobile_phone"><label-->
-<!--                                        class="member-account-label">手机号码</label>-->
-<!--                                        <div class="member-account-input">-->
-<!--                                            <div class="member-account-text">15577079494-->
-<!--                                                <a class="member-bind-url"-->
-<!--                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=phone&amp;action=change">编辑</a><span-->
-<!--                                                    class="member-bind-tip">仅自己可见</span></div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-                                    <div class="member-account-item member-text-line item-user_email"><label
-                                        class="member-account-label">电子邮箱</label>
-                                        <div class="member-account-input">
-                                            <div class="member-account-text">opendark@163.com
-                                                <a class="member-bind-url"
-                                                   href="https://demo.wpcom.cn/justnews/account/bind?type=email&amp;action=bind">编辑</a><span
-                                                    class="member-bind-tip">仅自己可见</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item item-display_name"><label
-                                        class="member-account-label">展示昵称</label>
-                                        <div class="member-account-input">
-                                            <input class="layui-input is-input" type="text"
-                                                   name="display_name" value="OpenDark"
-                                                   maxlength="20" placeholder=""
-                                                   data-label="昵称"></div>
-                                    </div>
-                                    <div class="member-account-item"><label class="member-account-label">个人说明</label>
-                                        <div class="member-account-input">
-                                            <textarea class="layui-textarea is-input" name="description"
-                                                      rows="3">Enjoy coding, enjoy life!</textarea>
-                                            <div class="member-account-desc">可选，个人说明不超过200个字符</div>
-                                        </div>
-                                    </div>
-                                    <div class="member-account-item">
-                                        <label class="member-account-label"></label>
-                                        <button class="layui-btn od-green-button" type="submit">保存设置</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+        <form method="post" class="post-form layui-form" id="j-form">
+            <input type="hidden" id="update_post_nonce" name="update_post_nonce" value="ebf6d13e3a">
+            <input type="hidden" name="http_referer" value="/tougao">
+            <input type="hidden" name="ID" value="">
+            <div class="post-form-main">
+                <div class="pf-side-label">
+                    <h3><i class="layui-icon layui-icon-file-b wi"></i> 文章内容</h3>
+                </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <input type="text" class="layui-input" maxlength="200"
+                               id="post-title" name="post-title"
+                               placeholder="请输入文章标题" value="" autocomplete="off">
                     </div>
                 </div>
-            </article>
-        </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <textarea id="post-excerpt" name="post-excerpt" class="layui-textarea" rows="3"
+                                  placeholder="请输入文章摘要，可选填"></textarea>
+                    </div>
+                </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <div id="post-content-wrap">
+                            <textarea class="layui-textarea" rows="20" autocomplete="off" cols="40"
+                                      name="post-content" id="editor" aria-hidden="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-form-sidebar">
+                <div class="pf-submit-wrap">
+                    <button type="button" class="layui-btn layui-btn-fluid pf-submit od-green-button">提交发布</button>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-app wi"></i>分类
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="pf-cat-inner">
+                            <select>
+                                <option value="">请选择文章分类</option>
+                                <option value="1">创业分享</option>
+                                <option value="5">产品设计</option>
+                                <option value="6">用户体验</option>
+                                <option value="7">行业动态</option>
+                            </select>
+                        </div>
+                        <p class="pf-notice">分类至少选择1个</p>
+                    </div>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-note wi"></i>标签
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="tagHandler">
+                            <input type="text" class="layui-input" name="post-tag"
+                                   placeholder="请输入文章标签" autocomplete="off">
+                        </div>
+                        <p class="pf-notice">使用空格或逗号隔开，可选填</p>
+                    </div>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-picture wi"></i>缩略图
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="layui-upload-drag thumb-wrap" style="display: block;" id="upload-drag">
+                            <i class="layui-icon layui-icon-upload-drag"></i>
+                            <div>设置缩略图片</div>
+                            <div class="layui-hide" id="upload-preview">
+                                <hr>
+                                <img src="" alt="上传成功后渲染" style="max-width: 100%">
+                                <div class="thumb-remove j-thumb-remove"></div>
+                            </div>
+                        </div>
+                        <p class="pf-notice">缩略图会显示在文章列表，建议设置</p>
+                    </div>
+                    <input type="hidden" name="thumb_id" id="thumb_id" value="">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <footer class="footer">
@@ -198,7 +176,7 @@
                     <li id="menu-item-129" class="menu-item menu-item-129"><a
                         href="/index/tags">标签归档</a></li>
                     <li id="menu-item-4252" class="menu-item menu-item-4252"><a
-                        href="/index/guest">留言板</a></li>
+                        href="/guest">留言板</a></li>
                 </ul>
                 <div class="copyright">
                     <p>
@@ -252,7 +230,7 @@
             <a href="/index/tags">标签归档</a>
         </li>
         <li class="layui-nav-item">
-            <a href="/index/guest">留言板</a>
+            <a href="/guest">留言板</a>
         </li>
         <li class="layui-nav-item">
             <a class="username" href="/index/user">OpenDark</a>
@@ -273,11 +251,48 @@
 </div>
 <script src="__JS__/layui/layui.js"></script>
 <script>
-    layui.use(['layer', 'util', 'carousel'], function () {
+    layui.config({
+        base: '__JS__/layui_exts/'
+    }).use(['layer', 'util', 'tinymce', 'carousel'], function () {
         var carousel = layui.carousel;
+        var upload = layui.upload;
         var layer = layui.layer;
         var util = layui.util;
+        var t = layui.tinymce;
         var $ = layui.$;
+
+        // 图片上传
+        upload.render({
+            elem: '#upload-drag',
+            url: '/index/upload',
+            size: 2048,
+            done: function (res) {
+                if (res.code === 0) {
+                    $('#upload-preview').removeClass('layui-hide')
+                    .find('img').attr('src', res.data);
+                    $('#thumb_id').val(res.id);
+                } else {
+                    layer.msg(res.msg);
+                }
+            },
+            error: function () {
+                layer.msg('上传失败');
+            }
+        });
+
+        // 富文本编辑器
+        var edit = t.render({
+            elem: "#editor",
+            height: 400,
+            images_upload_url: '/index/upload',
+            form: {
+                name: 'file', //配置上传文件的字段名称
+                data: {key: 'value'} //其他需要一起上传的数据
+            }
+            // 其余配置可参考官方文档
+        }, function (opt, edit) {
+            //加载完成后回调
+        });
 
         util.fixbar({
             top: true,

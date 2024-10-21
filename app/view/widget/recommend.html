@@ -1,0 +1,64 @@
+<div class="widget widget_post_hot">
+    <h3 class="widget-title">
+        <span>热门推荐</span>
+    </h3>
+    <ul id="article-recommend"></ul>
+</div>
+
+<script>
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.$;
+
+        function getRecommend() {
+            $.ajax({
+                url: '/widget/getRecommend',
+                type: 'post',
+                data: {},
+                success: function (res) {
+                    let html = '';
+                    res.data.forEach(function (item, idx) {
+                        html += `
+                            <li class="item scale-image">
+                            <div class="item-img">
+                                <a class="item-img-inner" href="/post/${item.id}">
+                                    <img width="480" height="300"
+                                         src="${item.thumbnail}"
+                                         class="attachment-default size-default wp-post-image j-lazy"
+                                         alt="${item.title}" decoding="async" img-loaded="true">
+                                </a>
+                            </div>`;
+                        if (idx === 0) {
+                            html += `
+                                <div class="item-content">
+                                    <div class="item-hot">
+                                        <i class="layui-icon layui-icon-fire wi"></i>${item.read_num}
+                                    </div>
+                                    <p class="item-title">
+                                        <a href="/post/${item.id}">
+                                            ${item.title}
+                                        </a>
+                                    </p>
+                                </div></li>`;
+                        } else {
+                            html += `
+                                <div class="item-content">
+                                    <p class="item-title">
+                                        <a href="/post/${item.id}">
+                                            ${item.title}
+                                        </a>
+                                    </p>
+                                    <div class="item-hot">
+                                        <i class="layui-icon layui-icon-fire wi"></i>${item.read_num}
+                                    </div>
+                                </div></li>`;
+                        }
+                    });
+                    $('#article-recommend').append(html);
+                }
+            });
+        }
+
+        getRecommend();
+    });
+</script>
