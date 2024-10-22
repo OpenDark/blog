@@ -1099,6 +1099,10 @@
             return false;
         });
 
+        $('.comment-must-login').on('click', function (event) {
+            needLogin();
+        });
+
         util.on('lay-on', {
             'smilies': function () {
                 $('.smilies-box').toggleClass('active');

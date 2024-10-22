@@ -3,10 +3,22 @@
 namespace app\controller;
 
 use support\Response;
+use app\model\Follow;
 
 class UserController extends BaseController
 {
-    /* 博客用户 */
+    protected bool|array $needLogin = [
+        'follow',
+        'message',
+    ];
+
+    /* 用户 */
+    public function index(int $id): Response
+    {
+        return view('user/index');
+    }
+
+    /* 文章作者 */
     public function getUser(int $id): Response
     {
         $group = ['管理团队', '普通用户', '认证作者'];
@@ -17,28 +29,35 @@ class UserController extends BaseController
         return json(['code' => 200, 'msg' => 'success', 'data' => $data]);
     }
 
-    /* 用户 */
-    public function index(int $id): Response
-    {
-        return view('user/index');
-    }
-
     /* 关注 */
-    public function follow(): Response
+    public function doFollow()
     {
-        return view('user/follow');
+        $id = $this->request->post('id');
+        if ($id == $this->userInfo['id']) {
+            $this->failure('不能关注自己');
+        }
+        $cancel = 0;
+        $where = [
+            'from_user_id' => $this->userInfo['id'],
+            'to_user_id' => $id
+        ];
+        $follow = Follow::where($where)->findOrEmpty();
+        if ($follow->isEmpty()) {
+            Follow::create($where);
+        } else {
+            $cancel = $follow['is_cancel'] = 1 - $follow['is_cancel'];
+            $follow->save();
+        }
+        $this->success([
+            'id' => $id,
+            'cancel' => $cancel
+        ]);
     }
 
-    /* 评论 */
-    public function comment(): Response
+    /* 私信 */
+    public function message(): Response
     {
-        return view('user/comment');
-    }
-
-    /* 收藏 */
-    public function favorite(): Response
-    {
-        return view('user/favorite');
+        return view('user/message');
     }
 
 }

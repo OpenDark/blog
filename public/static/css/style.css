@@ -2496,6 +2496,7 @@ body {
     font-size: 14px;
     height: 100px;
     padding: 8px 12px;
+    cursor: pointer;
 }
 .form-submit-text {
     color: var(--theme-gray-color);
@@ -3845,4 +3846,20 @@ ul.page-numbers > li.prev > a:before, ul.pagination > li.prev > a:before {
     display: inline-block;
     line-height: 1;
     margin: 0 20px 12px 0;
+}
+
+.need-login-dialog {
+    border-radius: var(--theme-border-radius-l, 3px);
+}
+.need-login-dialog .layui-layer-btn0,
+.need-login-dialog .layui-layer-btn1 {
+    border-radius: var(--theme-border-radius-m, 4px);
+    box-sizing: content-box;
+}
+.need-login-dialog .layui-layer-btn0 {
+    background-color: #16b777;
+}
+.need-login-dialog .layui-layer-btn1:hover {
+    border-color: #16b777 !important;
+    color: #16b777 !important;
 }

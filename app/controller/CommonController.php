@@ -21,7 +21,10 @@ class CommonController extends BaseController
         if (!empty($this->userInfo)) {
             return redirect($url);
         }
-        return view('common/login');
+        return view('common/login', [
+            'title' => '账号登录',
+            'url' => $url,
+        ]);
     }
 
     /* 登录 */

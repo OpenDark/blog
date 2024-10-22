@@ -15,6 +15,8 @@ Route::get('/user/{id:[1-9]\d*}', [\app\controller\UserController::class, 'index
 
 Route::get('/draft', [\app\controller\AccountController::class, 'draft']);
 
+Route::get('/search', [\app\controller\PostController::class, 'search']);
+
 Route::fallback(function (Request $request) {
     // ajax请求时返回json
     if ($request->expectsJson()) {

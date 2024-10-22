@@ -216,8 +216,12 @@
                         <div class="layui-btn layui-btn-primary layui-border-green green-button" lay-on="load-more">
                             点击查看更多
                         </div>`;
+                    let notMore = '已经到底了';
+                    if (page === 1 && html === ''){
+                        notMore = '未发布文章';
+                    }
                     if (page >= res.data.last_page) {
-                        more = `<div class="layui-btn layui-btn-primary layui-btn-disabled" data-exclude="">已经到底了</div>`;
+                        more = `<div class="layui-btn layui-btn-primary layui-btn-disabled" data-exclude="">${notMore}</div>`;
                     }
                     $('.load-more-wrap').html(more);
 

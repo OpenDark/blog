@@ -1,20 +1,11 @@
 {extend name="base" /}
 
 {block name="body"}
-<div class="banner category-banner"
-     style="background-image: url('{$category.banner|default="http://img.wepuzi.com/default-banner.jpg"}');">
-    <div class="banner-inner">
-        <h1>{$category.name}</h1>
-        <div class="page-description">
-            <p>{$category.desc}</p>
-        </div>
-    </div>
-</div>
 <div class="layui-container">
     <div class="breadcrumb">
         <span class="layui-breadcrumb" lay-separator=">">
             <a href="/">首页</a>
-            <a><cite>{$category.name}</cite></a>
+            <a><cite>搜索：{$s}</cite></a>
         </span>
     </div>
     <div class="layui-row layui-col-space20">
@@ -54,7 +45,7 @@
             let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>点击查看更多';
             $('div[lay-on="load-more"]').html(loop);
             $.ajax({
-                url: '/category/getArticle?id={$id}',
+                url: '/post/getArticle?s={$s}',
                 type: 'post',
                 data: {
                     page: page,
@@ -125,7 +116,7 @@
                         </div>`;
                     let notMore = '已经到底了';
                     if (page === 1 && html === ''){
-                        notMore = '该分类没有文章';
+                        notMore = '未搜索到匹配文章';
                     }
                     if (page >= res.data.last_page) {
                         more = `<div class="layui-btn layui-btn-primary layui-btn-disabled" data-exclude="">${notMore}</div>`;

@@ -247,6 +247,31 @@
             }
         });
     });
+
+    function needLogin() {
+        layui.use(['layer'], function (layer) {
+            layer.open({
+                type: 1,
+                shade: 0.6,
+                shadeClose: true,
+                skin: 'need-login-dialog',
+                title: '请登录',
+                area: ['400px', 'auto'],
+                maxWidth: 500,
+                maxHeight: 200,
+                content: '<div style="padding:0 20px;margin: 10px 0;">您还未登录，请登录后再进行相关操作！</div>',
+                btn: ['登录', '注册'],
+                btn1: function (index, layero, that) {
+                    location.href = '/common/login';
+                    return false;
+                },
+                btn2: function (index, layero, that) {
+                    location.href = '/common/register';
+                    return false;
+                },
+            });
+        })
+    }
 </script>
 {block name="script"}{/block}
 </body>

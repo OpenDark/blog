@@ -1,8 +1,8 @@
 <div class="widget widget_search">
     <div class="search-bar">
         <div class="layui-input-wrap">
-            <input type="text" placeholder="输入关键词搜索..." class="layui-input">
-            <div class="layui-input-suffix">
+            <input id="searchInput" type="text" placeholder="输入关键词搜索..." class="layui-input">
+            <div id="searchBtn" class="layui-input-suffix">
                 <i class="layui-icon layui-icon-search"></i>
             </div>
         </div>
@@ -10,5 +10,19 @@
 </div>
 
 <script>
+    layui.use([], function () {
+        let $ = layui.jquery;
 
+        $('#searchInput').bind('keypress', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#searchBtn").click();
+            }
+        })
+
+        $('#searchBtn').on('click', function () {
+            location.href = '/search?s=' + $('#searchInput').val();
+        });
+
+    });
 </script>

@@ -106,7 +106,7 @@
                     layer.closeAll('loading');
                     if (res.code === 200) {
                         layer.msg('登录成功', {icon: 1, time: 500}, function () {
-                            location.href = '/';
+                            location.href = '{$url}';
                         });
                     } else {
                         layer.msg(res.msg, {icon: 2, time: 1000});
