@@ -34,9 +34,9 @@
                             <div class="comment-form-comment">
                                     <textarea id="comment" name="comment" class="required"
                                               rows="4" placeholder="写下你的留言…"></textarea>
-                                <div class="comment-form-smile j-smilies" lay-on="smilies">
-                                    <i class="layui-icon wi layui-icon-face-smile-b"></i>
-                                    <div class="smilies-box">
+                                <div class="comment-form-smile j-smilies show-face" lay-on="smilies">
+                                    <i class="layui-icon wi layui-icon-face-smile-b show-face"></i>
+                                    <div class="smilies-box show-face">
                                         <div class="smilies-item" data-name="[微笑]" title="微笑"><img
                                             src="__IMG__/smilies/weixiao.svg"
                                             alt="[微笑]" img-loaded="true"></div>
@@ -1084,11 +1084,20 @@
         var $ = layui.$;
         var page = 1;
 
-        $('.smilies-item').on('click', function() {
+        $(document).on('click', function (event) {
+            let evt = event.srcElement ? event.srcElement : event.target;
+            if (evt.classList.contains('show-face'))
+                return false;
+            else {
+                $('.smilies-box').removeClass('active');
+            }
+        });
+
+        $('.smilies-item').on('click', function (event) {
             let comment = $('#comment');
             comment.val(comment.val() + $(this).data('name'));
             return false;
-        })
+        });
 
         util.on('lay-on', {
             'smilies': function () {
