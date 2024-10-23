@@ -1,7 +1,246 @@
 {extend name="base" /}
 
 {block name="body"}
-
+<div class="layui-container">
+    <div class="breadcrumb">
+            <span class="layui-breadcrumb" lay-separator=">">
+                <a href="">首页</a>
+                <a><cite>专题列表</cite></a>
+            </span>
+    </div>
+    <div class="banner banner-2">
+        <div class="banner-inner container-fluid">
+            <h1>专题列表</h1>
+            <div class="page-description">
+                <p>更多的言论表达和思想沟通，更快、更直接的对整个世界的宏观把控</p>
+            </div>
+        </div>
+    </div>
+    <div class="special-wrap">
+        <div class="special-list row layui-row layui-col-space20">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6 layui-col-lg6 layui-col-xl6">
+                <!--<div class="col-md-12 col-xs-24 special-item-wrap">-->
+                <div class="special-item">
+                    <div class="special-item-top">
+                        <div class="special-item-thumb">
+                            <a href="https://demo.wpcom.cn/justnews/special/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c"
+                               target="_blank">
+                                <img class="j-lazy"
+                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/jeshoots-com-5chl44BAOvk.jpg?imageMogr2/format/webp"
+                                     data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/jeshoots-com-5chl44BAOvk.jpg"
+                                     alt="用户体验" img-loaded="true"> </a>
+                        </div>
+                        <div class="special-item-info">
+                            <div class="special-item-title">
+                                <h2><a
+                                    href="https://demo.wpcom.cn/justnews/special/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c"
+                                    target="_blank">用户体验</a></h2>
+                                <a class="special-item-more"
+                                   href="https://demo.wpcom.cn/justnews/special/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c">进入专题
+                                    <i class="layui-icon layui-icon-right wi"></i>
+                                </a>
+                            </div>
+                            <div class="special-item-desc">
+                                <p>用户体验（User Experience，简称UE/UX）是一种纯主观在用户使用产品过程中建立起来的感受。</p>
+                            </div>
+                            <div class="special-item-meta">
+                                <span class="special-item-count">9篇文章</span>
+                                <div class="special-item-share">
+                                    <span class="hidden-xs">分享到: </span>
+                                    <a class="share-icon wechat hidden-xs" target="" data-share="wechat"
+                                       data-share-callback="zt_share" rel="noopener" href="javascript:">
+                                        <i class="layui-icon layui-icon-login-wechat"></i> <span
+                                        class="share-wx-wrap"><span class="j-share-qrcode"><canvas
+                                        width="256" height="256"></canvas></span><span>微信扫码分享</span></span></a>
+                                    <a class="share-icon weibo hidden-xs" target="_blank" data-share="weibo"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e7%2594%25a8%25e6%2588%25b7%25e4%25bd%2593%25e9%25aa%258c&amp;title=%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C&amp;pic=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;appkey=&amp;searchPic=true">
+                                        <i class="layui-icon layui-icon-login-weibo"></i> </a>
+                                    <a class="share-icon qq hidden-xs" target="_blank" data-share="qq"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e7%2594%25a8%25e6%2588%25b7%25e4%25bd%2593%25e9%25aa%258c&amp;title=%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C&amp;source=JustNews&amp;desc=%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%88User%20Experience%EF%BC%8C%E7%AE%80%E7%A7%B0UE%2FUX%EF%BC%89%E6%98%AF%E4%B8%80%E7%A7%8D%E7%BA%AF%E4%B8%BB%E8%A7%82%E5%9C%A8%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E4%BA%A7%E5%93%81%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%BB%BA%E7%AB%8B%E8%B5%B7%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97%E3%80%82&amp;pics=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;summary=&quot;%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%88User%20Experience%EF%BC%8C%E7%AE%80%E7%A7%B0UE%2FUX%EF%BC%89%E6%98%AF%E4%B8%80%E7%A7%8D%E7%BA%AF%E4%B8%BB%E8%A7%82%E5%9C%A8%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E4%BA%A7%E5%93%81%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%BB%BA%E7%AB%8B%E8%B5%B7%E6%9D%A5%E7%9A%84%E6%84%9F%E5%8F%97%E3%80%82&quot;">
+                                        <i class="layui-icon layui-icon-login-qq"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="special-item-bottom">
+                        <li><a title="3秒拆装的“斗子车”：比自行车还灵活" href="https://demo.wpcom.cn/justnews/1471.html"
+                               target="_blank">3秒拆装的“斗子车”：比自行车还灵活</a></li>
+                        <li><a title="今年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
+                               target="_blank">今年UX设计的3大预测</a></li>
+                        <li><a title="第一次负责从0到1的产品时要注意哪几点？" href="https://demo.wpcom.cn/justnews/223.html"
+                               target="_blank">第一次负责从0到1的产品时要注意哪几点？</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6 layui-col-lg6 layui-col-xl6">
+                <div class="special-item">
+                    <div class="special-item-top">
+                        <div class="special-item-thumb">
+                            <a href="https://demo.wpcom.cn/justnews/special/%e4%ba%92%e8%81%94%e7%bd%91"
+                               target="_blank">
+                                <img class="j-lazy"
+                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032509190415.jpg?imageMogr2/format/webp"
+                                     data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032509190415.jpg"
+                                     alt="互联网" img-loaded="true"> </a>
+                        </div>
+                        <div class="special-item-info">
+                            <div class="special-item-title">
+                                <h2><a href="https://demo.wpcom.cn/justnews/special/%e4%ba%92%e8%81%94%e7%bd%91"
+                                       target="_blank">互联网</a></h2>
+                                <a class="special-item-more"
+                                   href="https://demo.wpcom.cn/justnews/special/%e4%ba%92%e8%81%94%e7%bd%91">进入专题
+                                    <i class="layui-icon layui-icon-right wi"></i>
+                                </a>
+                            </div>
+                            <div class="special-item-desc">
+                                <p>聚焦互联网行业最新发展动向和业内新闻资讯</p>
+                            </div>
+                            <div class="special-item-meta">
+                                <span class="special-item-count">10篇文章</span>
+                                <div class="special-item-share">
+                                    <span class="hidden-xs">分享到: </span>
+                                    <a class="share-icon wechat hidden-xs" target="" data-share="wechat"
+                                       data-share-callback="zt_share" rel="noopener" href="javascript:">
+                                        <i class="layui-icon layui-icon-login-wechat"></i> <span
+                                        class="share-wx-wrap"><span class="j-share-qrcode"><canvas
+                                        width="256" height="256"></canvas></span><span>微信扫码分享</span></span></a>
+                                    <a class="share-icon weibo hidden-xs" target="_blank" data-share="weibo"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e4%25ba%2592%25e8%2581%2594%25e7%25bd%2591&amp;title=%E4%BA%92%E8%81%94%E7%BD%91&amp;pic=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;appkey=&amp;searchPic=true">
+                                        <i class="layui-icon layui-icon-login-weibo"></i> </a>
+                                    <a class="share-icon qq hidden-xs" target="_blank" data-share="qq"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e4%25ba%2592%25e8%2581%2594%25e7%25bd%2591&amp;title=%E4%BA%92%E8%81%94%E7%BD%91&amp;source=JustNews&amp;desc=%E8%81%9A%E7%84%A6%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E6%9C%80%E6%96%B0%E5%8F%91%E5%B1%95%E5%8A%A8%E5%90%91%E5%92%8C%E4%B8%9A%E5%86%85%E6%96%B0%E9%97%BB%E8%B5%84%E8%AE%AF&amp;pics=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;summary=&quot;%E8%81%9A%E7%84%A6%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E6%9C%80%E6%96%B0%E5%8F%91%E5%B1%95%E5%8A%A8%E5%90%91%E5%92%8C%E4%B8%9A%E5%86%85%E6%96%B0%E9%97%BB%E8%B5%84%E8%AE%AF&quot;">
+                                        <i class="layui-icon layui-icon-login-qq"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="special-item-bottom">
+                        <li><a title="今年UX设计的3大预测" href="https://demo.wpcom.cn/justnews/341.html"
+                               target="_blank">今年UX设计的3大预测</a></li>
+                        <li><a title="第一次负责从0到1的产品时要注意哪几点？" href="https://demo.wpcom.cn/justnews/223.html"
+                               target="_blank">第一次负责从0到1的产品时要注意哪几点？</a></li>
+                        <li><a title="网易精品产品背后的内容运营故事" href="https://demo.wpcom.cn/justnews/231.html"
+                               target="_blank">网易精品产品背后的内容运营故事</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6 layui-col-lg6 layui-col-xl6">
+                <div class="special-item">
+                    <div class="special-item-top">
+                        <div class="special-item-thumb">
+                            <a href="https://demo.wpcom.cn/justnews/special/%e5%90%8d%e4%bc%81%e7%bb%8f%e9%aa%8c"
+                               target="_blank">
+                                <img class="j-lazy"
+                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608273633-1.jpg?imageMogr2/format/webp"
+                                     data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608273633-1.jpg"
+                                     alt="名企经验" img-loaded="true"> </a>
+                        </div>
+                        <div class="special-item-info">
+                            <div class="special-item-title">
+                                <h2><a
+                                    href="https://demo.wpcom.cn/justnews/special/%e5%90%8d%e4%bc%81%e7%bb%8f%e9%aa%8c"
+                                    target="_blank">名企经验</a></h2>
+                                <a class="special-item-more"
+                                   href="https://demo.wpcom.cn/justnews/special/%e5%90%8d%e4%bc%81%e7%bb%8f%e9%aa%8c">进入专题
+                                    <i class="layui-icon layui-icon-right wi"></i>
+                                </a>
+                            </div>
+                            <div class="special-item-desc">
+                                <p>行业内的知名企业最新管理、产品、运营推广、发展战略等经验分享</p>
+                            </div>
+                            <div class="special-item-meta">
+                                <span class="special-item-count">11篇文章</span>
+                                <div class="special-item-share">
+                                    <span class="hidden-xs">分享到: </span>
+                                    <a class="share-icon wechat hidden-xs" target="" data-share="wechat"
+                                       data-share-callback="zt_share" rel="noopener" href="javascript:">
+                                        <i class="layui-icon layui-icon-login-wechat"></i> <span
+                                        class="share-wx-wrap"><span class="j-share-qrcode"><canvas
+                                        width="256" height="256"></canvas></span><span>微信扫码分享</span></span></a>
+                                    <a class="share-icon weibo hidden-xs" target="_blank" data-share="weibo"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e5%2590%258d%25e4%25bc%2581%25e7%25bb%258f%25e9%25aa%258c&amp;title=%E5%90%8D%E4%BC%81%E7%BB%8F%E9%AA%8C&amp;pic=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;appkey=&amp;searchPic=true">
+                                        <i class="layui-icon layui-icon-login-weibo"></i> </a>
+                                    <a class="share-icon qq hidden-xs" target="_blank" data-share="qq"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e5%2590%258d%25e4%25bc%2581%25e7%25bb%258f%25e9%25aa%258c&amp;title=%E5%90%8D%E4%BC%81%E7%BB%8F%E9%AA%8C&amp;source=JustNews&amp;desc=%E8%A1%8C%E4%B8%9A%E5%86%85%E7%9A%84%E7%9F%A5%E5%90%8D%E4%BC%81%E4%B8%9A%E6%9C%80%E6%96%B0%E7%AE%A1%E7%90%86%E3%80%81%E4%BA%A7%E5%93%81%E3%80%81%E8%BF%90%E8%90%A5%E6%8E%A8%E5%B9%BF%E3%80%81%E5%8F%91%E5%B1%95%E6%88%98%E7%95%A5%E7%AD%89%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB&amp;pics=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;summary=&quot;%E8%A1%8C%E4%B8%9A%E5%86%85%E7%9A%84%E7%9F%A5%E5%90%8D%E4%BC%81%E4%B8%9A%E6%9C%80%E6%96%B0%E7%AE%A1%E7%90%86%E3%80%81%E4%BA%A7%E5%93%81%E3%80%81%E8%BF%90%E8%90%A5%E6%8E%A8%E5%B9%BF%E3%80%81%E5%8F%91%E5%B1%95%E6%88%98%E7%95%A5%E7%AD%89%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB&quot;">
+                                        <i class="layui-icon layui-icon-login-qq"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="special-item-bottom">
+                        <li><a title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" href="https://demo.wpcom.cn/justnews/376.html"
+                               target="_blank">京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份</a></li>
+                        <li><a title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸" href="https://demo.wpcom.cn/justnews/242.html"
+                               target="_blank">星巴克限量版独角兽星冰乐的背后：摸索如何不平庸</a></li>
+                        <li><a title="网易精品产品背后的内容运营故事" href="https://demo.wpcom.cn/justnews/231.html"
+                               target="_blank">网易精品产品背后的内容运营故事</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6 layui-col-lg6 layui-col-xl6">
+                <div class="special-item">
+                    <div class="special-item-top">
+                        <div class="special-item-thumb">
+                            <a href="https://demo.wpcom.cn/justnews/special/%e4%ba%a7%e5%93%81%e7%bb%8f%e7%90%86"
+                               target="_blank">
+                                <img class="j-lazy"
+                                     src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608282663.jpg?imageMogr2/format/webp"
+                                     data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032608282663.jpg"
+                                     alt="产品经理" img-loaded="true"> </a>
+                        </div>
+                        <div class="special-item-info">
+                            <div class="special-item-title">
+                                <h2><a
+                                    href="https://demo.wpcom.cn/justnews/special/%e4%ba%a7%e5%93%81%e7%bb%8f%e7%90%86"
+                                    target="_blank">产品经理</a></h2>
+                                <a class="special-item-more"
+                                   href="https://demo.wpcom.cn/justnews/special/%e4%ba%a7%e5%93%81%e7%bb%8f%e7%90%86">进入专题
+                                    <i class="layui-icon layui-icon-right wi"></i>
+                                </a>
+                            </div>
+                            <div class="special-item-desc">
+                                <p>产品经理负责调查并根据用户的需求，确定开发何种产品，选择何种技术、商业模式等。</p>
+                            </div>
+                            <div class="special-item-meta">
+                                <span class="special-item-count">9篇文章</span>
+                                <div class="special-item-share">
+                                    <span class="hidden-xs">分享到: </span>
+                                    <a class="share-icon wechat hidden-xs" target="" data-share="wechat"
+                                       data-share-callback="zt_share" rel="noopener" href="javascript:">
+                                        <i class="layui-icon layui-icon-login-wechat"></i> <span
+                                        class="share-wx-wrap"><span class="j-share-qrcode"><canvas
+                                        width="256" height="256"></canvas></span><span>微信扫码分享</span></span></a>
+                                    <a class="share-icon weibo hidden-xs" target="_blank" data-share="weibo"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e4%25ba%25a7%25e5%2593%2581%25e7%25bb%258f%25e7%2590%2586&amp;title=%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86&amp;pic=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;appkey=&amp;searchPic=true">
+                                        <i class="layui-icon layui-icon-login-weibo"></i> </a>
+                                    <a class="share-icon qq hidden-xs" target="_blank" data-share="qq"
+                                       data-share-callback="zt_share" rel="noopener"
+                                       href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fspecial%2F%25e4%25ba%25a7%25e5%2593%2581%25e7%25bb%258f%25e7%2590%2586&amp;title=%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86&amp;source=JustNews&amp;desc=%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E8%B4%9F%E8%B4%A3%E8%B0%83%E6%9F%A5%E5%B9%B6%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E7%9A%84%E9%9C%80%E6%B1%82%EF%BC%8C%E7%A1%AE%E5%AE%9A%E5%BC%80%E5%8F%91%E4%BD%95%E7%A7%8D%E4%BA%A7%E5%93%81%EF%BC%8C%E9%80%89%E6%8B%A9%E4%BD%95%E7%A7%8D%E6%8A%80%E6%9C%AF%E3%80%81%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E7%AD%89%E3%80%82&amp;pics=https%3A%2F%2Fdemo.wpcom.cn%2Fjustnews%2Fwp-content%2Fuploads%2Fsites%2F8%2F2022%2F11%2Flazy.png&amp;summary=&quot;%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E8%B4%9F%E8%B4%A3%E8%B0%83%E6%9F%A5%E5%B9%B6%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E7%9A%84%E9%9C%80%E6%B1%82%EF%BC%8C%E7%A1%AE%E5%AE%9A%E5%BC%80%E5%8F%91%E4%BD%95%E7%A7%8D%E4%BA%A7%E5%93%81%EF%BC%8C%E9%80%89%E6%8B%A9%E4%BD%95%E7%A7%8D%E6%8A%80%E6%9C%AF%E3%80%81%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E7%AD%89%E3%80%82&quot;">
+                                        <i class="layui-icon layui-icon-login-qq"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="special-item-bottom">
+                        <li><a title="第一次负责从0到1的产品时要注意哪几点？" href="https://demo.wpcom.cn/justnews/223.html"
+                               target="_blank">第一次负责从0到1的产品时要注意哪几点？</a></li>
+                        <li><a title="产品设计时，如何提炼用户的痛点" href="https://demo.wpcom.cn/justnews/227.html"
+                               target="_blank">产品设计时，如何提炼用户的痛点</a></li>
+                        <li><a title="为什么你每次和开发沟通需求，都像打仗一样？" href="https://demo.wpcom.cn/justnews/213.html"
+                               target="_blank">为什么你每次和开发沟通需求，都像打仗一样？</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {/block}
 
 {block name="script"}

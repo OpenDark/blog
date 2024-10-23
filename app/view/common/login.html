@@ -96,6 +96,16 @@
             },
         });
 
+        let userData = layui.data('username');
+        if (userData) {
+            $('#login-username').val(userData.username);
+            $('input[name="remember"]').prop('checked', true);
+        }
+        let pwdData = layui.data('password');
+        if (pwdData) {
+            $('#login-password').val(pwdData.password);
+        }
+
         form.on('submit(login)', function (data) {
             layer.load();
             $.ajax({
@@ -105,6 +115,20 @@
                 success: function (res) {
                     layer.closeAll('loading');
                     if (res.code === 200) {
+                        if (data.field.remember === 'on') {
+                            console.log(data.field);
+                            layui.data('username', {
+                                key: 'username',
+                                value: data.field.username,
+                            });
+                            layui.data('password', {
+                                key: 'password',
+                                value: data.field.password
+                            });
+                        } else {
+                            layui.data('username', null);
+                            layui.data('password', null);
+                        }
                         layer.msg('登录成功', {icon: 1, time: 500}, function () {
                             location.href = '{$url}';
                         });

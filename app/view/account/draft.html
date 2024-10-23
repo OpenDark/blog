@@ -1,9 +1,160 @@
 {extend name="base" /}
 
 {block name="body"}
-
+<div class="body">
+    <div class="layui-container">
+        <form method="post" class="post-form layui-form" id="j-form">
+            <input type="hidden" id="update_post_nonce" name="update_post_nonce" value="ebf6d13e3a">
+            <input type="hidden" name="http_referer" value="/tougao">
+            <input type="hidden" name="ID" value="">
+            <div class="post-form-main">
+                <div class="pf-side-label">
+                    <h3><i class="layui-icon layui-icon-file-b wi"></i> 文章内容</h3>
+                </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <input type="text" class="layui-input" maxlength="200"
+                               id="post-title" name="post-title"
+                               placeholder="请输入文章标题" value="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <textarea id="post-excerpt" name="post-excerpt" class="layui-textarea" rows="3"
+                                  placeholder="请输入文章摘要，可选填"></textarea>
+                    </div>
+                </div>
+                <div class="pf-item">
+                    <div class="pf-item-input">
+                        <div id="post-content-wrap">
+                            <textarea class="layui-textarea" rows="20" autocomplete="off" cols="40"
+                                      name="post-content" id="editor" aria-hidden="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-form-sidebar">
+                <div class="pf-submit-wrap">
+                    <button type="button" class="layui-btn layui-btn-fluid pf-submit od-green-button">提交发布</button>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-app wi"></i>分类
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="pf-cat-inner">
+                            <select>
+                                <option value="">请选择文章分类</option>
+                                <option value="1">创业分享</option>
+                                <option value="5">产品设计</option>
+                                <option value="6">用户体验</option>
+                                <option value="7">行业动态</option>
+                            </select>
+                        </div>
+                        <p class="pf-notice">分类至少选择1个</p>
+                    </div>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-note wi"></i>标签
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="tagHandler">
+                            <input type="text" class="layui-input" name="post-tag"
+                                   placeholder="请输入文章标签" autocomplete="off">
+                        </div>
+                        <p class="pf-notice">使用空格或逗号隔开，可选填</p>
+                    </div>
+                </div>
+                <div class="pf-side-item">
+                    <div class="pf-side-label">
+                        <h3>
+                            <i class="layui-icon layui-icon-picture wi"></i>缩略图
+                        </h3>
+                    </div>
+                    <div class="pf-side-input">
+                        <div class="layui-upload-drag thumb-wrap" style="display: block;" id="upload-drag">
+                            <i class="layui-icon layui-icon-upload-drag"></i>
+                            <div>设置缩略图片</div>
+                            <div class="layui-hide" id="upload-preview">
+                                <hr>
+                                <img src="" alt="上传成功后渲染" style="max-width: 100%">
+                                <div class="thumb-remove j-thumb-remove"></div>
+                            </div>
+                        </div>
+                        <p class="pf-notice">缩略图会显示在文章列表，建议设置</p>
+                    </div>
+                    <input type="hidden" name="thumb_id" id="thumb_id" value="">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {/block}
 
 {block name="script"}
+<script>
+    layui.config({
+        base: '__JS__/layui_exts/'
+    }).use(['layer', 'util', 'tinymce', 'carousel'], function () {
+        var carousel = layui.carousel;
+        var upload = layui.upload;
+        var layer = layui.layer;
+        var util = layui.util;
+        var t = layui.tinymce;
+        var $ = layui.$;
 
+        // 图片上传
+        upload.render({
+            elem: '#upload-drag',
+            url: '/index/upload',
+            size: 2048,
+            done: function (res) {
+                if (res.code === 0) {
+                    $('#upload-preview').removeClass('layui-hide')
+                    .find('img').attr('src', res.data);
+                    $('#thumb_id').val(res.id);
+                } else {
+                    layer.msg(res.msg);
+                }
+            },
+            error: function () {
+                layer.msg('上传失败');
+            }
+        });
+
+        // 富文本编辑器
+        var edit = t.render({
+            elem: "#editor",
+            height: 400,
+            images_upload_url: '/index/upload',
+            form: {
+                name: 'file', //配置上传文件的字段名称
+                data: {key: 'value'} //其他需要一起上传的数据
+            }
+            // 其余配置可参考官方文档
+        }, function (opt, edit) {
+            //加载完成后回调
+        });
+
+        util.fixbar({
+            top: true,
+            css: {
+                right: 20,
+                bottom: 30,
+                borderRadius: '5px',
+                overflow: 'hidden',
+                height: '40px'
+            },
+            bgcolor: '#16b777',
+            click: function (type) {
+            }
+        });
+
+    });
+</script>
 {/block}
