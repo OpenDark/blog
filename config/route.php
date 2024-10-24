@@ -13,6 +13,12 @@ Route::get('/post/{id:[1-9]\d*}', [\app\controller\PostController::class, 'index
 
 Route::get('/user/{id:[1-9]\d*}', [\app\controller\UserController::class, 'index']);
 
+Route::get('/tag/{id:[1-9]\d*}', [\app\controller\TagsController::class, 'tag']);
+
+Route::get('/comment/{id:[1-9]\d*}', [\app\controller\PostController::class, 'getComment']);
+
+Route::get('/comment/user/{id:[1-9]\d*}', [\app\controller\UserController::class, 'getUser']);
+
 Route::get('/draft', [\app\controller\AccountController::class, 'draft']);
 
 Route::get('/search', [\app\controller\PostController::class, 'search']);

@@ -5,6 +5,7 @@ namespace app\model;
 
 use app\model\User;
 use app\model\Category;
+use app\model\Special;
 
 /**
  * 文章
@@ -19,6 +20,13 @@ class Article extends BaseModel
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    /**
+     * 关联模型special
+     */
+    public function special()
+    {
+        return $this->belongsTo(Special::class, 'special_id', 'id');
     }
 
     /**

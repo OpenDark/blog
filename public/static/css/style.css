@@ -1902,6 +1902,10 @@ body {
     color: #fff;
     cursor: pointer;
 }
+.entry-action .btn-dashang:hover {
+    overflow: visible;
+    transition: all .3s ease-out 0s;
+}
 .dashang-img {
     background: #fff;
     border: 1px solid #efefef;

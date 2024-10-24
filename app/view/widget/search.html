@@ -18,7 +18,7 @@
                 event.preventDefault();
                 $("#searchBtn").click();
             }
-        })
+        });
 
         $('#searchBtn').on('click', function () {
             location.href = '/search?s=' + $('#searchInput').val();

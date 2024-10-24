@@ -1,0 +1,118 @@
+<h3 class="widget-title">
+    <span>关于作者</span>
+</h3>
+<div class="widget widget_profile">
+    <div class="profile-cover"></div>
+    <div class="avatar-wrap"></div>
+    <div class="profile-info"></div>
+    <div class="profile-posts"></div>
+</div>
+
+<script>
+    layui.use(['layer', 'util'], function () {
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+        let uid = '{$blog_user["id"]|default=""}';
+
+        function getRecommend() {
+            $.ajax({
+                url: '/comment/user/[id]',
+                type: 'get',
+                data: {},
+                success: function (res) {
+                    let user = res.data.user;
+                    $('.profile-cover').html(`
+                        <img class="j-lazy" alt="${user.nickname}" img-loaded="true" src="${user.banner}">
+                    `);
+                    $('.avatar-wrap').html(`
+                        <a target="_blank" href="/user/${user.id}" class="avatar-link">
+                            <img alt="${user.nickname}的头像" src="${user.avatar}"
+                            class="avatar avatar-120 photo" height="120" width="120">
+                        </a>
+                    `);
+                    $('.profile-info').html(`
+                        <a target="_blank" href="/user/${user.id}" class="profile-name">
+                            <span class="author-name">${user.nickname}</span>
+                            <span class="user-group">${user.group}</span>
+                        </a>
+                        <p class="author-description">${user.desc}</p>
+                        <div class="profile-stats">
+                            <div class="profile-stats-inner">
+                                <div class="user-stats-item">
+                                    <b>${user.article_num}</b>
+                                    <span>文章</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.comment_num}</b>
+                                    <span>评论</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>${user.fans_num}</b>
+                                    <span>粉丝</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button"
+                            data-id="${user.id}" lay-on="follow">
+                            <i class="layui-icon layui-icon-addition"></i>关注
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button"
+                            data-id="${user.id}" lay-on="message">
+                            <i class="layui-icon layui-icon-email"></i>私信
+                        </button>
+                    `);
+
+                    let html = '<h3 class="widget-title"><span>最近文章</span></h3><ul>';
+                    res.data.article.forEach(function (item) {
+                        html += `
+                            <li>
+                                <a href="/post/${item.id}">${item.title}</a>
+                            </li>`;
+                    });
+                    $('.profile-posts').html(html + '</ul>');
+                }
+            });
+        }
+
+        getRecommend();
+
+        util.on('lay-on', {
+            'follow': function () {
+                if (uid) {
+                    let that = $(this);
+                    let id = that.data('id');
+                    let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>';
+                    that.html(loop + that.text());
+                    $.ajax({
+                        url: '/user/doFollow',
+                        type: 'post',
+                        data: {id: id},
+                        success: function (res) {
+                            if (res.code === 200) {
+                                if (res.data.cancel) { //取消关注
+                                    that.html('<i class="layui-icon layui-icon-addition"></i>关注');
+                                } else { //已关注
+                                    that.html('已关注');
+                                }
+                            } else {
+                                layer.msg(res.msg, {icon: 2, time: 1000});
+                            }
+                        }
+                    });
+                } else {
+                    needLogin();
+                }
+            },
+            'message': function () {
+                if (uid) {
+                    let id = $(this).data('id');
+
+                } else {
+                    needLogin();
+                }
+            },
+        });
+
+    });
+</script>

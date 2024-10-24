@@ -11,30 +11,30 @@
     </div>
     <div class="layui-row layui-col-space20">
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-            <article id="post-1471"
-                     class="post-1471 post type-post status-publish format-standard has-post-thumbnail hentry category-5 special-40 entry">
+            <article class="post-1471 post type-post status-publish format-standard
+             has-post-thumbnail hentry category-5 special-40 entry" id="post-1471">
                 <div class="entry-main">
                     <div class="entry-head">
                         <h1 class="entry-title">{$post['title']}</h1>
                         <div class="entry-info">
                             <span class="vcard">
                                 <a class="nickname url fn j-user-card" data-user="1"
-                                   href="/user/{$post['user_id']}">{$post['user']['nickname']}</a>
+                                   href="https://demo.wpcom.cn/justnews/user/1">OpenDark</a>
                             </span>
                             <span class="dot">•</span>
-                            <time class="entry-date published">
+                            <time class="entry-date published" pubdate="">
                                 {$post['created_at']}
                             </time>
                             <span class="dot">•</span>
-                            <a href="/category/{$post['category_id']}"
+                            <a href="/category/{$post['category']['name']}"
                                rel="category tag">{$post['category']['name']}</a> <span class="dot">•</span>
                             <span>阅读 {$post['read_num']}</span>
                         </div>
                     </div>
 
                     <div class="entry-content">
-                        <div>{$post['content'] | raw}</div>
-                        <div class="entry-copyright"><p>{$post['title']} 发布者：{$post['user']['nickname']}，转转请注明出处：<span>{$domain}post/{$post['id']}</span>
+                        <div>{$post['content']}</div>
+                        <div class="entry-copyright"><p>{$post['title']} 发布者：OpenDark，转转请注明出处：<span>{$domain}post/{$post['id']}</span>
                         </p></div>
                     </div>
 
@@ -46,36 +46,38 @@
                         {/notempty}
                         {notempty name="$post['special']"}
                         <span class="entry-specials">
-                            <a href="/special/{$post['special_id']}" rel="tag">{$post['special']['name']}</a>
+                            <a href="/special/{$post['special_id']}" rel="tag">{$post['special']['name}</a>
                         </span>
                         {/notempty}
                     </div>
                     <div class="entry-action">
                         <div class="btn-zan" data-id="1471">
                             <i class="layui-icon layui-icon-praise"></i> 赞
-                            <span class="entry-action-num">({$post['like_num']})</span>
+                            <span class="entry-action-num">(778)</span>
                         </div>
                         <div class="btn-dashang">
                             <i class="layui-icon layui-icon-rmb"></i> 打赏
                             <span class="dashang-img">
-                                <span>
-                                    <img src="http://img.wepuzi.com/sponsor.jpg" alt="微信扫一扫">
+                                    <span>
+                                        <img
+                                            src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2023/05/6011683688608_.pic_.jpg"
+                                            alt="支付宝扫一扫">
+                                    </span>
                                 </span>
-                            </span>
                         </div>
                     </div>
+
                     <div class="entry-bar fixed">
                         <div class="entry-bar-inner">
                             <div class="entry-bar-info entry-bar-info2">
                                 <div class="info-item meta">
-                                    <a class="meta-item j-heart {if $post['favorite'] == 1 }hearted{/if}"
-                                       href="javascript:;" data-id="1471">
+                                    <a class="meta-item j-heart hearted" href="javascript:;" data-id="1471">
                                         <i class="layui-icon layui-icon-star-fill wi"></i>
-                                        <span class="data">{$post['favorite_num']}</span>
+                                        <span class="data">44</span>
                                     </a>
                                     <a class="meta-item" href="#comments">
                                         <i class="layui-icon layui-icon-eye wi"></i>
-                                        <span class="data">{$post['read_num']}</span>
+                                        <span class="data">119</span>
                                     </a>
                                 </div>
                                 <div class="info-item share">
@@ -131,27 +133,6 @@
                     </div>
                 </div>
                 <div id="comments" class="entry-comments">
-                    <!--                        <div id="respond" class="comment-respond">-->
-                    <!--                            <h3 id="reply-title" class="comment-reply-title">发表回复-->
-                    <!--                                <small>-->
-                    <!--                                    <a rel="nofollow" id="cancel-comment-reply-link"-->
-                    <!--                                       href="/justnews/242.html#respond" style="display:none;">-->
-                    <!--                                        <i class="layui-icon layui-icon-close"></i>-->
-                    <!--                                    </a>-->
-                    <!--                                </small>-->
-                    <!--                            </h3>-->
-                    <!--                            <div class="comment-form">-->
-                    <!--                                <div class="comment-must-login">请登录后评论...</div>-->
-                    <!--                                <div class="form-submit">-->
-                    <!--                                    <div class="form-submit-text pull-left"><a-->
-                    <!--                                        href="https://demo.wpcom.cn/justnews/login?modal-type=login">登录</a>后才能评论-->
-                    <!--                                    </div>-->
-                    <!--                                    <button name="submit" type="submit" id="submit"-->
-                    <!--                                            class="layui-btn layui-btn-xs user-action-button submit">提交-->
-                    <!--                                    </button>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
                     <div id="respond" class="comment-respond">
                         <h3 id="reply-title" class="comment-reply-title">发表回复
                             <small>
@@ -1587,26 +1568,5 @@
 {/block}
 
 {block name="script"}
-<script>
-    layui.use([], function () {
-        let $ = layui.jquery;
 
-        $(".btn-dashang").hover(function () {
-            $(this).css('overflow', 'inherit');
-            $(".dashang-img").css("opacity", 1);
-        }, function () {
-            $(this).css('overflow', 'hidden');
-            $(".dashang-img").css("opacity", 0);
-        });
-
-        $('.btn-zan').on('click', function (event) {
-
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                $("#searchBtn").click();
-            }
-        });
-
-    });
-</script>
 {/block}

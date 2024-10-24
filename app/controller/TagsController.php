@@ -15,4 +15,10 @@ class TagsController extends BaseController
         ]);
     }
 
+    /* 标签 */
+    public function tag(int $id): Response
+    {
+
+    }
+
 }
