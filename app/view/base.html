@@ -102,6 +102,20 @@
 </header>
 <div class="body">
     {block name="body"}{/block}
+    <div id="message-modal" class="modal-message" style="display: none;">
+        <div class="modal-body">
+            <div class="modal-message-list"></div>
+            <div class="modal-message-editor modal-editor-withbar">
+                <textarea id="message-text" class="modal-message-text j-message-text"></textarea>
+                <div class="modal-message-send">按 Enter 键发送
+                    <button id="message-send" type="button" data-id=""
+                            class="layui-btn btn-primary btn-message od-green-button">
+                        发送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <footer class="footer">
     <div class="layui-container">
@@ -130,8 +144,8 @@
 <div id="navbar-collapse">
     <div class="search-bar search-bar-wrap">
         <div class="layui-input-wrap">
-            <input type="text" placeholder="输入关键词搜索..." class="layui-input">
-            <div class="layui-input-suffix">
+            <input id="searchInputDrawer" type="text" placeholder="输入关键词搜索..." class="layui-input">
+            <div id="searchBtnDrawer" class="layui-input-suffix">
                 <i class="layui-icon layui-icon-search"></i>
             </div>
         </div>
@@ -214,6 +228,52 @@
         var layer = layui.layer;
         var util = layui.util;
         var $ = layui.$;
+        let uid = '{$blog_user["id"]|default=""}';
+        let avatar = '{$blog_user["avatar"]|default=""}';
+
+        $('#message-text').bind('keypress', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#message-send").click();
+            }
+        });
+
+        $('#message-send').on('click', function () {
+            let val = $('#message-text').val();
+            let id = $('#send-id').val();
+            if (val !== '') {
+                $.ajax({
+                    url: '/user/doMessage/',
+                    type: 'post',
+                    data: {
+                        id: id,
+                        message: val
+                    },
+                    success: function (res) {
+                        $('#message-text').val('');
+                        if (res.code === 200) {
+                            let item = res.data;
+                            let html = `
+                                <div class="modal-message-item message-sender" data-id="${item.id}">
+                                    <div class="modal-message-time">${item.created_at}</div>
+                                    <div class="modal-message-inner">
+                                        <div class="modal-message-status"></div>
+                                        <div class="modal-message-content"><div class="message-text">${item.message}</div></div>
+                                        <div class="modal-message-avatar">
+                                            <img src="${avatar}">
+                                        </div>
+                                    </div>
+                                </div>`;
+                            let obj = $('#message-modal .modal-message-list');
+                            obj.append(html);
+                            obj[0].scrollTop = obj[0].scrollHeight;
+                        } else {
+                            layer.msg(res.msg, {icon: 2, time: 1000});
+                        }
+                    }
+                });
+            }
+        });
 
         util.fixbar({
             top: true,
@@ -244,8 +304,94 @@
                     id: 'layer-direction-left',
                     content: $('#navbar-collapse')
                 });
+            },
+            'message': function () {
+                if (uid) {
+                    let id = $(this).data('id').toString();
+                    if (uid === id) {
+                        layer.msg('无法给自己发送私信', {icon: 2, time: 1000});
+                        return false;
+                    }
+                    // 获取私信数据
+                    $.ajax({
+                        url: '/message/' + id,
+                        type: 'get',
+                        data: {},
+                        success: function (res) {
+                            if (res.data.message.length) {
+                                let html = `<input id="send-id" type="hidden" value="${res.data.user.id}">`;
+                                res.data.message.forEach(function (item) {
+                                    if (item.from_user_id.toString() === uid) {
+                                        html += `
+                                            <div class="modal-message-item message-sender" data-id="${item.id}">
+                                                <div class="modal-message-time">${item.created_at}</div>
+                                                <div class="modal-message-inner">
+                                                    <div class="modal-message-status"></div>
+                                                    <div class="modal-message-content"><div class="message-text">${item.message}</div></div>
+                                                    <div class="modal-message-avatar">
+                                                        <img src="${avatar}">
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                                    } else {
+                                        html += `
+                                            <div class="modal-message-item" data-id="${item.id}">
+                                                <div class="modal-message-time">${item.created_at}</div>
+                                                <div class="modal-message-inner">
+                                                    <div class="modal-message-avatar">
+                                                        <img src="${res.data.user.avatar}">
+                                                    </div>
+                                                    <div class="modal-message-content"><div class="message-text">${item.message}</div></div>
+                                                    <div class="modal-message-status"></div>
+                                                </div>
+                                            </div>`;
+                                    }
+                                });
+                                $('#message-modal .modal-message-list').html(html);
+                            }
+                            layer.open({
+                                type: 1,
+                                anim: 0,
+                                shade: 0.5,
+                                resize: false,
+                                scrollbar: false,
+                                title: res.data.user.nickname,
+                                skin: 'message-modal-dialog',
+                                content: $('#message-modal'),
+                                success: function (layero, index, that) {
+                                    let obj = $('#message-modal .modal-message-list');
+                                    obj[0].scrollTop = obj[0].scrollHeight;
+                                },
+                                end: function () {
+                                    $('#message-modal .modal-message-list').html('');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    needLogin();
+                }
+            },
+        });
+    });
+
+    layui.use([], function () {
+        let $ = layui.jquery;
+
+        $('#searchInputDrawer').bind('keypress', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#searchBtnDrawer").click();
             }
         });
+
+        $('#searchBtnDrawer').on('click', function () {
+            let val = $('#searchInputDrawer').val();
+            if (val !== '') {
+                location.href = '/search?s=' + val;
+            }
+        });
+
     });
 
     function needLogin() {
@@ -271,6 +417,40 @@
                 },
             });
         })
+    }
+
+    function replaceEmoticons(text) {
+        const emoticonRegex = /\[(微笑|咧嘴笑|大笑|偷笑|调皮|笑哭|嘿嘿|可爱|瞪眼|亲亲|色|酷|翻白眼|汗|大哭|困|难过|生气|庆祝|赞|礼物|爱心|喝彩|花|)\]/g;
+        const replacer = (match, p1) => {
+            switch (p1) {
+                case '微笑': return '<img src="/static/img/smilies/weixiao.svg" alt="[微笑]" class="emoji">';
+                case '咧嘴笑': return '<img src="/static/img/smilies/liezuixiao.svg" alt="[咧嘴笑]" class="emoji">';
+                case '大笑': return '<img src="/static/img/smilies/daxiao.svg" alt="[大笑]" class="emoji">';
+                case '偷笑': return '<img src="/static/img/smilies/touxiao.svg" alt="[偷笑]" class="emoji">';
+                case '调皮': return '<img src="/static/img/smilies/tiaopi.svg" alt="[调皮]" class="emoji">';
+                case '笑哭': return '<img src="/static/img/smilies/xiaoku.svg" alt="[笑哭]" class="emoji">';
+                case '嘿嘿': return '<img src="/static/img/smilies/heihei.svg" alt="[嘿嘿]" class="emoji">';
+                case '可爱': return '<img src="/static/img/smilies/keai.svg" alt="[可爱]" class="emoji">';
+                case '瞪眼': return '<img src="/static/img/smilies/dengyan.svg" alt="[瞪眼]" class="emoji">';
+                case '亲亲': return '<img src="/static/img/smilies/qinqin.svg" alt="[亲亲]" class="emoji">';
+                case '色': return '<img src="/static/img/smilies/se.svg" alt="[色]" class="emoji">';
+                case '酷': return '<img src="/static/img/smilies/ku.svg" alt="[酷]" class="emoji">';
+                case '翻白眼': return '<img src="/static/img/smilies/fanbaiyan.svg" alt="[翻白眼]" class="emoji">';
+                case '汗': return '<img src="/static/img/smilies/han.svg" alt="[汗]" class="emoji">';
+                case '大哭': return '<img src="/static/img/smilies/daku.svg" alt="[大哭]" class="emoji">';
+                case '困': return '<img src="/static/img/smilies/kun.svg" alt="[困]" class="emoji">';
+                case '难过': return '<img src="/static/img/smilies/nanguo.svg" alt="[难过]" class="emoji">';
+                case '生气': return '<img src="/static/img/smilies/shengqi.svg" alt="[生气]" class="emoji">';
+                case '庆祝': return '<img src="/static/img/smilies/qingzhu.svg" alt="[庆祝]" class="emoji">';
+                case '赞': return '<img src="/static/img/smilies/zan.svg" alt="[赞]" class="emoji">';
+                case '礼物': return '<img src="/static/img/smilies/liwu.svg" alt="[礼物]" class="emoji">';
+                case '爱心': return '<img src="/static/img/smilies/aixin.svg" alt="[爱心]" class="emoji">';
+                case '喝彩': return '<img src="/static/img/smilies/hecai.svg" alt="[喝彩]" class="emoji">';
+                case '花': return '<img src="/static/img/smilies/hua.svg" alt="[花]" class="emoji">';
+                default: return match;
+            }
+        };
+        return text.replace(emoticonRegex, replacer);
     }
 </script>
 {block name="script"}{/block}

@@ -21,7 +21,10 @@
         });
 
         $('#searchBtn').on('click', function () {
-            location.href = '/search?s=' + $('#searchInput').val();
+            let val = $('#searchInput').val();
+            if (val !== '') {
+                location.href = '/search?s=' + val;
+            }
         });
 
     });

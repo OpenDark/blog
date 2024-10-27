@@ -12,9 +12,9 @@ class Post extends Validate
      */
     protected array $rule = [
         'id' => 'require|number|gt:0',
-        'rid' => 'require|number|gt:0',
-        'pid' => 'require|number|gt:0',
-        'content' => 'require|length:10,500',
+        'rid' => 'require|number|egt:0',
+        'pid' => 'require|number|egt:0',
+        'content' => 'require|max:500',
     ];
 
     /**
@@ -25,7 +25,7 @@ class Post extends Validate
         'rid' => '评论错误',
         'pid' => '评论错误',
         'content.require' => '请填写评论内容',
-        'content.length' => '评论至少10个字',
+        'content' => '评论内容不能超过500个字符',
     ];
 
     /**

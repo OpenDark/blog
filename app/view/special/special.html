@@ -1,0 +1,143 @@
+{extend name="base" /}
+
+{block name="body"}
+<div class="banner category-banner"
+     style="background-image: url('{$special.banner|default="http://img.wepuzi.com/default-banner.jpg"}');">
+    <div class="banner-inner">
+        <h1>{$special.name}</h1>
+        <div class="page-description">
+            <p>{$special.desc}</p>
+        </div>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="breadcrumb">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="/">首页</a>
+            <a><cite>{$special.name}</cite></a>
+        </span>
+    </div>
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
+            <div class="main-list">
+                <div class="tab-wrap">
+                    <ul class="post-loop" id="flow-manual"></ul>
+                    <div class="load-more-wrap"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
+            <div class="sidebar">
+                {include file="widget/search" /}
+                {include file="widget/recommend" /}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+    layui.use(['layer', 'util'], function () {
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+        var page = 1;
+
+        util.on('lay-on', {
+            'load-more': function () {
+                getArticle();
+            }
+        });
+
+        function getArticle() {
+            let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>点击查看更多';
+            $('div[lay-on="load-more"]').html(loop);
+            $.ajax({
+                url: '/special/getArticle?id={$id}',
+                type: 'post',
+                data: {
+                    page: page,
+                },
+                success: function (res) {
+                    let html = '';
+                    res.data.data.forEach(function (item) {
+                        let categoryStr = '';
+                        if (item.category) {
+                            categoryStr = `
+                                <a class="item-category" href="/category/${item.category.id}" target="_blank">
+                                    ${item.category.name}
+                                </a>`;
+                        }
+                        html += `
+                        <li class="item">
+                            <div class="item-img">
+                                <a class="item-img-inner" href="/post/${item.id}" target="_blank" rel="bookmark">
+                                    <img width="480" height="300" src="${item.thumbnail}"
+                                         class="attachment-default size-default wp-post-image j-lazy"
+                                         alt="${item.title}" decoding="async" fetchpriority="high" img-loaded="true">
+                                </a>
+                                ${categoryStr}
+                            </div>
+                            <div class="item-content">
+                                <h3 class="item-title">
+                                    <a href="/post/${item.id}" target="_blank" rel="bookmark">
+                                        ${item.title}
+                                    </a>
+                                </h3>
+                                <div class="item-excerpt">
+                                    <p>${item.summary}</p>
+                                </div>
+                                <div class="item-meta">
+                                    <div class="item-meta-li author">
+                                        <a target="_blank" href="/user/${item.user_id}" class="avatar j-user-card">
+                                            <img alt="${item.user?.name}的头像"
+                                                 src="${item.user?.avatar}"
+                                                 class="avatar avatar-60 photo" height="60" width="60">
+                                            <span>${item.user?.nickname}</span>
+                                        </a>
+                                    </div>
+                                    <span class="item-meta-li date">${item.created_at}</span>
+                                    <div class="item-meta-right">
+                                        <span class="item-meta-li views" title="阅读数">
+                                            <i class="layui-icon layui-icon-eye wi"></i>${item.read_num}
+                                        </span>
+                                        <span class="item-meta-li comments" title="评论数">
+                                            <i class="layui-icon layui-icon-dialogue wi"></i>${item.reply_num}
+                                        </span>
+                                        <span class="item-meta-li stars" title="收藏数">
+                                            <i class="layui-icon layui-icon-star wi"></i>${item.favorite_num}
+                                        </span>
+                                        <span class="item-meta-li likes" title="点赞数">
+                                            <i class="layui-icon layui-icon-praise wi"></i>${item.like_num}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`;
+                    });
+                    $('#flow-manual').append(html);
+
+                    // 查看更多
+                    let more = `
+                        <div class="layui-btn layui-btn-primary layui-border-green green-button" lay-on="load-more">
+                            点击查看更多
+                        </div>`;
+                    let notMore = '已经到底了';
+                    if (page === 1 && html === ''){
+                        notMore = '该专题没有文章';
+                    }
+                    if (page >= res.data.last_page) {
+                        more = `<div class="layui-btn layui-btn-primary layui-btn-disabled" data-exclude="">${notMore}</div>`;
+                    }
+                    $('.load-more-wrap').html(more);
+
+                    page += 1;
+                }
+            });
+        }
+
+        getArticle();
+    });
+</script>
+{/block}

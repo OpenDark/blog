@@ -28,6 +28,7 @@
                             class="avatar avatar-120 photo" height="120" width="120">
                         </a>
                     `);
+                    let follow = res.data.is_follow ? '已关注' : '<i class="layui-icon layui-icon-addition"></i>关注';
                     $('.profile-info').html(`
                         <a target="_blank" href="/user/${user.id}" class="profile-name">
                             <span class="author-name">${user.nickname}</span>
@@ -52,7 +53,7 @@
                         </div>
                         <button type="button" class="layui-btn layui-btn-xs user-action-button"
                             data-id="${user.id}" lay-on="follow">
-                            <i class="layui-icon layui-icon-addition"></i>关注
+                            ${follow}
                         </button>
                         <button type="button" class="layui-btn layui-btn-xs user-action-button"
                             data-id="${user.id}" lay-on="message">
@@ -77,6 +78,10 @@
         util.on('lay-on', {
             'follow': function () {
                 if (uid) {
+                    if (uid === '1') {
+                        layer.msg('不能关注自己', {icon: 2, time: 1000});
+                        return false;
+                    }
                     let that = $(this);
                     let id = that.data('id');
                     let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>';
@@ -94,17 +99,10 @@
                                 }
                             } else {
                                 layer.msg(res.msg, {icon: 2, time: 1000});
+                                that.html('<i class="layui-icon layui-icon-addition"></i>关注');
                             }
                         }
                     });
-                } else {
-                    needLogin();
-                }
-            },
-            'message': function () {
-                if (uid) {
-                    let id = $(this).data('id');
-
                 } else {
                     needLogin();
                 }

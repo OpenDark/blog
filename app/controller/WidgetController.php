@@ -3,7 +3,9 @@
 namespace app\controller;
 
 use app\model\Article;
+use app\model\Follow;
 use support\Response;
+use function Carbon\int;
 
 class WidgetController extends BaseController
 {
@@ -17,6 +19,16 @@ class WidgetController extends BaseController
             $data['user']['group'] = $group[$data['user']['role']];
             $data['article'] = $this->getArticleLatest();
             cache('manager', $data, 86400);
+        }
+        // 是否关注
+        $data['is_follow'] = 0;
+        if ($this->userInfo) {
+            $cancel = Follow::where([
+                    'from_user_id' => $this->userInfo['id'],
+                    'to_user_id' => 1]
+            )->value('is_cancel');
+            is_null($cancel) && $cancel = 1;
+            $data['is_follow'] = 1 - $cancel;
         }
         return json(['code' => 200, 'msg' => 'success', 'data' => $data]);
     }

@@ -138,7 +138,7 @@
         util.on('lay-on', {
             // 获取邮箱验证码
             'get-email-code': function (obj) {
-                let is_valid = form.validate('#login-email') && form.validate('#reset-vercode');
+                let is_valid = form.validate('#login-email') && form.validate('#register-vercode');
                 if (is_valid) {
                     layer.load();
                     $.ajax({

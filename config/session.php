@@ -59,7 +59,7 @@ return [
 
     'secure' => false,
     
-    'same_site' => '',
+    'same_site' => 'strict',
 
     'gc_probability' => [1, 1000],
 

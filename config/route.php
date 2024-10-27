@@ -12,8 +12,14 @@ Route::get('/category/{id:[1-9]\d*}', [\app\controller\CategoryController::class
 Route::get('/post/{id:[1-9]\d*}', [\app\controller\PostController::class, 'index']);
 
 Route::get('/user/{id:[1-9]\d*}', [\app\controller\UserController::class, 'index']);
+Route::get('/message/{id:[1-9]\d*}', [\app\controller\UserController::class, 'message']);
+Route::get('/user/comment/{id:[1-9]\d*}', [\app\controller\UserController::class, 'comment']);
+Route::get('/user/follow/{id:[1-9]\d*}', [\app\controller\UserController::class, 'follow']);
+Route::get('/user/favorite/{id:[1-9]\d*}', [\app\controller\UserController::class, 'favorite']);
 
 Route::get('/tag/{id:[1-9]\d*}', [\app\controller\TagsController::class, 'tag']);
+
+Route::get('/special/{id:[1-9]\d*}', [\app\controller\SpecialController::class, 'special']);
 
 Route::get('/comment/{id:[1-9]\d*}', [\app\controller\PostController::class, 'getComment']);
 

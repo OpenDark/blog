@@ -217,7 +217,7 @@ class Crud extends Base
         }
         if ($this->nullToInt) {
             foreach ($this->nullToInt as $key) {
-                if (is_null($data[$key])) {
+                if (isset($data[$key]) && is_null($data[$key])) {
                     $data[$key] = 0;
                 }
             }
@@ -275,7 +275,7 @@ class Crud extends Base
         }
         if ($this->nullToInt) {
             foreach ($this->nullToInt as $key) {
-                if (is_null($data[$key])) {
+                if (empty($data[$key])) {
                     $data[$key] = 0;
                 }
             }

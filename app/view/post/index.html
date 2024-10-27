@@ -11,14 +11,14 @@
     </div>
     <div class="layui-row layui-col-space20">
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-            <article id="post-1471"
-                     class="post-1471 post type-post status-publish format-standard has-post-thumbnail hentry category-5 special-40 entry">
+            <article id="post-{$post['id']}" class="post-{$post['id']} post type-post status-publish format-standard
+                     has-post-thumbnail hentry category-5 special-40 entry">
                 <div class="entry-main">
                     <div class="entry-head">
                         <h1 class="entry-title">{$post['title']}</h1>
                         <div class="entry-info">
                             <span class="vcard">
-                                <a class="nickname url fn j-user-card" data-user="1"
+                                <a class="nickname url fn j-user-card" data-user="{$post['user_id']}"
                                    href="/user/{$post['user_id']}">{$post['user']['nickname']}</a>
                             </span>
                             <span class="dot">•</span>
@@ -31,7 +31,6 @@
                             <span>阅读 {$post['read_num']}</span>
                         </div>
                     </div>
-
                     <div class="entry-content">
                         <div>{$post['content'] | raw}</div>
                         <div class="entry-copyright"><p>{$post['title']} 发布者：{$post['user']['nickname']}，转转请注明出处：<span>{$domain}post/{$post['id']}</span>
@@ -51,7 +50,7 @@
                         {/notempty}
                     </div>
                     <div class="entry-action">
-                        <div class="btn-zan" data-id="1471">
+                        <div id="post-like" class="btn-zan {if $post['like']}liked{/if}" data-id="{$post['id']}">
                             <i class="layui-icon layui-icon-praise"></i> 赞
                             <span class="entry-action-num">({$post['like_num']})</span>
                         </div>
@@ -68,9 +67,10 @@
                         <div class="entry-bar-inner">
                             <div class="entry-bar-info entry-bar-info2">
                                 <div class="info-item meta">
-                                    <a class="meta-item j-heart {if $post['favorite'] == 1 }hearted{/if}"
-                                       href="javascript:;" data-id="1471">
-                                        <i class="layui-icon layui-icon-star-fill wi"></i>
+                                    <a id="post-favorite" class="meta-item j-heart {if $post['favorite']}hearted{/if}"
+                                       href="javascript:;" data-id="{$post['id']}">
+                                        <i class="layui-icon
+                                        {if $post['favorite']}layui-icon-star-fill{else /}layui-icon-star{/if} wi"></i>
                                         <span class="data">{$post['favorite_num']}</span>
                                     </a>
                                     <a class="meta-item" href="#comments">
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="info-item share">
                                     <a class="meta-item mobile j-mobile-share" href="javascript:;"
-                                       data-id="1471" data-qrcode="">
+                                       data-id="{$post['id']}" data-qrcode="">
                                         <i class="layui-icon layui-icon-share"></i>生成海报
                                     </a>
                                     <a class="meta-item wechat" data-share="wechat" target="" rel="nofollow"
@@ -131,44 +131,25 @@
                     </div>
                 </div>
                 <div id="comments" class="entry-comments">
-                    <!--                        <div id="respond" class="comment-respond">-->
-                    <!--                            <h3 id="reply-title" class="comment-reply-title">发表回复-->
-                    <!--                                <small>-->
-                    <!--                                    <a rel="nofollow" id="cancel-comment-reply-link"-->
-                    <!--                                       href="/justnews/242.html#respond" style="display:none;">-->
-                    <!--                                        <i class="layui-icon layui-icon-close"></i>-->
-                    <!--                                    </a>-->
-                    <!--                                </small>-->
-                    <!--                            </h3>-->
-                    <!--                            <div class="comment-form">-->
-                    <!--                                <div class="comment-must-login">请登录后评论...</div>-->
-                    <!--                                <div class="form-submit">-->
-                    <!--                                    <div class="form-submit-text pull-left"><a-->
-                    <!--                                        href="https://demo.wpcom.cn/justnews/login?modal-type=login">登录</a>后才能评论-->
-                    <!--                                    </div>-->
-                    <!--                                    <button name="submit" type="submit" id="submit"-->
-                    <!--                                            class="layui-btn layui-btn-xs user-action-button submit">提交-->
-                    <!--                                    </button>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
                     <div id="respond" class="comment-respond">
-                        <h3 id="reply-title" class="comment-reply-title">发表回复
-                            <small>
-                                <a rel="nofollow" id="cancel-comment-reply-link"
-                                   href="/justnews/1471.html/comment-page-1#respond" style="display:none;">
-                                    <i class="layui-icon layui-icon-close"></i>
-                                </a>
-                            </small>
-                        </h3>
-                        <form action="https://demo.wpcom.cn/justnews/wp-comments-post.php" method="post"
-                              id="commentform" class="comment-form" novalidate="">
+                        <h3 id="reply-title" class="comment-reply-title">发表留言</h3>
+                        {if empty($blog_user)}
+                        <div class="comment-form">
+                            <div class="comment-must-login">请登录后留言...</div>
+                            <div class="form-submit">
+                                <div class="form-submit-text pull-left"><a
+                                    href="/common/login?url=/guest">登录</a>后才能留言
+                                </div>
+                            </div>
+                        </div>
+                        {else /}
+                        <form id="commentform" class="comment-form layui-form">
                             <div class="comment-form-comment">
-                                    <textarea id="comment" name="comment" class="required"
-                                              rows="4" placeholder="写下你的评论…"></textarea>
-                                <div class="comment-form-smile j-smilies" data-target="#comment">
-                                    <i class="layui-icon wi layui-icon-face-smile-b"></i>
-                                    <div class="smilies-box active">
+                                    <textarea id="comment" name="content" class="required" lay-verify="required"
+                                              lay-reqtext="请填留言内容" rows="4" placeholder="写下你的留言…"></textarea>
+                                <div class="comment-form-smile j-smilies show-face" lay-on="smilies">
+                                    <i class="layui-icon wi layui-icon-face-smile-b show-face"></i>
+                                    <div class="smilies-box show-face">
                                         <div class="smilies-item" data-name="[微笑]" title="微笑"><img
                                             src="__IMG__/smilies/weixiao.svg"
                                             alt="[微笑]" img-loaded="true"></div>
@@ -246,1333 +227,125 @@
                             </div>
                             <div class="form-submit">
                                 <div class="pull-left form-submit-text">
-                                    <img alt="OpenDark的头像"
-                                         src="/avatar/0.jpg"
-                                         class="avatar avatar-60 photo"
-                                         height="60"
-                                         width="60"><span>OpenDark</span></div>
-                                <button name="submit" type="submit" id="submit"
-                                        class="layui-btn layui-btn-xs user-action-button submit">
-                                    提交
+                                    <img alt="{$blog_user.nickname}的头像" src="{$blog_user.avatar}"
+                                         class="avatar avatar-60 photo" height="60" width="60">
+                                    <span>{$blog_user.nickname}</span>
+                                </div>
+                                <input type="hidden" name="id" value="{$post['id']}">
+                                <input type="hidden" name="rid" value="0">
+                                <input type="hidden" name="pid" value="0">
+                                <button class="layui-btn layui-btn-xs user-action-button submit" type="submit"
+                                        id="submit" lay-submit lay-filter="post-comment">提交
                                 </button>
-                                <input type="hidden" name="comment_post_ID" value="1471" id="comment_post_ID">
-                                <input type="hidden" name="comment_parent" id="comment_parent" value="0">
                             </div>
-                            <p style="display: none;">
-                                <input type="hidden" id="akismet_comment_nonce"
-                                       name="akismet_comment_nonce" value="32073a186a"></p>
-                            <p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_">
-                                <label>Δ
-                                    <textarea name="ak_hp_textarea" cols="45" rows="8"
-                                              maxlength="100"></textarea>
-                                </label><input type="hidden"
-                                               id="ak_js_1"
-                                               name="ak_js"
-                                               value="1728115500237">
-                                <script>
-                                    document.getElementById("ak_js_1").setAttribute("value", (new Date()).getTime());
-                                </script>
-                            </p>
                         </form>
-                    </div><!-- #respond -->
-                    <h3 class="comments-title">
-                        评论列表（119条） </h3>
+                        {/if}
+                    </div>
+                    <h3 class="comments-title">留言列表（{$total}条）</h3>
                     <ul class="comments-list">
-                        <li class="comment byuser even thread-even depth-1" id="comment-1488">
-                            <div id="div-comment-1488" class="comment-inner">
+                        {foreach $comment['data'] as $key => $vo }
+                        <?php empty($vo['user']) && $vo['user'] = ['id' => 0, 'avatar' => '', 'nickname' => '未知']; ?>
+                        <li class="comment byuser odd alt thread-even depth-1 parent" id="comment-{$vo['id']}">
+                            <div id="div-comment-{$vo['id']}" class="comment-inner">
                                 <div class="comment-author vcard">
-                                    <img alt="媚眼儿风流的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/48d9b714a96f47fd.1577020988.jpg"
+                                    <img alt="{$vo['user']['nickname']|default='未知'}的头像"
+                                         src="{$vo['user']['avatar']|default=''}"
                                          class="avatar avatar-60 photo" height="60" width="60"></div>
                                 <div class="comment-body">
                                     <div class="nickname">
-                                        <a class="j-user-card" data-user="5114"
-                                           href="https://demo.wpcom.cn/justnews/user/5114"
-                                           target="_blank">媚眼儿风流</a> <span
-                                        class="comment-time">2023年12月23日 15:01</span>
+                                        <a class="j-user-card" data-user="{$vo['user']['id']}"
+                                           href="/user/{$vo['user']['id']}"
+                                           target="_blank">{$vo['user']['nickname']|default='未知'}</a> <span
+                                        class="comment-time">{$vo['created_at']}</span>
                                     </div>
                                     <div class="comment-text">
-                                        <p>333333333333</p>
+                                        <p class="comment-content">
+                                            {$vo['content']}
+                                        </p>
                                     </div>
                                 </div>
-
                                 <div class="reply">
                                     <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1488" data-postid="1471" data-belowelement="div-comment-1488"
-                                       data-respondelement="respond" data-replyto="回复给  媚眼儿风流"
-                                       aria-label="回复给  媚眼儿风流">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <!--                                <div id="respond" class="comment-respond">-->
-                            <!--                                    <h3 id="reply-title" class="comment-reply-title">回复给 媚眼儿风流-->
-                            <!--                                        <small>-->
-                            <!--                                            <a rel="nofollow"-->
-                            <!--                                               id="cancel-comment-reply-link"-->
-                            <!--                                               href="/justnews/1471.html/comment-page-1#respond"-->
-                            <!--                                               style="">-->
-                            <!--                                                <i class="layui-icon layui-icon-close"></i>-->
-                            <!--                                            </a>-->
-                            <!--                                        </small>-->
-                            <!--                                    </h3>-->
-                            <!--                                    <form action="https://demo.wpcom.cn/justnews/wp-comments-post.php" method="post"-->
-                            <!--                                          id="commentform" class="comment-form" novalidate="">-->
-                            <!--                                        <div class="comment-form-comment">-->
-                            <!--                                            <textarea id="comment" name="comment"-->
-                            <!--                                                      class="required" rows="4"-->
-                            <!--                                                      placeholder="写下你的评论…"></textarea>-->
-                            <!--                                            <div class="comment-form-smile j-smilies" data-target="#comment">-->
-                            <!--                                                <i class="layui-icon wi layui-icon-face-smile-b"></i>-->
-                            <!--                                                <div class="smilies-box">-->
-                            <!--                                                    <div class="smilies-item" data-name="[微笑]" title="微笑"><img-->
-                            <!--                                                        src="__IMG__/smilies/weixiao.svg"-->
-                            <!--                                                        alt="[微笑]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[咧嘴笑]" title="咧嘴笑"><img-->
-                            <!--                                                        src="__IMG__/smilies/liezuixiao.svg"-->
-                            <!--                                                        alt="[咧嘴笑]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[大笑]" title="大笑"><img-->
-                            <!--                                                        src="__IMG__/smilies/daxiao.svg"-->
-                            <!--                                                        alt="[大笑]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[偷笑]" title="偷笑"><img-->
-                            <!--                                                        src="__IMG__/smilies/touxiao.svg"-->
-                            <!--                                                        alt="[偷笑]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[调皮]" title="调皮"><img-->
-                            <!--                                                        src="__IMG__/smilies/tiaopi.svg"-->
-                            <!--                                                        alt="[调皮]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[笑哭]" title="笑哭"><img-->
-                            <!--                                                        src="__IMG__/smilies/xiaoku.svg"-->
-                            <!--                                                        alt="[笑哭]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[嘿嘿]" title="嘿嘿"><img-->
-                            <!--                                                        src="__IMG__/smilies/heihei.svg"-->
-                            <!--                                                        alt="[嘿嘿]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[可爱]" title="可爱"><img-->
-                            <!--                                                        src="__IMG__/smilies/keai.svg"-->
-                            <!--                                                        alt="[可爱]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[瞪眼]" title="瞪眼"><img-->
-                            <!--                                                        src="__IMG__/smilies/dengyan.svg"-->
-                            <!--                                                        alt="[瞪眼]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[亲亲]" title="亲亲"><img-->
-                            <!--                                                        src="__IMG__/smilies/qinqin.svg"-->
-                            <!--                                                        alt="[亲亲]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[色]" title="色"><img-->
-                            <!--                                                        src="__IMG__/smilies/se.svg"-->
-                            <!--                                                        alt="[色]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[酷]" title="酷"><img-->
-                            <!--                                                        src="__IMG__/smilies/ku.svg"-->
-                            <!--                                                        alt="[酷]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[翻白眼]" title="翻白眼"><img-->
-                            <!--                                                        src="__IMG__/smilies/fanbaiyan.svg"-->
-                            <!--                                                        alt="[翻白眼]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[汗]" title="汗"><img-->
-                            <!--                                                        src="__IMG__/smilies/han.svg"-->
-                            <!--                                                        alt="[汗]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[大哭]" title="大哭"><img-->
-                            <!--                                                        src="__IMG__/smilies/daku.svg"-->
-                            <!--                                                        alt="[大哭]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[困]" title="困"><img-->
-                            <!--                                                        src="__IMG__/smilies/kun.svg"-->
-                            <!--                                                        alt="[困]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[难过]" title="难过"><img-->
-                            <!--                                                        src="__IMG__/smilies/nanguo.svg"-->
-                            <!--                                                        alt="[难过]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[生气]" title="生气"><img-->
-                            <!--                                                        src="__IMG__/smilies/shengqi.svg"-->
-                            <!--                                                        alt="[生气]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[庆祝]" title="庆祝"><img-->
-                            <!--                                                        src="__IMG__/smilies/qingzhu.svg"-->
-                            <!--                                                        alt="[庆祝]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[赞]" title="赞"><img-->
-                            <!--                                                        src="__IMG__/smilies/zan.svg"-->
-                            <!--                                                        alt="[赞]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[礼物]" title="礼物"><img-->
-                            <!--                                                        src="__IMG__/smilies/liwu.svg"-->
-                            <!--                                                        alt="[礼物]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[爱心]" title="爱心"><img-->
-                            <!--                                                        src="__IMG__/smilies/aixin.svg"-->
-                            <!--                                                        alt="[爱心]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[喝彩]" title="喝彩"><img-->
-                            <!--                                                        src="__IMG__/smilies/hecai.svg"-->
-                            <!--                                                        alt="[喝彩]" img-loaded="true"></div>-->
-                            <!--                                                    <div class="smilies-item" data-name="[花]" title="花"><img-->
-                            <!--                                                        src="__IMG__/smilies/hua.svg"-->
-                            <!--                                                        alt="[花]" img-loaded="true"></div>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                        </div>-->
-                            <!--                                        <div class="form-submit">-->
-                            <!--                                            <div class="pull-left form-submit-text">-->
-                            <!--                                                <img alt="OpenDark的头像"-->
-                            <!--                                                     src="/avatar/0.jpg"-->
-                            <!--                                                     class="avatar avatar-60 photo"-->
-                            <!--                                                     height="60" width="60"><span>OpenDark</span>-->
-                            <!--                                            </div>-->
-                            <!--                                            <button name="submit" type="submit" id="submit"-->
-                            <!--                                                    class="layui-btn layui-btn-xs user-action-button submit">-->
-                            <!--                                                提交-->
-                            <!--                                            </button>-->
-                            <!--                                            <input type="hidden" name="comment_post_ID" value="1471"-->
-                            <!--                                                   id="comment_post_ID">-->
-                            <!--                                            <input type="hidden" name="comment_parent" id="comment_parent" value="1488">-->
-                            <!--                                        </div>-->
-                            <!--                                        <p style="display: none;"><input type="hidden" id="akismet_comment_nonce"-->
-                            <!--                                                                         name="akismet_comment_nonce"-->
-                            <!--                                                                         value="32073a186a"></p>-->
-                            <!--                                        <p style="display: none !important;" class="akismet-fields-container"-->
-                            <!--                                           data-prefix="ak_"><label>Δ<textarea name="ak_hp_textarea" cols="45" rows="8"-->
-                            <!--                                                                               maxlength="100"></textarea></label><input-->
-                            <!--                                            type="hidden" id="ak_js_1" name="ak_js" value="1728125991741">-->
-                            <!--                                            <script>document.getElementById("ak_js_1").setAttribute("value", (new Date()).getTime());</script>-->
-                            <!--                                        </p>-->
-                            <!--                                    </form>-->
-                            <!--                                </div>-->
-                        </li><!-- #comment-## -->
-                        <!--                            <li class="comment byuser odd alt thread-odd thread-alt depth-1" id="comment-1479">-->
-                        <!--                                <div id="div-comment-1479" class="comment-inner">-->
-                        <!--                                    <div class="comment-author vcard">-->
-                        <!--                                        <img alt="莫玄的头像"-->
-                        <!--                                             src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/ef87392ae8c987b0.1555653255.jpg"-->
-                        <!--                                             class="avatar avatar-60 photo" height="60" width="60"></div>-->
-                        <!--                                    <div class="comment-body">-->
-                        <!--                                        <div class="nickname"><a class="j-user-card" data-user="2625"-->
-                        <!--                                                                 href="https://demo.wpcom.cn/justnews/user/2625"-->
-                        <!--                                                                 target="_blank">莫玄</a> <span class="comment-time">2023年12月18日 14:22</span>-->
-                        <!--                                        </div>-->
-                        <!--                                        <div class="comment-text">-->
-                        <!--                                            <p>我的为啥不能看视频，只有上传才能用的么？第三方不能用吗？</p>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-
-                        <!--                                    <div class="reply">-->
-                        <!--                                        <a rel="nofollow" class="comment-reply-link" href="#respond"-->
-                        <!--                                           data-commentid="1479" data-postid="1471" data-belowelement="div-comment-1479"-->
-                        <!--                                           data-respondelement="respond" data-replyto="回复给  莫玄" aria-label="回复给  莫玄">-->
-                        <!--                                            <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>-->
-                        <!--                                </div>-->
-                        <!--                            </li>&lt;!&ndash; #comment-## &ndash;&gt;-->
-                        <li class="comment byuser even thread-even depth-1" id="comment-1478">
-                            <div id="div-comment-1478" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="莫玄的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/ef87392ae8c987b0.1555653255.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="2625"
-                                                             href="https://demo.wpcom.cn/justnews/user/2625"
-                                                             target="_blank">莫玄</a> <span class="comment-time">2023年12月18日 14:17</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>提交评论</p>
-                                    </div>
+                                       data-commentid="{$vo['id']}" data-postid="0"
+                                       data-belowelement="div-comment-{$vo['id']}"
+                                       data-respondelement="respond"
+                                       data-replyto="回复给  {$vo['user']['nickname']|default='未知'}"
+                                       aria-label="回复给  {$vo['user']['nickname']|default='未知'}">
+                                        <i class="layui-icon layui-icon-reply-fill wi"></i>
+                                        <span>回复</span>
+                                    </a>
                                 </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1478" data-postid="1471" data-belowelement="div-comment-1478"
-                                       data-respondelement="respond" data-replyto="回复给  莫玄" aria-label="回复给  莫玄">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
                             </div>
-                        </li><!-- #comment-## -->
-                        <!--                            <li class="comment byuser odd alt thread-odd thread-alt depth-1" id="comment-1459">-->
-                        <!--                                <div id="div-comment-1459" class="comment-inner">-->
-                        <!--                                    <div class="comment-author vcard">-->
-                        <!--                                        <img alt="A 电商seo Zlin的头像"-->
-                        <!--                                             src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/76842014c83cedad.1558519098.jpg"-->
-                        <!--                                             class="avatar avatar-60 photo" height="60" width="60"></div>-->
-                        <!--                                    <div class="comment-body">-->
-                        <!--                                        <div class="nickname"><a class="j-user-card" data-user="2974"-->
-                        <!--                                                                 href="https://demo.wpcom.cn/justnews/user/2974"-->
-                        <!--                                                                 target="_blank">A 电商seo Zlin</a> <span-->
-                        <!--                                            class="comment-time">2023年12月13日 09:53</span>-->
-                        <!--                                        </div>-->
-                        <!--                                        <div class="comment-text">-->
-                        <!--                                            <p>???</p>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-
-                        <!--                                    <div class="reply">-->
-                        <!--                                        <a rel="nofollow" class="comment-reply-link" href="#respond"-->
-                        <!--                                           data-commentid="1459" data-postid="1471" data-belowelement="div-comment-1459"-->
-                        <!--                                           data-respondelement="respond" data-replyto="回复给  A 电商seo Zlin"-->
-                        <!--                                           aria-label="回复给  A 电商seo Zlin">-->
-                        <!--                                            <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>-->
-                        <!--                                </div>-->
-                        <!--                            </li>&lt;!&ndash; #comment-## &ndash;&gt;-->
-                        <li class="comment byuser even thread-even depth-1 parent" id="comment-1455">
-                            <div id="div-comment-1455" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="袁建礼的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/87b8a0cd00a8115c.1576118268.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4986"
-                                                             href="https://demo.wpcom.cn/justnews/user/4986"
-                                                             target="_blank">袁建礼</a> <span class="comment-time">2023年12月12日 10:47</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>非常好</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1455" data-postid="1471" data-belowelement="div-comment-1455"
-                                       data-respondelement="respond" data-replyto="回复给  袁建礼"
-                                       aria-label="回复给  袁建礼">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
+                            {notempty name="$vo['reply']"}
                             <ul class="comment-children">
-                                <li class="comment byuser odd alt depth-2" id="comment-1536">
-                                    <div id="div-comment-1536" class="comment-inner">
+                                {foreach $vo['reply'] as $k => $v }
+                                <li class="comment byuser even depth-{:intval($k + 2)}" id="comment-{$v['id']}">
+                                    <div id="div-comment-{$v['id']}" class="comment-inner">
                                         <div class="comment-author vcard">
-                                            <img alt="6262的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
+                                            <img alt="{$v['user']['nickname']}的头像" src="{$v['user']['avatar']}"
                                                  class="avatar avatar-60 photo" height="60" width="60"></div>
                                         <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="5433"
-                                                                     href="https://demo.wpcom.cn/justnews/user/5433"
-                                                                     target="_blank">6262</a> <span
-                                                class="comment-time">2020年2月1日 21:04</span>
+                                            <div class="nickname">
+                                                <a class="j-user-card" data-user="{$v['user']['id']}"
+                                                   href="/user/{$v['user']['id']}" target="_blank">
+                                                    {$v['user']['nickname']}
+                                                </a>
+                                                <span class="comment-time">{$v['created_at']}</span>
                                             </div>
                                             <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="4986"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/4986"
-                                                                                       target="_blank">@袁建礼</a>：</span>测试
+                                                <p><span class="comment-text-reply">
+                                                    <a class="j-user-card" data-user="{$vo['user']['id']}"
+                                                       href="/user/{$vo['user']['id']}" target="_blank">
+                                                        @{$vo['user']['nickname']}
+                                                    </a>：</span>
+                                                    {$v['content']}
                                                 </p>
                                             </div>
                                         </div>
-
                                         <div class="reply">
                                             <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1536" data-postid="1471"
-                                               data-belowelement="div-comment-1536" data-respondelement="respond"
-                                               data-replyto="回复给  6262" aria-label="回复给  6262">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                            </ul>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1419">
-                            <div id="div-comment-1419" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="tatakids的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/5f59148e0a9ceb36.1572449843.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4558"
-                                                             href="https://demo.wpcom.cn/justnews/user/4558"
-                                                             target="_blank">tatakids</a> <span
-                                        class="comment-time">2023年11月13日 23:08</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>你好</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1419" data-postid="1471" data-belowelement="div-comment-1419"
-                                       data-respondelement="respond" data-replyto="回复给  tatakids"
-                                       aria-label="回复给  tatakids">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1414">
-                            <div id="div-comment-1414" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="半缘半道半修缘的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4650"
-                                                             href="https://demo.wpcom.cn/justnews/user/4650"
-                                                             target="_blank">半缘半道半修缘</a> <span class="comment-time">2023年11月8日 23:06</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>啦啦啦</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1414" data-postid="1471" data-belowelement="div-comment-1414"
-                                       data-respondelement="respond" data-replyto="回复给  半缘半道半修缘"
-                                       aria-label="回复给  半缘半道半修缘">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1410">
-                            <div id="div-comment-1410" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="最营销AIO TECH的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/58a56a4a26b96a68.1572791384.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4596"
-                                                             href="https://demo.wpcom.cn/justnews/user/4596"
-                                                             target="_blank">最营销AIO TECH</a> <span
-                                        class="comment-time">2023年11月3日 22:29</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>不错哟</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1410" data-postid="1471" data-belowelement="div-comment-1410"
-                                       data-respondelement="respond" data-replyto="回复给  最营销AIO TECH"
-                                       aria-label="回复给  最营销AIO TECH">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1336">
-                            <div id="div-comment-1336" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="厨师秀-A的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/5a28efd91535abb1.1571729493.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4438"
-                                                             href="https://demo.wpcom.cn/justnews/user/4438"
-                                                             target="_blank">厨师秀-A</a> <span class="comment-time">2023年10月22日 15:32</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>不能回复楼层吗</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1336" data-postid="1471" data-belowelement="div-comment-1336"
-                                       data-respondelement="respond" data-replyto="回复给  厨师秀-A"
-                                       aria-label="回复给  厨师秀-A">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1325">
-                            <div id="div-comment-1325" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="人生是一场修行。的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/300d99fdbf4f3f79.1570929636.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4331"
-                                                             href="https://demo.wpcom.cn/justnews/user/4331"
-                                                             target="_blank">人生是一场修行。</a> <span
-                                        class="comment-time">2023年10月13日 09:20</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1325" data-postid="1471" data-belowelement="div-comment-1325"
-                                       data-respondelement="respond" data-replyto="回复给  人生是一场修行。"
-                                       aria-label="回复给  人生是一场修行。">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1 parent" id="comment-1318">
-                            <div id="div-comment-1318" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="赵飞的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/01fbaf43e758c17f.1563956041.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3542"
-                                                             href="https://demo.wpcom.cn/justnews/user/3542"
-                                                             target="_blank">赵飞</a> <span class="comment-time">2023年10月6日 18:59</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>视频不适配，苹果XR</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1318" data-postid="1471" data-belowelement="div-comment-1318"
-                                       data-respondelement="respond" data-replyto="回复给  赵飞" aria-label="回复给  赵飞">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <ul class="comment-children">
-                                <li class="comment byuser even depth-2" id="comment-1320">
-                                    <div id="div-comment-1320" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="WPCOM的头像"
-                                                 src="/avatar/0.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="3"
-                                                                     href="https://demo.wpcom.cn/justnews/user/3"
-                                                                     target="_blank">WPCOM</a> <span
-                                                class="comment-time">2023年10月7日 15:09</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="3542"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/3542"
-                                                                                       target="_blank">@赵飞</a>：</span>具体是什么适配问题呢？欢迎反馈，QQ：1666839010
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1320" data-postid="1471"
-                                               data-belowelement="div-comment-1320" data-respondelement="respond"
-                                               data-replyto="回复给  WPCOM" aria-label="回复给  WPCOM">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                            </ul>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-odd thread-alt depth-1" id="comment-1304">
-                            <div id="div-comment-1304" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="1202的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4236"
-                                                             href="https://demo.wpcom.cn/justnews/user/4236"
-                                                             target="_blank">1202</a> <span class="comment-time">2023年10月3日 12:22</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试测试测试测试测试测试测试测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1304" data-postid="1471" data-belowelement="div-comment-1304"
-                                       data-respondelement="respond" data-replyto="回复给  1202"
-                                       aria-label="回复给  1202">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-even depth-1" id="comment-1288">
-                            <div id="div-comment-1288" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="5592的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4164"
-                                                             href="https://demo.wpcom.cn/justnews/user/4164"
-                                                             target="_blank">5592</a> <span class="comment-time">2023年9月25日 20:04</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试一下</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1288" data-postid="1471" data-belowelement="div-comment-1288"
-                                       data-respondelement="respond" data-replyto="回复给  5592"
-                                       aria-label="回复给  5592">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-odd thread-alt depth-1" id="comment-1270">
-                            <div id="div-comment-1270" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="小涛 ?的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/9b0996bbf05ae775.1568908393.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4102"
-                                                             href="https://demo.wpcom.cn/justnews/user/4102"
-                                                             target="_blank">小涛 ?</a> <span class="comment-time">2023年9月19日 23:53</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1270" data-postid="1471" data-belowelement="div-comment-1270"
-                                       data-respondelement="respond" data-replyto="回复给  小涛 ?"
-                                       aria-label="回复给  小涛 ?">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-even depth-1 parent" id="comment-1269">
-                            <div id="div-comment-1269" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="黄飒的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/7e15b46c42911f39.1568735672.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4080"
-                                                             href="https://demo.wpcom.cn/justnews/user/4080"
-                                                             target="_blank">黄飒</a> <span class="comment-time">2023年9月18日 16:46</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>不错不错</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1269" data-postid="1471" data-belowelement="div-comment-1269"
-                                       data-respondelement="respond" data-replyto="回复给  黄飒" aria-label="回复给  黄飒">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <ul class="comment-children">
-                                <li class="comment byuser odd alt depth-2 parent" id="comment-1305">
-                                    <div id="div-comment-1305" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="1202的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="4236"
-                                                                     href="https://demo.wpcom.cn/justnews/user/4236"
-                                                                     target="_blank">1202</a> <span
-                                                class="comment-time">2023年10月3日 12:23</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="4080"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/4080"
-                                                                                       target="_blank">@黄飒</a>：</span>测试测试测试测试测试测试测试测试
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1305" data-postid="1471"
-                                               data-belowelement="div-comment-1305" data-respondelement="respond"
-                                               data-replyto="回复给  1202" aria-label="回复给  1202">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
+                                               data-commentid="{$v['id']}" data-postid="0"
+                                               data-belowelement="div-comment-{$v['id']}" data-respondelement="respond"
+                                               data-replyto="回复给  {$v['user']['nickname']}"
+                                               aria-label="回复给  {$v['user']['nickname']}">
+                                                <i class="layui-icon layui-icon-reply-fill wi"></i>
+                                                <span>回复</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="comment byuser even depth-3 parent" id="comment-1398">
-                                    <div id="div-comment-1398" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="joyจุ๊บ的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/432c1a48a52fb6c7.1548327232.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="1956"
-                                                                     href="https://demo.wpcom.cn/justnews/user/1956"
-                                                                     target="_blank">joyจุ๊บ</a> <span
-                                                class="comment-time">2023年10月31日 13:28</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="4236"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/4236"
-                                                                                       target="_blank">@1202</a>：</span>1
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1398" data-postid="1471"
-                                               data-belowelement="div-comment-1398" data-respondelement="respond"
-                                               data-replyto="回复给  joyจุ๊บ" aria-label="回复给  joyจุ๊บ">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment byuser odd alt depth-4" id="comment-1948">
-                                    <div id="div-comment-1948" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="大地的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/2994651460a9f629.1600398099.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="27345"
-                                                                     href="https://demo.wpcom.cn/justnews/user/27345"
-                                                                     target="_blank">大地</a> <span
-                                                class="comment-time">2020年9月18日 11:04</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1956"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1956"
-                                                                                       target="_blank">@joyจุ๊บ</a>：</span>2
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1948" data-postid="1471"
-                                               data-belowelement="div-comment-1948" data-respondelement="respond"
-                                               data-replyto="回复给  大地" aria-label="回复给  大地">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                                <!-- #comment-## -->
-                                <!-- #comment-## -->
+                                {/foreach}
                             </ul>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1230">
-                            <div id="div-comment-1230" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="王小克的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/9f7733db5611fd53.1568053945.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="4007"
-                                                             href="https://demo.wpcom.cn/justnews/user/4007"
-                                                             target="_blank">王小克</a> <span class="comment-time">2023年9月10日 02:32</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>这是，多少版本？</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1230" data-postid="1471" data-belowelement="div-comment-1230"
-                                       data-respondelement="respond" data-replyto="回复给  王小克"
-                                       aria-label="回复给  王小克">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1203">
-                            <div id="div-comment-1203" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="蔡逸雯的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/8664be296f0d87d9.1567178403.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3902"
-                                                             href="https://demo.wpcom.cn/justnews/user/3902"
-                                                             target="_blank">蔡逸雯</a> <span class="comment-time">2023年8月30日 23:20</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试版</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1203" data-postid="1471" data-belowelement="div-comment-1203"
-                                       data-respondelement="respond" data-replyto="回复给  蔡逸雯"
-                                       aria-label="回复给  蔡逸雯">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1187">
-                            <div id="div-comment-1187" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="Che.的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/70133ef6cf688bc4.1555564134.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="2606"
-                                                             href="https://demo.wpcom.cn/justnews/user/2606"
-                                                             target="_blank">Che.</a> <span class="comment-time">2023年8月22日 17:25</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1187" data-postid="1471" data-belowelement="div-comment-1187"
-                                       data-respondelement="respond" data-replyto="回复给  Che."
-                                       aria-label="回复给  Che.">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1181">
-                            <div id="div-comment-1181" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="大挖 | Wazhuti.com的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/ad196a5085f5ed91.1566312442.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3804"
-                                                             href="https://demo.wpcom.cn/justnews/user/3804"
-                                                             target="_blank">大挖 | Wazhuti.com</a> <span
-                                        class="comment-time">2023年8月20日 22:48</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>这个主题 真好用</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1181" data-postid="1471" data-belowelement="div-comment-1181"
-                                       data-respondelement="respond" data-replyto="回复给  大挖 | Wazhuti.com"
-                                       aria-label="回复给  大挖 | Wazhuti.com">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1144">
-                            <div id="div-comment-1144" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="期待糊涂的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/9f1571f500e28f49.1564480297.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3596"
-                                                             href="https://demo.wpcom.cn/justnews/user/3596"
-                                                             target="_blank">期待糊涂</a> <span class="comment-time">2023年7月30日 17:51</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>哇咔咔</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1144" data-postid="1471" data-belowelement="div-comment-1144"
-                                       data-respondelement="respond" data-replyto="回复给  期待糊涂"
-                                       aria-label="回复给  期待糊涂">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1120">
-                            <div id="div-comment-1120" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="homeBabygirl12的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/fe8cfe9fda9e4c20.1563863570.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3528"
-                                                             href="https://demo.wpcom.cn/justnews/user/3528"
-                                                             target="_blank">homeBabygirl12</a> <span
-                                        class="comment-time">2023年7月23日 14:37</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1120" data-postid="1471" data-belowelement="div-comment-1120"
-                                       data-respondelement="respond" data-replyto="回复给  homeBabygirl12"
-                                       aria-label="回复给  homeBabygirl12">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-1116">
-                            <div id="div-comment-1116" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="。的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/a95e3e5242ba1097.1563724796.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3513"
-                                                             href="https://demo.wpcom.cn/justnews/user/3513"
-                                                             target="_blank">。</a> <span class="comment-time">2023年7月22日 15:51</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1116" data-postid="1471" data-belowelement="div-comment-1116"
-                                       data-respondelement="respond" data-replyto="回复给  。" aria-label="回复给  。">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-1096">
-                            <div id="div-comment-1096" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="尚拙的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/24e3199be5e18060.1563234103.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="3456"
-                                                             href="https://demo.wpcom.cn/justnews/user/3456"
-                                                             target="_blank">人生如戏</a> <span class="comment-time">2023年7月16日 07:42</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>挺好</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="1096" data-postid="1471" data-belowelement="div-comment-1096"
-                                       data-respondelement="respond" data-replyto="回复给  人生如戏"
-                                       aria-label="回复给  人生如戏">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-758">
-                            <div id="div-comment-758" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="草芥的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/33c579a90cfdd895.1529508853.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="930"
-                                                             href="https://demo.wpcom.cn/justnews/user/930"
-                                                             target="_blank">草芥</a> <span class="comment-time">2023年2月17日 12:19</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>不错的主意</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="758" data-postid="1471" data-belowelement="div-comment-758"
-                                       data-respondelement="respond" data-replyto="回复给  草芥" aria-label="回复给  草芥">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-733">
-                            <div id="div-comment-733" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="千里马的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/ffb41e085fd7f69a.1548491768.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1973"
-                                                             href="https://demo.wpcom.cn/justnews/user/1973"
-                                                             target="_blank">千里马</a> <span class="comment-time">2023年1月27日 20:11</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>jlhj</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="733" data-postid="1471" data-belowelement="div-comment-733"
-                                       data-respondelement="respond" data-replyto="回复给  千里马"
-                                       aria-label="回复给  千里马">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1" id="comment-731">
-                            <div id="div-comment-731" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="Taokeplus-淘客的资讯网站的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/09f1619fd7a733da.1548380971.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1960"
-                                                             href="https://demo.wpcom.cn/justnews/user/1960"
-                                                             target="_blank">Taokeplus-淘客的资讯网站</a> <span
-                                        class="comment-time">2023年1月25日 09:49</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>看看，</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="731" data-postid="1471" data-belowelement="div-comment-731"
-                                       data-respondelement="respond" data-replyto="回复给  Taokeplus-淘客的资讯网站"
-                                       aria-label="回复给  Taokeplus-淘客的资讯网站">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser odd alt thread-even depth-1" id="comment-729">
-                            <div id="div-comment-729" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="joyจุ๊บ的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/432c1a48a52fb6c7.1548327232.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1956"
-                                                             href="https://demo.wpcom.cn/justnews/user/1956"
-                                                             target="_blank">joyจุ๊บ</a> <span class="comment-time">2023年1月24日 18:54</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>看看</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="729" data-postid="1471" data-belowelement="div-comment-729"
-                                       data-respondelement="respond" data-replyto="回复给  joyจุ๊บ"
-                                       aria-label="回复给  joyจุ๊บ">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1 parent" id="comment-728">
-                            <div id="div-comment-728" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="UIUE.COM的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/2ebec1e820ac34d0.1548324788.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1950"
-                                                             href="https://demo.wpcom.cn/justnews/user/1950"
-                                                             target="_blank">UIUE.COM</a> <span
-                                        class="comment-time">2023年1月24日 18:13</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>测试测试，设计比pc差点赶脚</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="728" data-postid="1471" data-belowelement="div-comment-728"
-                                       data-respondelement="respond" data-replyto="回复给  UIUE.COM"
-                                       aria-label="回复给  UIUE.COM">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <ul class="comment-children">
-                                <li class="comment byuser odd alt depth-2" id="comment-759">
-                                    <div id="div-comment-759" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="草芥的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/33c579a90cfdd895.1529508853.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="930"
-                                                                     href="https://demo.wpcom.cn/justnews/user/930"
-                                                                     target="_blank">草芥</a> <span
-                                                class="comment-time">2023年2月17日 12:19</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1950"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1950"
-                                                                                       target="_blank">@UIUE.COM</a>：</span>啦啦啦啦
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="759" data-postid="1471"
-                                               data-belowelement="div-comment-759" data-respondelement="respond"
-                                               data-replyto="回复给  草芥" aria-label="回复给  草芥">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                            </ul>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-even depth-1 parent" id="comment-716">
-                            <div id="div-comment-716" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="新引擎的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/6801e1a85d6d06f1.1546758067.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1835"
-                                                             href="https://demo.wpcom.cn/justnews/user/1835"
-                                                             target="_blank">新引擎</a> <span class="comment-time">2023年1月6日 15:02</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>平均功能阿尔</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="716" data-postid="1471" data-belowelement="div-comment-716"
-                                       data-respondelement="respond" data-replyto="回复给  新引擎"
-                                       aria-label="回复给  新引擎">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <ul class="comment-children">
-                                <li class="comment byuser odd alt depth-2" id="comment-1620">
-                                    <div id="div-comment-1620" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="步入的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/226e43cd6fac7cfe.1581247382.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="5500"
-                                                                     href="https://demo.wpcom.cn/justnews/user/5500"
-                                                                     target="_blank">步入</a> <span
-                                                class="comment-time">2020年3月15日 10:01</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1835"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                                       target="_blank">@新引擎</a>：</span>25415425jhg
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1620" data-postid="1471"
-                                               data-belowelement="div-comment-1620" data-respondelement="respond"
-                                               data-replyto="回复给  步入" aria-label="回复给  步入">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                            </ul>
-                        </li><!-- #comment-## -->
-                        <li class="comment byuser even thread-odd thread-alt depth-1 parent" id="comment-715">
-                            <div id="div-comment-715" class="comment-inner">
-                                <div class="comment-author vcard">
-                                    <img alt="?明 天✅认证的头像"
-                                         src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                         class="avatar avatar-60 photo" height="60" width="60"></div>
-                                <div class="comment-body">
-                                    <div class="nickname"><a class="j-user-card" data-user="1832"
-                                                             href="https://demo.wpcom.cn/justnews/user/1832"
-                                                             target="_blank">?明 天✅认证</a> <span class="comment-time">2023年1月5日 14:39</span>
-                                    </div>
-                                    <div class="comment-text">
-                                        <p>接口你酒店的</p>
-                                    </div>
-                                </div>
-
-                                <div class="reply">
-                                    <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                       data-commentid="715" data-postid="1471" data-belowelement="div-comment-715"
-                                       data-respondelement="respond" data-replyto="回复给  ?明 天✅认证"
-                                       aria-label="回复给  ?明 天✅认证">
-                                        <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a></div>
-                            </div>
-                            <ul class="comment-children">
-                                <li class="comment byuser odd alt depth-2 parent" id="comment-717">
-                                    <div id="div-comment-717" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="新引擎的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/6801e1a85d6d06f1.1546758067.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="1835"
-                                                                     href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                     target="_blank">新引擎</a> <span
-                                                class="comment-time">2023年1月6日 15:02</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1832"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1832"
-                                                                                       target="_blank">@?明 天✅认证</a>：</span>说得好
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="717" data-postid="1471"
-                                               data-belowelement="div-comment-717" data-respondelement="respond"
-                                               data-replyto="回复给  新引擎" aria-label="回复给  新引擎">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment byuser even depth-3" id="comment-718">
-                                    <div id="div-comment-718" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="新引擎的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/6801e1a85d6d06f1.1546758067.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="1835"
-                                                                     href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                     target="_blank">新引擎</a> <span
-                                                class="comment-time">2023年1月6日 15:03</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1835"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                                       target="_blank">@新引擎</a>：</span>说得好
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="718" data-postid="1471"
-                                               data-belowelement="div-comment-718" data-respondelement="respond"
-                                               data-replyto="回复给  新引擎" aria-label="回复给  新引擎">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                                <li class="comment odd alt depth-3" id="comment-735">
-                                    <div id="div-comment-735" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="万千度的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname">万千度 <span
-                                                class="comment-time">2023年2月10日 01:02</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1835"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                                       target="_blank">@新引擎</a>：</span>滴滴
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="735" data-postid="1471"
-                                               data-belowelement="div-comment-735" data-respondelement="respond"
-                                               data-replyto="回复给  万千度" aria-label="回复给  万千度">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                                <li class="comment byuser even depth-3 parent" id="comment-1703">
-                                    <div id="div-comment-1703" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="yshim的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/e9a68c5ae12bd184.1539321091.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="602"
-                                                                     href="https://demo.wpcom.cn/justnews/user/602"
-                                                                     target="_blank">yshim</a> <span
-                                                class="comment-time">2020年4月15日 16:20</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1835"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1835"
-                                                                                       target="_blank">@新引擎</a>：</span>不错不错
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1703" data-postid="1471"
-                                               data-belowelement="div-comment-1703" data-respondelement="respond"
-                                               data-replyto="回复给  yshim" aria-label="回复给  yshim">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment byuser odd alt depth-4" id="comment-1704">
-                                    <div id="div-comment-1704" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="yshim的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/member/avatars/e9a68c5ae12bd184.1539321091.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="602"
-                                                                     href="https://demo.wpcom.cn/justnews/user/602"
-                                                                     target="_blank">yshim</a> <span
-                                                class="comment-time">2020年4月15日 16:21</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="602"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/602"
-                                                                                       target="_blank">@yshim</a>：</span>哈哈哈哈哈哈哈哈哈
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1704" data-postid="1471"
-                                               data-belowelement="div-comment-1704" data-respondelement="respond"
-                                               data-replyto="回复给  yshim" aria-label="回复给  yshim">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                                <!-- #comment-## -->
-                                <!-- #comment-## -->
-                                <li class="comment byuser even depth-2 parent" id="comment-1515">
-                                    <div id="div-comment-1515" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="1393的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="5174"
-                                                                     href="https://demo.wpcom.cn/justnews/user/5174"
-                                                                     target="_blank">1393</a> <span
-                                                class="comment-time">2020年1月10日 23:38</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="1832"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/1832"
-                                                                                       target="_blank">@?明 天✅认证</a>：</span>回复试下
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1515" data-postid="1471"
-                                               data-belowelement="div-comment-1515" data-respondelement="respond"
-                                               data-replyto="回复给  1393" aria-label="回复给  1393">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment byuser odd alt depth-3" id="comment-1516">
-                                    <div id="div-comment-1516" class="comment-inner">
-                                        <div class="comment-author vcard">
-                                            <img alt="1393的头像"
-                                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg"
-                                                 class="avatar avatar-60 photo" height="60" width="60"></div>
-                                        <div class="comment-body">
-                                            <div class="nickname"><a class="j-user-card" data-user="5174"
-                                                                     href="https://demo.wpcom.cn/justnews/user/5174"
-                                                                     target="_blank">1393</a> <span
-                                                class="comment-time">2020年1月10日 23:41</span>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p><span class="comment-text-reply"><a class="j-user-card"
-                                                                                       data-user="5174"
-                                                                                       href="https://demo.wpcom.cn/justnews/user/5174"
-                                                                                       target="_blank">@1393</a>：</span>回复太多是否折叠
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply">
-                                            <a rel="nofollow" class="comment-reply-link" href="#respond"
-                                               data-commentid="1516" data-postid="1471"
-                                               data-belowelement="div-comment-1516" data-respondelement="respond"
-                                               data-replyto="回复给  1393" aria-label="回复给  1393">
-                                                <i class="layui-icon layui-icon-reply-fill wi"></i><span>回复</span></a>
-                                        </div>
-                                    </div>
-                                </li><!-- #comment-## -->
-                                <!-- #comment-## -->
-                            </ul>
-                        </li><!-- #comment-## -->
-                    </ul><!-- .comment-list -->
-                    <ul class="pagination">
-                        <li class="prev"><a class="prev page-numbers"
-                                            href="https://demo.wpcom.cn/justnews/1471.html/comment-page-1#comments"><span>上一页</span></a>
+                            {/notempty}
                         </li>
-                        <li class="active"><span aria-current="page" class="page-numbers current">1</span></li>
-                        <li><a class="page-numbers"
-                               href="https://demo.wpcom.cn/justnews/1471.html/comment-page-2#comments">2</a></li>
-                        <li><a class="page-numbers"
-                               href="https://demo.wpcom.cn/justnews/1471.html/comment-page-3#comments">3</a></li>
-                        <li class="next"><a class="next page-numbers"
-                                            href="https://demo.wpcom.cn/justnews/1471.html/comment-page-2#comments"><span>下一页</span></a>
+                        {/foreach}
+                    </ul>
+
+                    {notempty name="$comment['data']"}
+                    <div id="guest-comment-page"></div>
+                    <ul class="pagination" style="display: none;">
+                        <li class="prev">
+                            <a class="prev page-numbers" href="?page=1#comments">
+                                <span>上一页</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <span aria-current="page" class="page-numbers current">1</span>
+                        </li>
+                        <li>
+                            <a class="page-numbers" href="?page=2#comments">2</a>
+                        </li>
+                        <li>
+                            <a class="page-numbers" href="?page=3#comments">3</a>
+                        </li>
+                        <li class="next">
+                            <a class="next page-numbers" href="?page=2#comments">
+                                <span>下一页</span>
+                            </a>
                         </li>
                     </ul>
-                </div><!-- .comments-area -->
+                    {/notempty}
+                </div>
             </article>
         </div>
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
@@ -1588,8 +361,10 @@
 
 {block name="script"}
 <script>
-    layui.use([], function () {
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
         let $ = layui.jquery;
+        let uid = '{$blog_user["id"]|default=""}';
 
         $(".btn-dashang").hover(function () {
             $(this).css('overflow', 'inherit');
@@ -1599,12 +374,132 @@
             $(".dashang-img").css("opacity", 0);
         });
 
-        $('.btn-zan').on('click', function (event) {
-
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                $("#searchBtn").click();
+        $('#post-like').on('click', function () {
+            let that = $(this);
+            if (that.hasClass('liked')) {
+                return false;
             }
+            if (uid) {
+                $.ajax({
+                    url: '/post/doLike',
+                    type: 'post',
+                    data: {
+                        id: that.data('id'),
+                    },
+                    success: function (res) {
+                        if (res.code === 200) {
+                            layer.msg(res.msg, {icon: 1, time: 1000});
+                            that.addClass('liked').find('.entry-action-num').html(`(${res.data.like_num})`);
+                        } else {
+                            layer.msg(res.msg, {icon: 2, time: 1000})
+                        }
+                    }
+                });
+            } else {
+                needLogin();
+            }
+        });
+
+        $('#post-favorite').on('click', function () {
+            let that = $(this);
+            let y = that.hasClass('hearted');
+            if (uid) {
+                $.ajax({
+                    url: '/post/doFavorite',
+                    type: 'post',
+                    data: {
+                        id: that.data('id'),
+                    },
+                    success: function (res) {
+                        if (res.code === 200) {
+                            layer.msg(res.msg, {icon: 1, time: 1000});
+                            that.find('.data').html(res.data.favorite_num);
+                            if (y) {
+                                that.removeClass('hearted');
+                                that.find('i').removeClass('layui-icon-star-fill').addClass('layui-icon-star');
+                            } else {
+                                that.addClass('hearted');
+                                that.find('i').removeClass('layui-icon-star').addClass('layui-icon-star-fill');
+                            }
+                        } else {
+                            layer.msg(res.msg, {icon: 2, time: 1000})
+                        }
+                    }
+                });
+            } else {
+                needLogin();
+            }
+        });
+    });
+
+    layui.use(['layer', 'util', 'form', 'laypage'], function () {
+        var laypage = layui.laypage;
+        var layer = layui.layer;
+        var util = layui.util;
+        var form = layui.form;
+        var $ = layui.$;
+
+        $('.comment-content').each(function (index, element) {
+            $(element).html(replaceEmoticons($(element).html()));
+        });
+
+        form.on('submit(post-comment)', function (data) {
+            layer.load();
+            $.ajax({
+                url: '/post/doComment',
+                type: 'post',
+                data: data.field,
+                success: function (res) {
+                    layer.closeAll('loading');
+                    if (res.code === 200) {
+                        layer.msg('留言成功', {icon: 1, time: 500}, function () {
+                            location.href = '/post/{$post["id"]}?v=' + new Date().getTime() + '#comments';
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 2, time: 1000});
+                    }
+                }
+            });
+            return false;
+        });
+
+        laypage.render({
+            elem: 'guest-comment-page',
+            count: {$comment['total']},
+            curr: {$page},
+            limit: 10,
+            prev: '<em><</em>',
+            next: '<em>></em>',
+            jump: function (obj, first) {
+                if (!first) {
+                    location.href = '/guest?page=' + obj.curr + '#comments';
+                }
+            }
+        });
+
+        $(document).on('click', function (event) {
+            let evt = event.srcElement ? event.srcElement : event.target;
+            if (evt.classList.contains('show-face'))
+                return false;
+            else {
+                $('.smilies-box').removeClass('active');
+            }
+        });
+
+        $('.smilies-item').on('click', function (event) {
+            let comment = $('#comment');
+            comment.val(comment.val() + $(this).data('name'));
+            return false;
+        });
+
+        $('.comment-must-login').on('click', function (event) {
+            needLogin();
+        });
+
+        util.on('lay-on', {
+            'smilies': function () {
+                $('.smilies-box').toggleClass('active');
+            },
         });
 
     });

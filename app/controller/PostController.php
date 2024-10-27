@@ -56,7 +56,8 @@ class PostController extends BaseController
             }
         }
 
-        // 收藏
+        // 点赞与收藏
+        $data['like'] = 0;
         $data['favorite'] = 0;
         if ($this->userInfo) {
             $favorite = Favorite::where([
@@ -65,6 +66,14 @@ class PostController extends BaseController
             ])->findOrEmpty();
             if (!$favorite->isEmpty() && $favorite['is_cancel'] == 0) {
                 $data['favorite'] = 1;
+            }
+
+            $like = Like::where([
+                'user_id' => $this->userInfo['id'],
+                'article_id' => $id,
+            ])->findOrEmpty();
+            if (!$like->isEmpty()) {
+                $data['like'] = 1;
             }
         }
 
@@ -91,6 +100,49 @@ class PostController extends BaseController
         Article::where('id', $id)
             ->inc('read_num')->update();
 
+        // 评论，暂时处理
+        $names = [];
+        $page = intval($this->request->input('page', 1));
+        $field = 'id,user_id,content,pid,reply_id,agree_num,oppose_num,is_hide,created_at';
+        $comment = Comment::field($field)
+            ->where('reply_id', 0)->where('article_id', $id)
+            ->withJoin(['user' => ['id', 'nickname', 'avatar']], 'LEFT')
+            ->order('id desc')->paginate([
+                'page' => $page,
+                'list_rows' => 10,
+                'var_page' => 'page',
+            ])->toArray();
+        foreach ($comment['data'] as $key => $val) {
+            $names[$val['id']] = $val['user']['nickname'] ?? '未知';
+            $val['is_hide'] && $comment['data'][$key]['content'] = '该留言已被屏蔽';
+        }
+
+        // 回复消息
+        $reply_count = 0;
+        if ($comment['data']) {
+            $ids = array_column($comment['data'], 'id');
+            $reply = Comment::field($field)->whereIn('reply_id', $ids)
+                ->withJoin(['user' => ['id', 'nickname', 'avatar']], 'LEFT')
+                ->select()->toArray();
+            if ($reply) {
+                $reply_count = count($reply);
+                $data = [];
+                foreach ($reply as $val) {
+                    $names[$val['id']] = $val['user']['nickname'] ?? '未知';
+                }
+                foreach ($reply as $val) {
+                    $val['is_hide'] && $val['content'] = '该留言已被屏蔽';
+                    $val['to_user'] = '@' . $names[$val['pid']];
+                    $data[$val['reply_id']][] = $val;
+                }
+                if ($data) {
+                    foreach ($comment['data'] as $key => $val) {
+                        $comment['data'][$key]['reply'] = $data[$val['id']] ?? [];
+                    }
+                }
+            }
+        }
+
         return view('post/index', [
             'title' => $data['title'],
             'active' => 'category' . $data['category_id'],
@@ -99,6 +151,9 @@ class PostController extends BaseController
             'post' => $data,
             'prev' => $prev,
             'next' => $next,
+            'comment' => $comment,
+            'page' => $page,
+            'total' => $comment['total'] + $reply_count
         ]);
     }
 
@@ -157,8 +212,8 @@ class PostController extends BaseController
             'article_id' => $post['id'],
             'content' => $post['content'],
             'ipaddr' => $this->request->getRealIp(),
-            'reply_id' => $post['rid'],
-            'pid' => $post['pid'],
+            'reply_id' => $post['rid'] ?? 0,
+            'pid' => $post['pid'] ?? 0,
         ];
         $this->transaction('评论', function () use ($data) {
             // 新增评论
@@ -167,6 +222,8 @@ class PostController extends BaseController
             // 更新文章回复数
             Article::where('id', $data['article_id'])
                 ->inc('reply_num')->update();
+
+            return [];
         });
     }
 
@@ -186,8 +243,15 @@ class PostController extends BaseController
             Like::create($where);
 
             // 更新文章点赞数
-            Article::where('id', $where['article_id'])
-                ->inc('like_num')->update();
+            $article = Article::field('id,like_num')
+                ->where('id', $where['article_id'])
+                ->findOrEmpty();
+            $article->like_num += 1;
+            $article->save();
+
+            return [
+                'like_num' => $article['like_num'],
+            ];
         });
     }
 
@@ -217,8 +281,15 @@ class PostController extends BaseController
             }
 
             // 更新文章收藏数
-            Article::where('id', $where['article_id'])
-                ->inc('favorite_num', $is_cancel)->update();
+            $article = Article::field('id,favorite_num')
+                ->where('id', $where['article_id'])
+                ->findOrEmpty();
+            $article->favorite_num += $is_cancel ? -1 : 1;
+            $article->save();
+
+            return [
+                'favorite_num' => $article['favorite_num'],
+            ];
         });
     }
 

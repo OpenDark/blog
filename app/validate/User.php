@@ -12,6 +12,7 @@ class User extends Validate
      */
     protected array $rule = [
         'id' => 'require|number|gt:0',
+        'message' => 'require|max:500',
     ];
 
     /**
@@ -19,6 +20,8 @@ class User extends Validate
      */
     protected array $message = [
         'id' => '用户错误',
+        'message.require' => '请输入私信内容',
+        'message' => '私信内容不能超过500个字符',
     ];
 
     /**
@@ -26,6 +29,7 @@ class User extends Validate
      */
     protected array $scene = [
         'doFollow' => ['id'],
+        'doMessage' => ['id', 'message'],
     ];
 
 }

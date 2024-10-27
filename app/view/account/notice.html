@@ -11,26 +11,19 @@
                             <div class="member-account-nav">
                                 <div class="member-account-user">
                                     <div class="member-account-avatar">
-                                        <noscript>
-                                            <img alt='OpenDark的头像'
-                                                 src='/avatar/0.jpg'
-                                                 class='avatar avatar-200 photo' height='200' width='200'/>
-                                        </noscript>
-                                        <img alt="OpenDark的头像"
-                                             src="/avatar/0.jpg"
-                                             data-original="/avatar/0.jpg"
+                                        <img id="user-avatar" alt="{$user['nickname']}的头像" src="{$user['avatar']}"
                                              class="avatar avatar-200 photo j-lazy" height="200" width="200"
                                              img-loaded="true">
-                                        <span class="edit-avatar" data-user="33466">
+                                        <span id="setting-avatar" class="edit-avatar" data-id="{$user['id']}">
                                             <i class="layui-icon layui-icon-camera"></i>
                                         </span>
-                                        <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce"
-                                               value="65f5d3b343"></div>
+                                    </div>
                                     <h3 class="member-account-name">
-                                        <a href="/index/user" target="_blank">
-                                            OpenDark </a>
+                                        <a href="/user/{$user['id']}" target="_blank">
+                                            {$user['nickname']}
+                                        </a>
                                     </h3>
-                                    <div class="member-account-dio">Enjoy coding, enjoy life!</div>
+                                    <div class="member-account-dio">{$user['desc']}</div>
                                     <a class="layui-btn layui-btn-fluid od-green-button member-account-tg"
                                        href="/draft">
                                         <i class="layui-icon layui-icon-edit"></i>投稿
@@ -39,27 +32,28 @@
                                 <ul class="member-account-menu">
                                     <li class="member-nav-general">
                                         <a href="/account">
-                                            <i class="layui-icon layui-icon-username"></i>基本资料 </a>
+                                            <i class="layui-icon layui-icon-username"></i>基本资料
+                                        </a>
                                     </li>
                                     <li class="member-nav-messages">
                                         <a href="/account/message">
-                                            <i class="layui-icon layui-icon-email"></i>我的私信 </a>
+                                            <i class="layui-icon layui-icon-email"></i>我的私信
+                                        </a>
                                     </li>
                                     <li class="member-nav-notifications active">
-                                        <a href="/account/notice">
-                                            <i class="layui-icon layui-icon-speaker"></i>系统通知 </a>
+                                        <a>
+                                            <i class="layui-icon layui-icon-speaker"></i>系统通知
+                                        </a>
                                     </li>
-                                    <!--                                    <li class="member-nav-bind">-->
-                                    <!--                                        <a href="https://demo.wpcom.cn/justnews/account/bind">-->
-                                    <!--                                            <i class="layui-icon layui-icon-vercode"></i>账号绑定 </a>-->
-                                    <!--                                    </li>-->
                                     <li class="member-nav-password">
-                                        <a href="/index/reset">
-                                            <i class="layui-icon layui-icon-password"></i>修改密码 </a>
+                                        <a href="/account/reset">
+                                            <i class="layui-icon layui-icon-password"></i>修改密码
+                                        </a>
                                     </li>
                                     <li class="member-nav-logout">
                                         <a href="/common/logout">
-                                            <i class="layui-icon layui-icon-logout"></i>退出登录 </a>
+                                            <i class="layui-icon layui-icon-logout"></i>退出登录
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -69,12 +63,12 @@
                                     aria-expanded="true" style="">
                                     <li class="member-account-empty notify-empty">
                                         <noscript>
-                                            <img alt='OpenDark的头像'
-                                                 src='/avatar/0.jpg'
+                                            <img alt='OpenDark的头像' src='/avatar/0.jpg'
                                                  class='avatar avatar-200 photo' height='200' width='200'/>
                                         </noscript>
                                         <img decoding="async" class="empty-icon j-lazy"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/themes/justnews/themer/assets/images/empty-notification.svg">暂无系统通知
+                                             src="https://demo.wpcom.cn/justnews/wp-content/themes/justnews/themer/assets/images/empty-notification.svg">
+                                        暂无系统通知
                                     </li>
                                 </ul>
                             </div>

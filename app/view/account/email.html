@@ -31,7 +31,7 @@
                                 </div>
                                 <ul class="member-account-menu">
                                     <li class="member-nav-general active">
-                                        <a>
+                                        <a href="/account">
                                             <i class="layui-icon layui-icon-username"></i>基本资料
                                         </a>
                                     </li>
@@ -58,36 +58,49 @@
                                 </ul>
                             </div>
                             <div class="member-account-content">
-                                <h2 class="member-account-title">基本资料</h2>
-                                <form class="member-account-form layui-form">
-                                    <div class="member-account-item member-text-line item-user_email"><label
+                                <h2 class="member-account-title">换绑邮箱</h2>
+                                <form class="j-member-form member-account-form layui-form">
+                                    <div class="member-account-item item-user_email"><label
                                         class="member-account-label">电子邮箱</label>
                                         <div class="member-account-input">
-                                            <div class="member-account-text">{$user['email']}
-                                                <a class="member-bind-url" href="/account/email">编辑</a>
-                                                <span class="member-bind-tip">仅自己可见</span>
+                                            <input id="login-email" class="layui-input is-input" type="text"
+                                                   lay-verify="required|email" placeholder="请输入电子邮箱"
+                                                   autocomplete="off" name="email" value="">
+                                        </div>
+                                    </div>
+                                    <div class="member-account-item sms-code">
+                                        <label class="member-account-label">图形验证码</label>
+                                        <div class="member-account-input">
+                                            <input id="bind-vercode" type="text" name="vercode" id="email-vercode"
+                                                   lay-verify="required|number|min4"
+                                                   placeholder="请输入图形验证码" class="layui-input" maxlength="4">
+                                            <div class="code-box">
+                                                <img class="codeImage" alt="" src=""/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="member-account-item"><label
-                                        class="member-account-label">展示昵称</label>
+                                    <div class="member-account-item sms-code">
+                                        <label class="member-account-label">邮箱验证码</label>
                                         <div class="member-account-input">
-                                            <input class="layui-input" type="text" name="nickname" lay-verify="required"
-                                                   placeholder="展示昵称" value="{$user['nickname']}">
+                                            <input type="text" class="layui-input is-input sms-code-input"
+                                                   id="sms_code" autocomplete="off" lay-verify="required|number|min6"
+                                                   name="email_code" placeholder="请输入邮箱验证码" maxlength="6">
+                                            <div class="layui-btn btn-lg send-sms-code j-send-sms-code od-green-button"
+                                                 lay-on="get-email-code">发送验证码
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="member-account-item">
-                                        <label class="member-account-label">个人说明</label>
+                                        <label class="member-account-label">账号密码</label>
                                         <div class="member-account-input">
-                                            <textarea class="layui-textarea" name="desc"
-                                                      rows="3">{$user['desc']}</textarea>
-                                            <div class="member-account-desc">可选，个人说明不超过200个字符</div>
+                                            <input class="layui-input is-input" type="password" lay-verify="required"
+                                                   name="password" value="" placeholder="请输入账号密码">
                                         </div>
                                     </div>
                                     <div class="member-account-item">
                                         <label class="member-account-label"></label>
                                         <button class="layui-btn od-green-button" type="submit" lay-submit
-                                                lay-filter="setting">保存设置
+                                                lay-filter="bind-email">保存设置
                                         </button>
                                     </div>
                                 </form>
@@ -103,23 +116,76 @@
 
 {block name="script"}
 <script>
-    layui.use(['layer', 'upload', 'form'], function () {
+    layui.use(['layer', 'upload', 'form', 'util'], function () {
         var layer = layui.layer;
         var upload = layui.upload;
+        var util = layui.util;
         var form = layui.form;
         var $ = layui.$;
+        img = $('.codeImage');
 
-        form.on('submit(setting)', function (data) {
+        // 验证码
+        function switchCaptcha() {
+            img.attr("src", "/common/captcha/bind?v=" + new Date().getTime());
+        }
+
+        img.on('click', function () {
+            switchCaptcha();
+        });
+        switchCaptcha();
+
+        util.on('lay-on', {
+            // 获取邮箱验证码
+            'get-email-code': function (obj) {
+                let is_valid = form.validate('#login-email') && form.validate('#bind-vercode');
+                if (is_valid) {
+                    layer.load();
+                    $.ajax({
+                        url: '/account/doEmailCode',
+                        type: 'post',
+                        data: {
+                            email: $('#login-email').val(),
+                            vercode: $('#bind-vercode').val(),
+                        },
+                        success: function (res) {
+                            layer.closeAll('loading');
+                            if (res.code === 200) {
+                                layer.msg(res.msg, {icon: 1, time: 1000});
+                            } else {
+                                layer.msg(res.msg, {icon: 2, time: 1000})
+                                switchCaptcha();
+                                $('#bind-vercode').val('').focus();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        form.verify({
+            min4: function(value, elem) {
+                if (value.length < 4) {
+                    return '不能小于 4 个字符';
+                }
+            },
+            min6: function(value, elem) {
+                if (value.length < 6) {
+                    return '不能小于 6 个字符';
+                }
+            },
+        });
+
+        form.on('submit(bind-email)', function (data) {
             layer.load();
             $.ajax({
-                url: '/account/doSetting',
+                url: '/account/doEmail',
                 type: 'post',
                 data: data.field,
                 success: function (res) {
                     layer.closeAll('loading');
                     if (res.code === 200) {
                         layer.msg('保存成功', {icon: 1, time: 500}, function () {
-                            location.reload();
+                            location.href = '/account';
                         });
                     } else {
                         layer.msg(res.msg, {icon: 2, time: 1000});

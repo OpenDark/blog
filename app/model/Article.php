@@ -21,6 +21,7 @@ class Article extends BaseModel
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
     /**
      * 关联模型special
      */

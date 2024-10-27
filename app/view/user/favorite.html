@@ -1,329 +1,80 @@
 {extend name="base" /}
 
 {block name="body"}
-<div class="body">
-    <div class="layui-container">
-        <div class="layui-row layui-col-space20">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
-                <div class="profile-head">
-                    <div class="ph-bg">
-                        <noscript>
-                            <img decoding="async"
-                                 src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                                 alt="OpenDark">
-                        </noscript>
-                        <img decoding="async" class="j-lazy"
-                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/anthony-delanoix-urUdKCxsTUI-unsplash-1.jpg"
-                             alt="OpenDark" img-loaded="true">
-                    </div>
-                    <div class="ph-inner">
-                        <div class="ph-user">
-                            <div class="ph-avatar">
-                                <noscript>
-                                    <img alt='OpenDark的头像'
-                                         src='/avatar/0.jpg'
-                                         class='avatar avatar-200 photo' height='200' width='200'/>
-                                </noscript>
-                                <img alt="OpenDark的头像"
-                                     src="/avatar/0.jpg"
-                                     data-original="/avatar/0.jpg"
-                                     class="avatar avatar-200 photo j-lazy" height="200" width="200" img-loaded="true">
-                                <span class="edit-avatar" data-user="33466">
+<div class="layui-container">
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md9 layui-col-lg9">
+            <div class="profile-head">
+                <div class="ph-bg">
+                    <img id="user-banner" decoding="async" class="j-lazy" src="{$user.banner}"
+                         alt="{$user.nickname}" img-loaded="true">
+                </div>
+                <div class="ph-inner">
+                    <div class="ph-user">
+                        <div class="ph-avatar">
+                            <img alt="{$user.nickname}的头像" src="{$user.avatar}"
+                                 class="avatar avatar-200 photo j-lazy" height="200" width="200" img-loaded="true">
+                            <span class="edit-avatar" data-user="{$user.id}">
                                     <i class="layui-icon layui-icon-camera"></i>
                                 </span></div>
-                            <h2 class="ph-name">OpenDark<span class="user-group">管理团队</span></h2>
-                            <div class="ph-desc">Enjoy coding, enjoy life!</div>
-                            <div class="profile-stats">
-                                <div class="profile-stats-inner">
-                                    <div class="user-stats-item">
-                                        <b>26</b>
-                                        <span>文章</span>
-                                    </div>
-                                    <div class="user-stats-item">
-                                        <b>4</b>
-                                        <span>评论</span>
-                                    </div>
-                                    <div class="user-stats-item">
-                                        <b>198</b>
-                                        <span>粉丝</span>
-                                    </div>
+                        <h2 class="ph-name">{$user.nickname}<span class="user-group">{$user.group}</span></h2>
+                        <div class="ph-desc">{$user.desc}</div>
+                        <div class="profile-stats">
+                            <div class="profile-stats-inner">
+                                <div class="user-stats-item">
+                                    <b>{$user.article_num}</b>
+                                    <span>文章</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>{$user.comment_num}</b>
+                                    <span>评论</span>
+                                </div>
+                                <div class="user-stats-item">
+                                    <b>{$user.fans_num}</b>
+                                    <span>粉丝</span>
                                 </div>
                             </div>
-                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
-                                <i class="layui-icon layui-icon-addition"></i>关注
-                            </button>
-                            <button type="button" class="layui-btn layui-btn-xs user-action-button">
-                                <i class="layui-icon layui-icon-email"></i>私信
-                            </button>
                         </div>
-                        <div class="profile-action">
-                            <span class="profile-setcover edit-cover" data-user="33466">
-                                <i class="layui-icon layui-icon-camera wi"></i>
-                                修改封面
-                            </span>
-                            <input type="hidden" id="wpcom_cropper_nonce" name="wpcom_cropper_nonce" value="05001f7b99">
-                        </div>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button"
+                                data-id="{$user.id}" lay-on="follow">
+                            {if $user['is_follow']}
+                            已关注
+                            {else /}
+                            <i class="layui-icon layui-icon-addition"></i>关注
+                            {/if}
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-xs user-action-button"
+                                data-id="{$user.id}" lay-on="message">
+                            <i class="layui-icon layui-icon-email"></i>私信
+                        </button>
                     </div>
-                </div>
-                <ul class="profile-nav">
-                    <li><a href="/index/user">文章</a></li>
-                    <li><a href="/index/comment">评论</a></li>
-                    <li><a href="/index/follow">关注</a></li>
-                    <li class="active"><a href="/index/favorite">收藏</a></li>
-                </ul>
-                <div class="profile-main profile-favorites">
-                    <div class="profile-no-content">
-                        <noscript>
-                            <img alt='枭格科技的头像'
-                                 src='//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/07/f9352ad8b4a1ce8c616fe60de409e340.jpg'
-                                 class='avatar avatar-200 photo' height='200' width='200'/></noscript>
-                        <img decoding="async" class="empty-icon j-lazy"
-                             src="__IMG__/empty/empty-favorite.svg">该用户还没有收藏的文章。
+                    {if isset($blog_user['id']) && $blog_user['id'] == $user['id'] }
+                    <div id="setting-banner" class="profile-action" lay-on="banner">
+                        <span class="profile-setcover edit-cover" data-user="{$user.id}">
+                            <i class="layui-icon layui-icon-camera wi"></i>
+                            修改封面
+                        </span>
                     </div>
+                    {/if}
                 </div>
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
-                <div class="sidebar">
-                    <!--                    <div class="widget widget_image_myimg">-->
-                    <!--                        <a href="https://www.wpcom.cn/" target="_blank" rel="noopener">-->
-                    <!--                            <img class="j-lazy"-->
-                    <!--                                 src="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg?imageMogr2/format/webp"-->
-                    <!--                                 data-original="//demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/03/2021032602420738.jpg"-->
-                    <!--                                 alt="WPCOM主题" img-loaded="true">-->
-                    <!--                        </a>-->
-                    <!--                    </div>-->
-                    <div class="widget widget_search">
-                        <div class="search-bar">
-                            <div class="layui-input-wrap">
-                                <input type="text" placeholder="输入关键词搜索..." class="layui-input">
-                                <div class="layui-input-suffix">
-                                    <i class="layui-icon layui-icon-search"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="widget widget_post_hot">
-                        <h3 class="widget-title">
-                            <span>热门推荐</span>
-                        </h3>
-                        <ul>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/364.html"
-                                       title="Google推出了首个全功能自动驾驶汽车原型">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/chris-boyd-O2g8HCgDN8o-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="Google推出了首个全功能自动驾驶汽车原型" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/chris-boyd-O2g8HCgDN8o-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>
-                                        290.8K
-                                    </div>
-                                    <p class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/364.html"
-                                           title="Google推出了首个全功能自动驾驶汽车原型">
-                                            Google推出了首个全功能自动驾驶汽车原型
-                                        </a>
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/242.html"
-                                       title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/hanna-balan-NCdlmw4tOo-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/04/hanna-balan-NCdlmw4tOo-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title"><a href="https://demo.wpcom.cn/justnews/242.html"
-                                                             title="星巴克限量版独角兽星冰乐的背后：摸索如何不平庸">星巴克限量版独角兽星冰乐的背后：摸索如何不平庸</a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>52.6K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img item-video scale-image">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/1471.html"
-                                       title="3秒拆装的“斗子车”：比自行车还灵活">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/12/2021032610075598-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="3秒拆装的“斗子车”：比自行车还灵活" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/12/2021032610075598-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/1471.html"
-                                           title="3秒拆装的“斗子车”：比自行车还灵活">
-                                            3秒拆装的“斗子车”：比自行车还灵活
-                                        </a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>36.1K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/856.html"
-                                       title="卖掉公司后，创业者还要战胜这七大心魔">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="卖掉公司后，创业者还要战胜这七大心魔" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2021/04/cristina-gottardi-7mfZZ8kOUTk-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/856.html"
-                                           title="卖掉公司后，创业者还要战胜这七大心魔">
-                                            卖掉公司后，创业者还要战胜这七大心魔
-                                        </a>
-                                    </p>
-                                    <div class="item-hot"><i class="layui-icon layui-icon-fire wi"></i>
-                                        35.4K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/855.html"
-                                       title="产品经理不香了：面试造飞机，进来拧螺丝">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/glenn-claire-YzFT09xAoho-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="产品经理不香了：面试造飞机，进来拧螺丝" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2018/06/glenn-claire-YzFT09xAoho-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/855.html"
-                                           title="产品经理不香了：面试造飞机，进来拧螺丝">
-                                            产品经理不香了：面试造飞机，进来拧螺丝
-                                        </a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>29.2K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/376.html"
-                                       title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/06/saffu-KW1UyypxaPs-unsplash-1-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title"><a href="https://demo.wpcom.cn/justnews/376.html"
-                                                             title="京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份">京东无人机可把一吨货物送到偏远农村，未来要覆盖中国10个省份</a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>24.5K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/341.html"
-                                       title="今年UX设计的3大预测">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="今年UX设计的3大预测" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/nordwood-themes-ubIWo074QlU-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title"><a href="https://demo.wpcom.cn/justnews/341.html"
-                                                             title="今年UX设计的3大预测">今年UX设计的3大预测</a></p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>22.4K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/537.html"
-                                       title="哈维：梅西续约巴萨已经完成 巴萨还能踢得更好">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/jeffrey-f-lin-y_7SzG5ohBc-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="哈维：梅西续约巴萨已经完成 巴萨还能踢得更好" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/11/jeffrey-f-lin-y_7SzG5ohBc-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title"><a href="https://demo.wpcom.cn/justnews/537.html"
-                                                             title="哈维：梅西续约巴萨已经完成 巴萨还能踢得更好">哈维：梅西续约巴萨已经完成 巴萨还能踢得更好</a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>21.9K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/419.html"
-                                       title="羊皮卷之二：我要用全身心的爱来迎接今天">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/07/mohamed-boumaiza-YbuxMgZ9KUA-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="羊皮卷之二：我要用全身心的爱来迎接今天" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/07/mohamed-boumaiza-YbuxMgZ9KUA-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title"><a href="https://demo.wpcom.cn/justnews/419.html"
-                                                             title="羊皮卷之二：我要用全身心的爱来迎接今天">羊皮卷之二：我要用全身心的爱来迎接今天</a></p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>20.7K
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item scale-image">
-                                <div class="item-img">
-                                    <a class="item-img-inner" href="https://demo.wpcom.cn/justnews/353.html"
-                                       title="MediaWiki">
-                                        <img width="480" height="300"
-                                             src="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/05/rahadiansyah-OjC5UkpZrh0-unsplash-480x300.jpg?imageMogr2/format/webp"
-                                             class="attachment-default size-default wp-post-image j-lazy"
-                                             alt="MediaWiki" decoding="async"
-                                             data-original="https://demo.wpcom.cn/justnews/wp-content/uploads/sites/8/2017/05/rahadiansyah-OjC5UkpZrh0-unsplash-480x300.jpg"
-                                             img-loaded="true"> </a>
-                                </div>
-                                <div class="item-content">
-                                    <p class="item-title">
-                                        <a href="https://demo.wpcom.cn/justnews/353.html" title="MediaWiki">
-                                            MediaWiki
-                                        </a>
-                                    </p>
-                                    <div class="item-hot">
-                                        <i class="layui-icon layui-icon-fire wi"></i>13.7K
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <ul class="profile-nav">
+                <li><a href="/user/{$id}">文章</a></li>
+                <li><a href="/user/comment/{$id}">评论</a></li>
+                <li><a href="/user/follow/{$id}">关注</a></li>
+                <li class="active"><a>收藏</a></li>
+            </ul>
+            <div class="main-list">
+                <div class="tab-wrap">
+                    <ul class="post-loop" id="flow-manual"></ul>
+                    <div class="load-more-wrap"></div>
                 </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3 layui-col-lg3 layui-hide layui-show-md-block">
+            <div class="sidebar">
+                {include file="widget/search" /}
+                {include file="widget/recommend" /}
             </div>
         </div>
     </div>
@@ -331,5 +82,171 @@
 {/block}
 
 {block name="script"}
+<script>
+    layui.use(['layer', 'util', 'upload'], function () {
+        var layer = layui.layer;
+        var upload = layui.upload;
+        var util = layui.util;
+        var $ = layui.$;
+        var page = 1;
+        let uid = '{$blog_user["id"]|default=""}';
+        let cid = '{$id}';
 
+        upload.render({
+            elem: '#setting-banner',
+            url: '/user/banner',
+            size: 2048,
+            done: function (res) {
+                if (res.code === 200) {
+                    $('#user-banner').attr('src', res.data.url);
+                } else {
+                    layer.msg(res.msg);
+                }
+            },
+            error: function () {
+                layer.msg('上传失败');
+            }
+        });
+
+        util.on('lay-on', {
+            'follow': function () {
+                if (uid) {
+                    if (uid === cid) {
+                        layer.msg('不能关注自己', {icon: 2, time: 1000});
+                        return false;
+                    }
+                    let that = $(this);
+                    let id = that.data('id');
+                    let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>';
+                    that.html(loop + that.text());
+                    $.ajax({
+                        url: '/user/doFollow',
+                        type: 'post',
+                        data: {id: id},
+                        success: function (res) {
+                            if (res.code === 200) {
+                                if (res.data.cancel) { //取消关注
+                                    that.html('<i class="layui-icon layui-icon-addition"></i>关注');
+                                } else { //已关注
+                                    that.html('已关注');
+                                }
+                            } else {
+                                layer.msg(res.msg, {icon: 2, time: 1000});
+                                that.html('<i class="layui-icon layui-icon-addition"></i>关注');
+                            }
+                        }
+                    });
+                } else {
+                    needLogin();
+                }
+            },
+            'banner': function () {
+                if (uid) {
+                    if (uid !== cid) {
+                        layer.msg('无法设置封面', {icon: 2, time: 1000});
+                        return false;
+                    }
+                } else {
+                    needLogin();
+                }
+            },
+            'load-more': function () {
+                getArticle();
+            }
+        });
+
+        function getArticle() {
+            let loop = '<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>点击查看更多';
+            $('div[lay-on="load-more"]').html(loop);
+            $.ajax({
+                url: '/user/getArticleFavorite?id={$id}',
+                type: 'post',
+                data: {
+                    page: page,
+                },
+                success: function (res) {
+                    let html = '';
+                    res.data.data.forEach(function (item) {
+                        let categoryStr = '';
+                        if (item.category) {
+                            categoryStr = `
+                                <a class="item-category" href="/category/${item.category.id}" target="_blank">
+                                    ${item.category.name}
+                                </a>`;
+                        }
+                        html += `
+                        <li class="item">
+                            <div class="item-img">
+                                <a class="item-img-inner" href="/post/${item.id}" target="_blank" rel="bookmark">
+                                    <img width="480" height="300" src="${item.thumbnail}"
+                                         class="attachment-default size-default wp-post-image j-lazy"
+                                         alt="${item.title}" decoding="async" fetchpriority="high" img-loaded="true">
+                                </a>
+                                ${categoryStr}
+                            </div>
+                            <div class="item-content">
+                                <h3 class="item-title">
+                                    <a href="/post/${item.id}" target="_blank" rel="bookmark">
+                                        ${item.title}
+                                    </a>
+                                </h3>
+                                <div class="item-excerpt">
+                                    <p>${item.summary}</p>
+                                </div>
+                                <div class="item-meta">
+                                    <div class="item-meta-li author">
+                                        <a target="_blank" href="/user/${item.user_id}" class="avatar j-user-card">
+                                            <img alt="${item.user?.name}的头像"
+                                                 src="${item.user?.avatar}"
+                                                 class="avatar avatar-60 photo" height="60" width="60">
+                                            <span>${item.user?.nickname}</span>
+                                        </a>
+                                    </div>
+                                    <span class="item-meta-li date">${item.created_at}</span>
+                                    <div class="item-meta-right">
+                                        <span class="item-meta-li views" title="阅读数">
+                                            <i class="layui-icon layui-icon-eye wi"></i>${item.read_num}
+                                        </span>
+                                        <span class="item-meta-li comments" title="评论数">
+                                            <i class="layui-icon layui-icon-dialogue wi"></i>${item.reply_num}
+                                        </span>
+                                        <span class="item-meta-li stars" title="收藏数">
+                                            <i class="layui-icon layui-icon-star wi"></i>${item.favorite_num}
+                                        </span>
+                                        <span class="item-meta-li likes" title="点赞数">
+                                            <i class="layui-icon layui-icon-praise wi"></i>${item.like_num}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`;
+                    });
+                    $('#flow-manual').append(html);
+
+                    // 查看更多
+                    let more = `
+                        <div class="layui-btn layui-btn-primary layui-border-green green-button" lay-on="load-more">
+                            点击查看更多
+                        </div>`;
+                    let notMore = '已经到底了';
+                    if (page >= res.data.last_page) {
+                        more = `<div class="layui-btn layui-btn-primary layui-btn-disabled" data-exclude="">${notMore}</div>`;
+                    }
+                    if (page === 1 && html === '') {
+                        more = `<div class="profile-main profile-favorites">
+                                <div class="profile-no-content">
+                                    <img decoding="async" class="empty-icon j-lazy" src="__IMG__/empty/empty-favorite.svg">
+                                    该用户还没有收藏的文章。
+                                </div>
+                            </div>`;
+                    }
+                    $('.load-more-wrap').html(more);
+                    page += 1;
+                }
+            });
+        }
+
+        getArticle();
+    });
+</script>
 {/block}

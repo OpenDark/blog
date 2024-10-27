@@ -2,9 +2,11 @@
 
 namespace app\controller;
 
+use Exception;
 use app\model\Article;
 use app\model\Category;
 use app\model\User;
+use Intervention\Image\ImageManagerStatic;
 use support\View;
 use think\db\Query;
 use think\facade\Db;
@@ -54,6 +56,15 @@ class BaseController
         'is_check' => 1,
         'is_hide' => 0,
         'is_draft' => 0,
+    ];
+
+    /**
+     * TODO：用户组字典
+     */
+    protected array $userGroup = [
+        '管理团队',
+        '普通用户',
+        '认证作者'
     ];
 
     /**
@@ -280,6 +291,52 @@ class BaseController
             ]);
         }
         return json(['code' => 1, 'msg' => 'File Not Found']);
+    }
+
+    protected function image($w = 300, $h = 300): string
+    {
+        // 验证图片
+        $file = $this->request->file('file');
+        if (empty($file) || !$file->isValid()) {
+            $this->failure('未找到上传图片');
+        }
+        $ext = strtolower($file->getUploadExtension());
+        if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
+            $this->failure('仅支持 jpg jpeg png 格式');
+        }
+
+        // 存放路径
+        $name = bin2hex(pack('Nn', time(), random_int(1, 65535))) . '.' . $ext;
+        $relative_path = '/upload/' . date('Ym');
+        $real_path = public_path() . $relative_path;
+        $path = $real_path . DIRECTORY_SEPARATOR . $name;
+        if (!is_dir($real_path)) {
+            mkdir($real_path, 0777, true);
+        }
+
+        // 图片处理
+        try {
+            $image = ImageManagerStatic::make($file);
+            $max_width = $crop_width = $w;
+            $max_height = $crop_height = $h;
+            $width = $image->width();
+            $height = $image->height();
+            $rate1 = $max_width / $max_height;
+            $rate2 = $width / $height;
+            if ($rate2 > $rate1) {
+                $crop_height = $height;
+                $crop_width = intval($height * $rate1);
+            } elseif ($rate2 < $rate1) {
+                $crop_width = $width;
+                $crop_height = intval($width / $rate1);
+            }
+            $image->crop($crop_width, $crop_height)
+                ->resize($max_width, $max_height)
+                ->save($path);
+        } catch (Exception $e) {
+            $this->failure('处理图片发生错误');
+        }
+        return $relative_path . '/' . $name;
     }
 
     protected function getArticleLatest($id = 1): array
