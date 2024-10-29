@@ -87,11 +87,11 @@ class RuleController extends Crud
         if (!in_array('*', $rules)) {
             $this->removeNotContain($tree_items, 'id', $rules);
         }
-//        foreach ($tree_items as $k => $v) {
-//            if (in_array($v['id'], [1, 14 ,16, 18])) {
-//                unset($tree_items[$k]);
-//            }
-//        }
+        foreach ($tree_items as $k => $v) {
+            if (in_array($v['id'], [1, 14 ,16, 18])) {
+                unset($tree_items[$k]);
+            }
+        }
         $this->removeNotContain($tree_items, 'type', $types);
         $menus = $this->empty_filter(Tree::arrayValues($tree_items));
         return $this->json(0, 'ok', $menus);

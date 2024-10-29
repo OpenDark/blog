@@ -112,6 +112,7 @@ class PostController extends BaseController
                 'list_rows' => 10,
                 'var_page' => 'page',
             ])->toArray();
+
         foreach ($comment['data'] as $key => $val) {
             $names[$val['id']] = $val['user']['nickname'] ?? '未知';
             $val['is_hide'] && $comment['data'][$key]['content'] = '该留言已被屏蔽';
@@ -126,18 +127,18 @@ class PostController extends BaseController
                 ->select()->toArray();
             if ($reply) {
                 $reply_count = count($reply);
-                $data = [];
+                $datas = [];
                 foreach ($reply as $val) {
                     $names[$val['id']] = $val['user']['nickname'] ?? '未知';
                 }
                 foreach ($reply as $val) {
                     $val['is_hide'] && $val['content'] = '该留言已被屏蔽';
-                    $val['to_user'] = '@' . $names[$val['pid']];
-                    $data[$val['reply_id']][] = $val;
+                    $val['to_user'] = '@' . $names[$val['pid'] ?: $val['reply_id']];
+                    $datas[$val['reply_id']][] = $val;
                 }
-                if ($data) {
+                if ($datas) {
                     foreach ($comment['data'] as $key => $val) {
-                        $comment['data'][$key]['reply'] = $data[$val['id']] ?? [];
+                        $comment['data'][$key]['reply'] = $datas[$val['id']] ?? [];
                     }
                 }
             }

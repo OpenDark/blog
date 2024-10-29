@@ -70,7 +70,7 @@ body {
 .header *, .body *, .footer * {
     transition: all .3s ease-out 0s;
 }
-.layui-layer {
+.layui-layer, .layui-nav {
     transition: none;
 }
 .scale-image:hover img {
